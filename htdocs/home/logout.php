@@ -16,9 +16,9 @@ if (!isset($_SESSION['email'])) {
 include ('../includes/header.php');
 
 // Print a customized message.
-echo "<h1>Logged Out!</h1>
-<p>You are now logged out!</p>
-<p><br /><br /></p>";
+echo "<div class='loggedOutContain'><h1>Logged Out!</h1>
+<p style='text-align:center;'>You are now logged out!</p>
+</div>";
 
 include ('../includes/footer.php');
 ?>

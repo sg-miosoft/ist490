@@ -1,15 +1,9 @@
-<html><body><center> 
-<img src="../includes/dartboard.jpg" alt="Midnight Crazy Darts. Nice Shot!" title="Midnight Crazy Logo" /><br> 
-<h1>UWM IPTracker</h1>  
-<h2>Spencer George | 490 Senior Capstone Project</h2>  
-<Table width="1000" cellpadding="10"><tr><td align="right"> 
-
-<p></td></tr></table> 
-<table width="1000" cellpadding="10"><td width="100" valign="top"> 
-</td><td valign="top"> 
 <?php  
+// Include header.php
+include("../includes/header.php");
+// Check if the form has been submitted.
 function showForm($e,$t,$fn,$ln) { 
-    echo '<h2>Register</h2>'; 
+/*    echo '<h2>Register</h2>'; 
     echo '<form action="register_confirm.php?token='.$t.'" method="post">'; 
         echo '<p>First Name: <input type="text" name="first_name" size="15" maxlength="15" value="'.$fn.'" /></p>'; 
         echo '<p>Last Name: <input type="text" name="last_name" size="15" maxlength="30" value="'.$ln.'" /></p>'; 
@@ -19,8 +13,21 @@ function showForm($e,$t,$fn,$ln) {
         echo '<p><input type="submit" name="submit" value="Register" /></p>'; 
     echo '    <input type="hidden" name="submitted" value="TRUE" />'; 
     echo '</form>'; 
-} 
-
+} */
+//start new form
+echo'<br />';
+echo'<div class="regContain">';
+echo'<h2>Register</h2><hr />';
+echo'<form action="register_confirm.php?token='.$t.'" method="post">';
+	echo'<p><input type="text" class="fnameEntry" name="first_name" placeholder="First Name" size="15" maxlength="15" value="'.$fn.'" /> <input type="text" class="lnameEntry" name="last_name" placeholder="Last Name" size="15" maxlength="30" value="'.$ln.'" /></p>';
+    echo'<p><input type="password" class="passEntry" name="password1" placeholder="Password" size="10" maxlength="20" /> <input type="password" class="passConEntry" name="password2" placeholder="Confirm Password" size="10" maxlength="50" /></p>';
+	echo'<span style="text-align:center"><p><input type="text" class="emailEntry" name="email" placeholder="E-mail Address" size="20" maxlength="40" value="'.$e.'" readonly /></p></span>';
+    echo'<span style="text-align:center"><p><input type="submit" class="submitButton" name="submit" value="Register" /></p></span>';
+	echo'<input type="hidden" name="submitted" value="TRUE" />';
+echo'</form>';
+echo'</div>';
+}
+//end new form
 if (isset($_GET['token']) && !isset($_POST['submitted'])){ 
     require_once ('../../mysqli_connect.php'); // Connect to the db. 
     $errors = array(); // Initialize error array. 

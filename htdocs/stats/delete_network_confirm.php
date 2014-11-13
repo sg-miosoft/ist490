@@ -14,11 +14,12 @@ if (!isset($_SESSION['email'])){
     $num = mysqli_num_rows($result); 
     if ($num > 0) { // If it ran OK, display all the records. 
         while ($row = mysqli_fetch_array($result,  MYSQLI_ASSOC)) { 
-            echo "Network Name: " . $row['network_name'] . "<br>IP Address: " . $row['address'] . $row['note'] . "<p>";  
+            echo "<div class='deleteContainConfirm'><span style='color:#FFF; text-align:center;'>";
+			echo $row['network_name']."<br>".$row['address']."<p></span>";
         } // End of While statement 
-        echo "Are you sure that you want to delete this record?<br>"; 
-        echo "<a href=delete_network.php?id=".$id.">YES</a>  
-            <a href=index.php>NO</a>";  
+        echo "Are you sure that you want to delete this record?<br>";
+		echo "<center><a href=delete_network.php?id=".$id.">YES</a> 
+			<a href=index.php>NO</a></center></div>"; 
         ((mysqli_free_result($result) || (is_object($result) && (get_class($result) == "mysqli_result"))) ? true : false); // Free up the resources.          
     }else{ // If it did not run OK. 
         echo '<p>There is no such record.</p>'; 
