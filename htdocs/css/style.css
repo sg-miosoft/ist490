@@ -390,6 +390,17 @@ p.updateR{
 	border-radius:3px;
 }
 
+.failAdd{
+	color:#000;
+	margin-left:97px;
+	text-align:center;
+	padding:5px 20px 5px 20px;
+	width:200px;
+	background:#FF0009;
+	border:1px solid #000;
+	border-radius:3px;
+}
+
 .searchResultsContain{
 	margin-left:-117px;
 	text-align:center;

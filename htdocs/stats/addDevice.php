@@ -47,7 +47,9 @@ else
 		}
 		else
 		{
-			echo "<p>The record could not be added due to a system error: " . mysqli_error($dbc) . "</p>"; 
+			echo "<div class='failAdd'>";
+			echo "<p><b>The record could not be added due to a system error: " . mysqli_error($dbc) . "</b></p>"; 
+			echo "</div>";
 		}
 		
 		// only if submitted by the form
@@ -72,7 +74,7 @@ else
 	<div class="addDeviceContain">
 		<div class="add-device-head"><p><strong>Add</strong> <span class="dev-text">Device</span></p></div>
 		<div class="add-form-contain">
-			<form class="add-device-form" action="<? echo $PHP_SELF;?>" method="post">
+			<form class="add-device-form" action="addDevice.php" method="post">
 			<span class="align-form-text-sub">Network </span>
 				<select id="network" name="network">
 				<option value="">Please select a network...</option>

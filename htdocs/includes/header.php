@@ -7,7 +7,7 @@
 <body>
 
 <div class="header-contain">
-	<a href="https:/uwm-ipracker.com"><img src="../images/miosoft_website.png" id="logo" alt="MIOsoft Logo" title="MIOsoft Logo">
+	<a href="https://uwm-iptracker.miosoft.com"><img src="../images/miosoft_website.png" id="logo" alt="MIOsoft Logo" title="MIOsoft Logo">
     <div class="product-line">
     	IP ADDRESS TRACKER
     </div></a>

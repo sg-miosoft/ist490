@@ -33,7 +33,7 @@ if (!isset($_SESSION['email'])){
 		$u_id=$_SESSION['user_id'];
 				
 		$query="INSERT INTO network (note,network_name,address,mask,gateway) 
-			Values ('$note','$network_name',INET_ATON('$address'),INET_ATON('$mask'),INET_ATON('$gateway'))"; 
+			Values ('$note','$network_name',INET_ATON($address),INET_ATON('$mask'),INET_ATON('$gateway'))"; 
 		$result=@mysqli_query($dbc,$query); 
 		$network_id = mysqli_insert_id($dbc);
 		if ($result){
@@ -43,7 +43,9 @@ if (!isset($_SESSION['email'])){
 			echo "</div>";			
 		}
 		else{
-			echo "<p>The record could not be added due to a system error: " . mysqli_error($dbc) . "</p>"; 
+			echo "<div class='failAdd'>";
+			echo "<p><b>The record could not be added due to a system error: " . mysqli_error($dbc) . "</b></p>";  
+			echo "</div>";			
 		}
 
 		// only if submitted by the form
@@ -71,8 +73,8 @@ if (!isset($_SESSION['email'])){
 	<div class="addDeviceContain">
 		<div class="add-device-head"><p><strong>Add</strong> <span class="dev-text">Network</span></p></div>
 		<div class="add-form-contain">
-			<form class="add-device-form" action="<? echo $PHP_SELF;?>" method="post">
-		    <span class="align-form-text-name">Network Name </span><input type="text" class="addURL" placeholder="DMZ Zone" name="Answer" size=50><span class="required-text">REQUIRED</span><p></p>
+			<form class="add-device-form" action="addNetwork.php" method="post">
+		    <span class="align-form-text-name">Network Name </span><input type="text" class="addURL" placeholder="DMZ Zone" name="network_name" size=50><span class="required-text">REQUIRED</span><p></p>
 			<span class="align-form-text-sub">IP Address </span><input type="text" class="addBookmarkTitle" placeholder="192.168.0.1" name="address" size=50 maxlength=15 value="<?php echo $row['address'];?>"><span class="required-text">REQUIRED</span><p></p>
 			<span class="align-form-text-sub">Subnet Mask </span><input type="text" class="addBookmarkTitle" placeholder="255.255.255.0" name="mask" size=50 maxlength=15 value="<?php echo $row['mask'];?>"><span class="required-text">REQUIRED</span><p></p>
 			<span class="align-form-text-sub">Gateway </span><input type="text" class="addBookmarkTitle" placeholder="192.168.1.1" name="gateway" size=50 maxlength=15 value="<?php echo $row['gateway'];?>"><span class="required-text">REQUIRED</span><p></p>
