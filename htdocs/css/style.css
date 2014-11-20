@@ -1,9 +1,4 @@
-html{
-	background-color:#FFF;
-}
-body {
-	margin: 0px;
-}
+
 .appHeader{
 	margin-left:auto;
 	margin-right:auto;
@@ -14,12 +9,7 @@ body {
 	border:1px solid #F00;
 }
 
-header {
-	background-color:#009ee2;
-	width:100%;
-	height:80px;
-	margin:0 auto;
-}
+
 
 h1{
 	text-align:center;
@@ -44,72 +34,6 @@ h4{
 p{
 	font-family:Arial, Helvetica, sans-serif;
 	color:#FFF;
-}
-
-nav 
-{
-	background-color: #656565;
-}
-nav ul {
-	margin: 0;
-	list-style-type: none;
-}
-
-nav ul li {
-	display: inline-block;
-}
-
-nav ul li a{
-	margin: 10px;
-	display: block;
-	color:#fff;
-	width:110px;
-	text-align:center;
-	font-family:"Lato", sans-serif;
-	padding:10px;
-	text-decoration:none;
-	font-size:13px;
-	font-weight:bold;
-}
-
-nav ul a:hover, nav ul a:active{
-	background-color:#009ee2;
-	color:#FFF;
-}
-
-section{
-	align-items: baseline;
-	display: -webkit-flex;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-flex-flow: row wrap;
-	-ms-flex-flow: row wrap;
-	flex-flow: row wrap;
-	-webkit-justify-content: space-between;
-	-ms-flex-pack: justify;
-	justify-content:space-between;
-}
-
-aside div{
-	height: 100px;
-}
-
-footer {
-	bottom: 0;
-	position: fixed;
-	background-color:#009ee2;
-	height:45px;
-	width:100%;
-}
-
-footer div {
-	width: 279px;
-	margin: auto;
-}
-footer p {
-	font-family: 'Lato', sans-serif;
-	font-weight:400;
-	font-size:13px;
 }
 
 li.ruleItem{
@@ -355,31 +279,6 @@ p.updateR{
 	border-radius:3px;
 }
 
-
-
-/*Bookmarks Table*/
-.bookmarksTable{
-	font-family: 'Lato', sans-serif;
-	color:#000;
-	font-weight:400;
-	margin-left:-130px;
-	border-spacing:0;
-	border-top:0;
-	border-right:0;
-	border-left:0;
-	border-bottom:1px #AAAAAA solid;
-}
-
-.bookmarksTable th {
-	border:0;
-}
-
-
-.bookmarkInfo{
-	text-align:center;
-	border:0;
-}
-
 .addRecordContain{
 	margin-left:-55px;
 	text-align:center;
@@ -478,14 +377,7 @@ p.updateR{
 	border-radius:3px;
 }
 
-.loginContain{
-	margin-left:88px;
-	padding:5px 20px 5px 20px;
-	width:220px;
-	background:#000;
-	border:1px solid #F00;
-	border-radius:3px;
-}
+
 
 .loggedinContain{
 	margin-left:70px;
@@ -532,15 +424,6 @@ p.updateR{
 	margin-left:-15px;
 	padding:5px 20px 5px 20px;
 	width:424px;
-	background:#000;
-	border:1px solid #F00;
-	border-radius:3px;
-}
-
-.forgotContain{
-	margin-left:91px;
-	padding:5px 20px 5px 20px;
-	width:210px;
 	background:#000;
 	border:1px solid #F00;
 	border-radius:3px;
@@ -768,23 +651,6 @@ textarea:focus{
 	border-color:#0CA3D2 #0CA3D2 #0CA3D2;
 }
 
-.submitButton {
-	float:right;
-	background-color:#323232;
-	color:#FFF;
-	border:none !important;
-	margin-left:12px;
-	margin-right:15px;
-}
-
-.submitButton:hover{
-	color:#000;
-	text-shadow:0 1px #E3F1F1;
-	background:#3F9;
-	border-color:#000 #000 #000;
-	cursor:pointer;
-}
-
 .resetButton {
 	float:right;
 	color:#fff;
@@ -833,54 +699,12 @@ img.winnersTrophy{
 	margin-left:-31px;
 }
 
-.pageNumbers{
-	float:right;
-	margin-top:-20px;
-}
+
 
 .rowItem{
 	text-align:center;
 }
 
-
-
-#logo {
-	width:200px;
-	margin-left:50px;
-	margin-top:22px;
-}
-
-.product-line {
-	display:inline-block;
-	margin-left:15px;
-	font-family: 'Lato', sans-serif;
-	font-weight:700;
-	font-size:18px;
-	color:#FFF;
-}
-
-#search-input {
-	height: 40px;
-	width: 192px;
-	padding-left:15px;
-	padding-right:20px;
-	font-family: 'Lato', sans-serif;
-	background-image:url("../images/search-glass.png");
-	background-repeat:no-repeat;
-	background-position:157px 11px;
-	border:2px #444444 solid;
-}
-
-#search-input:focus {
-	background-image:none;
-}
-
-.header-search {
-	display: inline-block;
-	position: absolute;
-	top: 20px;
-	right:220px;
-}
 
 .bookmarksTable tr:nth-child(odd) {
     background-color: #FFFFFF;
@@ -926,6 +750,7 @@ img.winnersTrophy{
 }
 
 .subnet-contain {
+	right: 20px;
 	position:relative;
 	top:60px;
 	font-family: 'Lato', sans-serif;
@@ -934,6 +759,7 @@ img.winnersTrophy{
 }
 
 .device-contain {
+	right: 18px;
 	position:relative;
 	top:60px;
 	font-family: 'Lato', sans-serif;
@@ -1005,12 +831,6 @@ a.bookmarkSearch:hover, a.bookmarkSearch:active{
 	text-decoration:underline;
 	font-weight:900;
 	color:#000;
-}
-
-.display-results {
-	float:left;
-	position:relative;
-	left:-130px;
 }
 
 .results-per-page {

@@ -3,7 +3,7 @@ session_start();
 //check session first 
 if (!isset($_SESSION['email']))
 { 
-    echo "You are not logged in!"; 
+	echo "You are not logged in!"; 
     exit(); 
 }
 else
@@ -27,14 +27,14 @@ else
 	{//Need to determine 
         //Count the number of records; 
         //$u_id=$_SESSION['user_id']; 
-        $query = "SELECT COUNT(id) FROM device"; 
+        $query = "SELECT COUNT(id) FROM network"; 
         $result = @mysqli_query($dbc,$query);  
         $row = @mysqli_fetch_array($result,  MYSQLI_NUM);
 		$query1 = "SELECT COUNT(id) FROM device"; 
         $result1 = @mysqli_query($dbc,$query1);  
         $row1 = @mysqli_fetch_array($result1,  MYSQLI_NUM); 		
         $records = $row[0] + $row1[0]; //get the number of records 
-        //Calculate the number of pages ... 
+		//Calculate the number of pages ... 
         if($records > $display){//More than 1 page is needed 
             $pages = ceil($records/$display); 
         }else{ 
@@ -58,14 +58,11 @@ else
 		ORDER BY networkAddress";
 	$networkResult = mysqli_query($dbc,$networkQuery);	
 	
-	echo "<aside>";
-		echo "<div><a class='add-subnet' href='addNetwork.php' onmouseover='addSubnetdark();' onmouseout='addSubnetdefault();'><img id='subnet-only' class='subnet-img' src='../images/add-subnet-img.png' onmouseover=\"this.src='../images/dark-add-subnet.png'\"\ onmouseout=\"this.src='../images/add-subnet-img.png'\"\><span class='subnet-contain'>Add <strong>Network</strong></span></a></div>";
-		echo "<div><a class='add-device' href='addDevice.php' onmouseover='addDevicedark();' onmouseout='addDevicedefault();'><img id='device-only' class='device-img' src='../images/add-device-img.png' onmouseover=\"this.src='../images/dark-add-device.png'\"\ onmouseout=\"this.src='../images/add-device-img.png'\"\><span class='device-contain'>Add <strong>Device</strong></span></a></div>";
-	echo "</aside><br>";
+	include("../includes/aside.php");
 	
 	if($networkResult)
 	{
-		echo "<div id='content-right'>";
+		echo "<article>";
 		//Table header:
 		echo "<table class='bookmarksTable' cellpadding=5 cellspacing=5 border=1><tr>
 				<th>Name</th><th>Network / IP Address</th><th>Subnet Mask</th><th>Gateway</th><th>Notes</th><th>*</th><th>*</th></tr>"; 		
@@ -76,7 +73,7 @@ else
 			echo "<td class='bookmarkInfo'>" . $networkRow['networkAddress'] . "</td>";  
 			echo "<td class='bookmarkInfo'>" . $networkRow['mask'] . "</td>";  
 			echo "<td class='bookmarkInfo'>" . $networkRow['gateway'] . "</td>"; 
-			echo "<td class='bookmarkInfo'>" . $networkRow['networkNote'] . "</td>"; 
+			echo "<td class='notes'>" . $networkRow['networkNote'] . "</td>"; 
 			echo "<td class='bookmarkInfo'><a href=delete_network_confirm.php?id=".$networkRow['id']."><img class='delete-img' src='../images/delete-icon-dark.png' alt='Delete' onmouseover=\"this.src='../images/delete-icon.png'\" onmouseout=\"this.src='../images/delete-icon-dark.png'\"></a></td>"; 
 			echo "<td class='bookmarkInfo'><a href=update_network_form.php?id=".$networkRow['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
 			
@@ -97,7 +94,7 @@ else
 					echo "<td class='bookmarkInfo'>" . $deviceRow['deviceAddress'] . "</td>";  
 					echo "<td class='bookmarkInfo'>*</td>";
 					echo "<td class='bookmarkInfo'>*</td>";
-					echo "<td class='bookmarkInfo'>" . $deviceRow['deviceNote'] . "</td>";  
+					echo "<td class='notes'>" . $deviceRow['deviceNote'] . "</td>";  
 					echo "<td class='bookmarkInfo'><a href=delete_device_confirm.php?id=".$deviceRow['id']."><img class='delete-img' src='../images/delete-icon-dark.png' alt='Delete' onmouseover=\"this.src='../images/delete-icon.png'\" onmouseout=\"this.src='../images/delete-icon-dark.png'\"></a></td>"; 
 					echo "<td class='bookmarkInfo'><a href=update_device_form.php?id=".$deviceRow['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
 				}
@@ -117,15 +114,14 @@ else
 	//Make the links to other pages if necessary.
 	if($pages>1)
 	{
-		echo '<br>
-					<div class="display-results">
-					<select>
-					  <option value="5">5</option>
-					  <option value="10">10</option>
-					  <option value="15">15</option>
-					  <option value="20">20</option>
-					</select> <span class="results-per-page">Results Per Page</span></div>';
-		echo '<br><table class="pageNumbers"><tr>';
+		echo '<div class="display-results">
+			<select>
+			  <option value="5">5</option>
+			  <option value="10">10</option>
+			  <option value="15">15</option>
+			  <option value="20">20</option>
+			</select> <span class="results-per-page">Results Per Page</span></div>';
+		echo '<table class="pageNumbers"><tr>';
 		//Determine what page the script is on:
 		$current_page = ($start/$display) + 1;
 		//If it is not the first page, make a Previous button:
@@ -147,7 +143,8 @@ else
 		
 		echo '</tr></table>';  //Close the table.
 		?>
-        </div>
+		<div class="clear"></div>
+        </article>
         <?php
 	}//End of pages links
 

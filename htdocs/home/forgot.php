@@ -94,12 +94,11 @@ if(!empty($errors)) {
 } 
 
 ?> 
-<br />
 <div class="forgotContain">
 <h2 style="text-align:center">Forgot username or password?</h2>
 <form action="forgot.php" method="post">
-	<p><input type="text" class="emailEntry" name="email" size="20" placeholder="E-mail Address" maxlength="40" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>"  /></p>
-	<p style="text-align:center"><input type="submit" class="submitButton" name="submit" value="Submit" /></p>
+	<input type="text" class="emailEntry" name="email" size="20" placeholder="E-mail Address" maxlength="40" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>"  />
+	<input type="submit" class="submitButton" name="submit" value="Submit" />
 	<input type="hidden" name="submitted" value="TRUE" />
 </form>
 </div>
