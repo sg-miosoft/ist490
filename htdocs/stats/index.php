@@ -12,7 +12,6 @@ else
     //include the header 
     include ("../includes/header.php"); 
     require_once ('../../mysqli_connect.php'); 
-    echo ("<center>");  
        
 	
     //Set the number of records to display per page 
@@ -59,14 +58,14 @@ else
 		ORDER BY networkAddress";
 	$networkResult = mysqli_query($dbc,$networkQuery);	
 	
-	echo "<div class='bookmarkMenu'>";
-	echo "<p class='bottom-space'><a class='add-subnet' href='addNetwork.php' onmouseover='addSubnetdark();' onmouseout='addSubnetdefault();'><img id='subnet-only' class='subnet-img' src='../images/add-subnet-img.png' onmouseover=\"this.src='../images/dark-add-subnet.png'\"\ onmouseout=\"this.src='../images/add-subnet-img.png'\"\><span class='subnet-contain'>Add <strong>Network</strong></span></a></p>";
-	echo "<p><a class='add-device' href='addDevice.php' onmouseover='addDevicedark();' onmouseout='addDevicedefault();'><img id='device-only' class='device-img' src='../images/add-device-img.png' onmouseover=\"this.src='../images/dark-add-device.png'\"\ onmouseout=\"this.src='../images/add-device-img.png'\"\><span class='device-contain'>Add <strong>Device</strong></span></a></p>";
-	echo "</div><br>";
+	echo "<aside>";
+		echo "<div><a class='add-subnet' href='addNetwork.php' onmouseover='addSubnetdark();' onmouseout='addSubnetdefault();'><img id='subnet-only' class='subnet-img' src='../images/add-subnet-img.png' onmouseover=\"this.src='../images/dark-add-subnet.png'\"\ onmouseout=\"this.src='../images/add-subnet-img.png'\"\><span class='subnet-contain'>Add <strong>Network</strong></span></a></div>";
+		echo "<div><a class='add-device' href='addDevice.php' onmouseover='addDevicedark();' onmouseout='addDevicedefault();'><img id='device-only' class='device-img' src='../images/add-device-img.png' onmouseover=\"this.src='../images/dark-add-device.png'\"\ onmouseout=\"this.src='../images/add-device-img.png'\"\><span class='device-contain'>Add <strong>Device</strong></span></a></div>";
+	echo "</aside><br>";
 	
 	if($networkResult)
 	{
-		echo "<div class='table-contain'>";
+		echo "<div id='content-right'>";
 		//Table header:
 		echo "<table class='bookmarksTable' cellpadding=5 cellspacing=5 border=1><tr>
 				<th>Name</th><th>Network / IP Address</th><th>Subnet Mask</th><th>Gateway</th><th>Notes</th><th>*</th><th>*</th></tr>"; 		
