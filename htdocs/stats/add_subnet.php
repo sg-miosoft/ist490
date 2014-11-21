@@ -30,10 +30,8 @@ if (!isset($_SESSION['email'])){
 		$gateway = mysqli_real_escape_string($dbc,$_POST['gateway']); 
 		$note = mysqli_real_escape_string($dbc,$_POST['note']); 
 		
-		$u_id=$_SESSION['user_id'];
-				
 		$query="INSERT INTO subnet (note,subnet_name,address,mask,gateway) 
-			Values ('$note','$subnet_name',INET_ATON($address),INET_ATON('$mask'),INET_ATON('$gateway'))"; 
+			Values ('$note','$subnet_name',INET_ATON('$address'),INET_ATON('$mask'),INET_ATON('$gateway'))"; 
 		$result=@mysqli_query($dbc,$query); 
 		$subnet_id = mysqli_insert_id($dbc);
 		if ($result){

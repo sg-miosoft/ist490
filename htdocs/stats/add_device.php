@@ -92,14 +92,15 @@ else
 				</li>
 				<li>
 					<label>IP Address</label>
-					<input type="text" class="addURL" name="address" size=50 maxlength=15 value="<?php echo $row['address'];?>"><span class="required-text">REQUIRED</span>
+					<input type="text" name="address" placeholder="192.168.0.1" size=50 maxlength=15 value="<?php echo $row['address'];?>"><span class="required-text">REQUIRED</span>
 				</li>
 				<li>
 					<label>Name</label>
-					<input type="text" class="addURL" name="device_name" size=50 maxlength=40 value="<?php echo $row['device_name'];?>"><span class="required-text">REQUIRED</span>
+					<input type="text" name="device_name" placeholder="Switch A" size=50 maxlength=40 value="<?php echo $row['device_name'];?>"><span class="required-text">REQUIRED</span>
 				</li>
 				<li>		
-					<label>Notes</label><textarea name="notes"  class="add-device-notes" rows=2 cols=100></textarea>
+					<label>Notes</label>
+					<textarea name="notes" rows=2 cols=100></textarea>
 				</li>
 			</ul>
 			<hr>

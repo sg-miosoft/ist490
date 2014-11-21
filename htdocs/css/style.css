@@ -31,11 +31,6 @@ h4{
 	font-family:Arial, Helvetica, sans-serif;
 }
 
-p{
-	font-family:Arial, Helvetica, sans-serif;
-	color:#FFF;
-}
-
 li.ruleItem{
 	padding-bottom:10px;
 	margin-left:-9px;
@@ -578,28 +573,6 @@ textarea:focus{
 	border-color:#0CA3D2 #0CA3D2 #0CA3D2;
 }
 
-.addBookmarktitle {
-	width:290px !important;
-	border:1px solid #444444;
-}
-
-.addBookmarkTitle:focus{
-	box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-	border: 1px solid rgba(81, 203, 238, 1);
-	border-radius:4px;
-}
-
-.addURL {
-	width:290px !important;
-	border:1px solid #444444;
-}
-
-.addURL:focus{
-	box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-	border: 1px solid rgba(81, 203, 238, 1);
-	border-radius:4px;
-}
-
 .searchTitle:focus{
 	box-shadow:inset 0 0 8px 2px #F00;
 	border:1px solid;
@@ -684,19 +657,6 @@ img.winnersTrophy{
 	text-align:center;
 }
 
-
-.bookmarksTable tr:nth-child(odd) {
-    background-color: #FFFFFF;
-}
-
-.bookmarksTable tr:nth-child(even) {
-    background-color: #EEEEEE;
-}
-
-.bookmarksTable tr:first-child {
-	background-color:#656565;
-	color:#FFFFFF;
-}
 
 .bottom-space {
 	margin-bottom:90px;
@@ -857,44 +817,6 @@ a.bookmarkSearch:hover, a.bookmarkSearch:active{
 	left:225px;
 }
 
-
-.align-form-text-sub {
-	font-family:"Lato", sans-serif;
-	color:#000;
-	font-weight:900;
-	margin-right:5px;
-}
-
-.align-form-text-ip {
-	font-family:"Lato", sans-serif;
-	margin-left:-35px;
-	color:#000;
-	font-weight:900;
-	margin-left:-27px;
-	margin-right:5px;
-}
-
-.align-form-text-name {
-	font-family:"Lato", sans-serif;
-	color:#000;
-	font-weight:900;
-	margin-left:7px;
-	margin-right:5px;
-}
-
-.align-form-text-notes {
-	font-family:"Lato", sans-serif;
-	color:#000;
-	position:relative;
-	bottom:65px;
-	margin-left:-55px;
-	font-weight:900;
-	margin-right:5px;
-}
-
-.add-device-form {
-	
-}
 
 .required-text {
 	font-family: Lato;

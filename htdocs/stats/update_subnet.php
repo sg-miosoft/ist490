@@ -22,7 +22,7 @@ if (!isset($_SESSION['email'])){
 		subnet_name='$subnet_name',
 		mask=INET_ATON('$mask'),
 		gateway=INET_ATON('$gateway'),
-		note='$note',
+		note='$note'
 		WHERE id='$id'"; 
 		$result = @mysqli_query($dbc,$query); 
 		if ($result){

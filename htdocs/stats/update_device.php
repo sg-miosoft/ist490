@@ -14,11 +14,11 @@ if (!isset($_SESSION['email'])){
 		$device_name = mysqli_real_escape_string($dbc,$_POST['device_name']); 
 		$note = mysqli_real_escape_string($dbc,$_POST['note']); 
 		$address = mysqli_real_escape_string($dbc,$_POST['address']); 
-		$network_id = mysqli_real_escape_string($dbc,$_POST['network']); 
+		$subnet_id = mysqli_real_escape_string($dbc,$_POST['subnet']); 
 				
 		$query = "UPDATE device SET 
 		device_name='$device_name',
-		network_id='$network_id',
+		subnet_id='$subnet_id',
 		note='$note',
 		address=INET_ATON('$address')	
 		WHERE id='$id'"; 

@@ -65,18 +65,18 @@ else
 	{
 		echo "<article>";
 		//Table header:
-		echo "<table class='bookmarksTable' cellpadding=5 cellspacing=5 border=1><tr>
-				<th>Name</th><th>Subnet / IP Address</th><th>Subnet Mask</th><th>Gateway</th><th>Notes</th><th>*</th><th>*</th></tr>"; 		
+		echo "<table class='ip-table' cellpadding=5 cellspacing=5 border=1><tr>
+				<th class='name'>Name</th><th>Subnet / IP Address</th><th>Subnet Mask</th><th>Gateway</th><th>Notes</th><th>*</th><th>*</th></tr>"; 		
 		
 		while($subnetRow = mysqli_fetch_array($subnetResult, MYSQLI_ASSOC))
 		{
-			echo "<tr><td class='bookmarkInfo'>" . $subnetRow['subnet_name'] . "</td>";  
-			echo "<td class='bookmarkInfo'>" . $subnetRow['subnetAddress'] . "</td>";  
-			echo "<td class='bookmarkInfo'>" . $subnetRow['mask'] . "</td>";  
-			echo "<td class='bookmarkInfo'>" . $subnetRow['gateway'] . "</td>"; 
+			echo "<tr><td class='name'>" . $subnetRow['subnet_name'] . "</td>";  
+			echo "<td class='table-content'>" . $subnetRow['subnetAddress'] . "</td>";  
+			echo "<td class='table-content'>" . $subnetRow['mask'] . "</td>";  
+			echo "<td class='table-content'>" . $subnetRow['gateway'] . "</td>"; 
 			echo "<td class='notes'>" . $subnetRow['subnetNote'] . "</td>"; 
-			echo "<td class='bookmarkInfo'><a href=delete_subnet_confirm.php?id=".$subnetRow['id']."><img class='delete-img' src='../images/delete-icon-dark.png' alt='Delete' onmouseover=\"this.src='../images/delete-icon.png'\" onmouseout=\"this.src='../images/delete-icon-dark.png'\"></a></td>"; 
-			echo "<td class='bookmarkInfo'><a href=update_subnet_form.php?id=".$subnetRow['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
+			echo "<td class='table-content'><a href=delete_subnet_confirm.php?id=".$subnetRow['id']."><img class='delete-img' src='../images/delete-icon-dark.png' alt='Delete' onmouseover=\"this.src='../images/delete-icon.png'\" onmouseout=\"this.src='../images/delete-icon-dark.png'\"></a></td>"; 
+			echo "<td class='table-content'><a href=update_subnet_form.php?id=".$subnetRow['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
 			
 			$deviceQuery = "SELECT id,
 				subnet_id,
@@ -91,13 +91,13 @@ else
 			{
 				while($deviceRow = mysqli_fetch_array($deviceResult, MYSQLI_ASSOC))
 				{
-					echo "<tr><td class='bookmarkInfo'>" . $deviceRow['device_name'] . "</td>";  
-					echo "<td class='bookmarkInfo'>" . $deviceRow['deviceAddress'] . "</td>";  
-					echo "<td class='bookmarkInfo'>*</td>";
-					echo "<td class='bookmarkInfo'>*</td>";
+					echo "<tr><td class='name'>" . $deviceRow['device_name'] . "</td>";  
+					echo "<td class='table-content'>" . $deviceRow['deviceAddress'] . "</td>";  
+					echo "<td class='table-content'>*</td>";
+					echo "<td class='table-content'>*</td>";
 					echo "<td class='notes'>" . $deviceRow['deviceNote'] . "</td>";  
-					echo "<td class='bookmarkInfo'><a href=delete_device_confirm.php?id=".$deviceRow['id']."><img class='delete-img' src='../images/delete-icon-dark.png' alt='Delete' onmouseover=\"this.src='../images/delete-icon.png'\" onmouseout=\"this.src='../images/delete-icon-dark.png'\"></a></td>"; 
-					echo "<td class='bookmarkInfo'><a href=update_device_form.php?id=".$deviceRow['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
+					echo "<td class='table-content'><a href=delete_device_confirm.php?id=".$deviceRow['id']."><img class='delete-img' src='../images/delete-icon-dark.png' alt='Delete' onmouseover=\"this.src='../images/delete-icon.png'\" onmouseout=\"this.src='../images/delete-icon-dark.png'\"></a></td>"; 
+					echo "<td class='table-content'><a href=update_device_form.php?id=".$deviceRow['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
 				}
 			}
 		}
