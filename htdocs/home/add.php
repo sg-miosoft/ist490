@@ -46,7 +46,7 @@ else
 		<div class="add-contain">
 			<div class="add-head"><p><strong>Add</strong> <span class="dev-text">Subnet</span></p></div>
 			<div>
-				<form class="add-form" action="add_subnet.php" method="post">
+				<form class="add-form" action="add.php?type=subnet" method="post">
 				<ul>
 					<li>
 						<label for="subnet_name">Subnet Name</label>
@@ -114,7 +114,7 @@ else
 		<div class="add-contain">
 			<div class="add-head"><p><strong>Add</strong> <span class="dev-text">Device</span></p></div>
 			<div>
-				<form class="add-form" action="add_device.php" method="post">
+				<form class="add-form" action="add.php?type=device" method="post">
 				<ul>
 					<li>
 						<label>Subnet</label>

@@ -62,10 +62,20 @@ else
 	if($subnetResult)
 	{
 		echo "<article>";
-		//Table header:
-		echo "<table class='ip-table' cellpadding=5 cellspacing=5 border=1><tr>
-				<th class='name'>Name</th><th>Subnet / IP Address</th><th>Subnet Mask</th><th>Gateway</th><th>Notes</th><th>*</th><th>*</th></tr>"; 		
+?>
+		<dialog id="deleteDialog">
+			<input type="button" id="close" value="X" onClick="document.getElementById('deleteDialog').close();">
+			<h2>Delete the "DMZ Zone" subnet?</h2>
+			<div class="fake-hr"></div>
+			<p><em>Note </em>: All associated devices will lose their IP addresses.</p>
+			<button class="delete-dialog-delete" value="Delete">Delete</button>
+			<input type="button" class="resetButtonModal" value="Cancel" onClick="document.getElementById('deleteDialog').close();">    
+		</dialog>
 		
+		<!--Table header-->
+		<table class='ip-table' cellpadding=5 cellspacing=5 border=1><tr>
+				<th class='name'>Name</th><th>Subnet / IP Address</th><th>Subnet Mask</th><th>Gateway</th><th>Notes</th><th>*</th><th>*</th></tr> 		
+<?php		
 		while($subnetRow = mysqli_fetch_array($subnetResult, MYSQLI_ASSOC))
 		{
 			echo "<tr><td class='name'>" . $subnetRow['subnet_name'] . "</td>";  
@@ -73,8 +83,15 @@ else
 			echo "<td class='table-content'>" . $subnetRow['mask'] . "</td>";  
 			echo "<td class='table-content'>" . $subnetRow['gateway'] . "</td>"; 
 			echo "<td class='notes'>" . $subnetRow['subnetNote'] . "</td>"; 
-			echo "<td class='table-content'><a href=../stats/delete_subnet_confirm.php?id=".$subnetRow['id']."><img class='delete-img' src='../images/delete-icon-dark.png' alt='Delete' onmouseover=\"this.src='../images/delete-icon.png'\" onmouseout=\"this.src='../images/delete-icon-dark.png'\"></a></td>"; 
-			echo "<td class='table-content'><a href=../stats/update_subnet_form.php?id=".$subnetRow['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
+			//echo "<td class='table-content'><a href=delete.php?type=subnet?id=".$subnetRow['id']."><img class='delete-img' src='../images/delete-icon-dark.png' alt='Delete' onmouseover=\"this.src='../images/delete-icon.png'\" onmouseout=\"this.src='../images/delete-icon-dark.png'\"></a></td>"; 
+			echo "<td class='table-content'>
+						<input type='image' class='delete-img' 
+							src='../images/delete-icon-dark.png' 
+							alt='Delete' value='Delete' 
+							onmouseover=\"this.src='../images/delete-icon.png'\" 
+							onmouseout=\"this.src='../images/delete-icon-dark.png'\" 
+							onClick=\"document.getElementById('deleteDialog').showModal()\" /></td>";
+			echo "<td class='table-content'><a href=update.php?type=subnet?id=".$subnetRow['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
 			
 			$deviceQuery = "SELECT id,
 				subnet_id,
@@ -94,8 +111,15 @@ else
 					echo "<td class='table-content'>*</td>";
 					echo "<td class='table-content'>*</td>";
 					echo "<td class='notes'>" . $deviceRow['deviceNote'] . "</td>";  
-					echo "<td class='table-content'><a href=../stats/delete_device_confirm.php?id=".$deviceRow['id']."><img class='delete-img' src='../images/delete-icon-dark.png' alt='Delete' onmouseover=\"this.src='../images/delete-icon.png'\" onmouseout=\"this.src='../images/delete-icon-dark.png'\"></a></td>"; 
-					echo "<td class='table-content'><a href=../stats/update_device_form.php?id=".$deviceRow['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
+					//echo "<td class='table-content'><a href=delete.php?type=device?id=".$deviceRow['id']."><img class='delete-img' src='../images/delete-icon-dark.png' alt='Delete' onmouseover=\"this.src='../images/delete-icon.png'\" onmouseout=\"this.src='../images/delete-icon-dark.png'\"></a></td>"; 
+					echo "<td class='table-content'>
+						<input type='image' class='delete-img' 
+							src='../images/delete-icon-dark.png' 
+							alt='Delete' value='Delete' 
+							onmouseover=\"this.src='../images/delete-icon.png'\" 
+							onmouseout=\"this.src='../images/delete-icon-dark.png'\" 
+							onClick=\"document.getElementById('deleteDialog').showModal()\" /></td>";
+					echo "<td class='table-content'><a href=update.php?type=device?id=".$deviceRow['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
 				}
 			}
 		}

@@ -263,6 +263,7 @@ footer p
 
 .add-head p 
 {
+	color: #fff;
 	font-family: "Lato", sans-serif;
 	font-size: 23px;
 	margin: 0;
@@ -309,6 +310,7 @@ footer p
 
 .add-form label
 {
+	font-weight: 900;
 	padding-right: 15px;
 	text-align: right;
 	width: 150px;
@@ -350,5 +352,29 @@ footer p
 	-webkit-transform: translateY(-50%);
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);
+}
+
+.delete-dialog-delete
+{
+	float:left;
+	color:#fff;
+	background-color:#999999;
+	border:none !important;
+	margin-left:15px;
+	padding:0 18px;
+	height:29px;
+	font-weight:bold;
+	/*color:#000;*/
+	/*background:#BEBEBE;*/
+	border:1px solid;
+	border-color:#000 #000 #000;
+	border-radius:16px;
+}
+
+.delete-dialog-delete:hover
+{
+	color:#000;
+	background:#FF4040;
+	cursor:pointer;
 }
 

@@ -9,8 +9,6 @@
 	border:1px solid #F00;
 }
 
-
-
 h1{
 	text-align:center;
 	color:#FFF;
@@ -888,20 +886,6 @@ a.bookmarkSearch:hover, a.bookmarkSearch:active{
 
 .add-subnet-active:hover {
 	text-decoration:underline;
-}
-
-.deleteButton {
-	float:left;
-	color:#fff;
-	background-color:#999999;
-	border:none !important;
-	margin-left:15px;
-}
-
-.deleteButton:hover{
-	color:#000;
-	background:#FF4040;
-	cursor:pointer;
 }
 
 #close {
