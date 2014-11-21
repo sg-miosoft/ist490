@@ -55,7 +55,8 @@ else
 		network_name,
 		note AS networkNote
 		FROM network
-		ORDER BY networkAddress";
+		ORDER BY networkAddress
+		LIMIT $start, $display";
 	$networkResult = mysqli_query($dbc,$networkQuery);	
 	
 	include("../includes/aside.php");
@@ -108,7 +109,7 @@ else
 	}	
 	
 		
-	((mysqli_free_result($result) || (is_object($result) && (get_class($result) == "mysqli_result"))) ? true : false); // Free up the resources.          
+	mysqli_free_result($result); // Free up the resources.          
     mysqli_close($dbc); // Close the database connection. 
 	    
 	//Make the links to other pages if necessary.
@@ -125,7 +126,8 @@ else
 		//Determine what page the script is on:
 		$current_page = ($start/$display) + 1;
 		//If it is not the first page, make a Previous button:
-		if($current_page != 1){
+		if($current_page != 1)
+		{
 			echo '<td><a class="prev-anchor" href="index.php?s='. ($start - $display) . '&p=' . $pages. '"><img src="../images/prev-button.png" alt="Previous" onmouseover="this.src=\'../images/prev-dark.png\'" onmouseout="this.src=\'../images/prev-button.png\'"> </a></td>';
 		}
 		//Make all the numbered pages:
