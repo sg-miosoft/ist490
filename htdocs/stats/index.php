@@ -27,7 +27,7 @@ else
 	{//Need to determine 
         //Count the number of records; 
         //$u_id=$_SESSION['user_id']; 
-        $query = "SELECT COUNT(id) FROM network"; 
+        $query = "SELECT COUNT(id) FROM subnet"; 
         $result = @mysqli_query($dbc,$query);  
         $row = @mysqli_fetch_array($result,  MYSQLI_NUM);
 		$query1 = "SELECT COUNT(id) FROM device"; 
@@ -48,42 +48,42 @@ else
     }else{ 
         $start = 0; 
     } 
-	$networkQuery = "SELECT id, 
-		INET_NTOA(address) AS networkAddress,
+	$subnetQuery = "SELECT id, 
+		INET_NTOA(address) AS subnetAddress,
 		INET_NTOA(mask) AS mask,
 		INET_NTOA(gateway) AS gateway,
-		network_name,
-		note AS networkNote
-		FROM network
-		ORDER BY networkAddress
+		subnet_name,
+		note AS subnetNote
+		FROM subnet
+		ORDER BY subnetAddress
 		LIMIT $start, $display";
-	$networkResult = mysqli_query($dbc,$networkQuery);	
+	$subnetResult = mysqli_query($dbc,$subnetQuery);	
 	
 	include("../includes/aside.php");
 	
-	if($networkResult)
+	if($subnetResult)
 	{
 		echo "<article>";
 		//Table header:
 		echo "<table class='bookmarksTable' cellpadding=5 cellspacing=5 border=1><tr>
-				<th>Name</th><th>Network / IP Address</th><th>Subnet Mask</th><th>Gateway</th><th>Notes</th><th>*</th><th>*</th></tr>"; 		
+				<th>Name</th><th>Subnet / IP Address</th><th>Subnet Mask</th><th>Gateway</th><th>Notes</th><th>*</th><th>*</th></tr>"; 		
 		
-		while($networkRow = mysqli_fetch_array($networkResult, MYSQLI_ASSOC))
+		while($subnetRow = mysqli_fetch_array($subnetResult, MYSQLI_ASSOC))
 		{
-			echo "<tr><td class='bookmarkInfo'>" . $networkRow['network_name'] . "</td>";  
-			echo "<td class='bookmarkInfo'>" . $networkRow['networkAddress'] . "</td>";  
-			echo "<td class='bookmarkInfo'>" . $networkRow['mask'] . "</td>";  
-			echo "<td class='bookmarkInfo'>" . $networkRow['gateway'] . "</td>"; 
-			echo "<td class='notes'>" . $networkRow['networkNote'] . "</td>"; 
-			echo "<td class='bookmarkInfo'><a href=delete_network_confirm.php?id=".$networkRow['id']."><img class='delete-img' src='../images/delete-icon-dark.png' alt='Delete' onmouseover=\"this.src='../images/delete-icon.png'\" onmouseout=\"this.src='../images/delete-icon-dark.png'\"></a></td>"; 
-			echo "<td class='bookmarkInfo'><a href=update_network_form.php?id=".$networkRow['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
+			echo "<tr><td class='bookmarkInfo'>" . $subnetRow['subnet_name'] . "</td>";  
+			echo "<td class='bookmarkInfo'>" . $subnetRow['subnetAddress'] . "</td>";  
+			echo "<td class='bookmarkInfo'>" . $subnetRow['mask'] . "</td>";  
+			echo "<td class='bookmarkInfo'>" . $subnetRow['gateway'] . "</td>"; 
+			echo "<td class='notes'>" . $subnetRow['subnetNote'] . "</td>"; 
+			echo "<td class='bookmarkInfo'><a href=delete_subnet_confirm.php?id=".$subnetRow['id']."><img class='delete-img' src='../images/delete-icon-dark.png' alt='Delete' onmouseover=\"this.src='../images/delete-icon.png'\" onmouseout=\"this.src='../images/delete-icon-dark.png'\"></a></td>"; 
+			echo "<td class='bookmarkInfo'><a href=update_subnet_form.php?id=".$subnetRow['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
 			
 			$deviceQuery = "SELECT id,
-				network_id,
+				subnet_id,
 				INET_NTOA(address) AS deviceAddress,
 				device_name,
 				note AS deviceNote
-				FROM device WHERE network_id =" . $networkRow['id'];				
+				FROM device WHERE subnet_id =" . $subnetRow['id'];				
 			
 			$deviceResult = mysqli_query($dbc,$deviceQuery);
 			

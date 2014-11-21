@@ -232,3 +232,62 @@ footer p
 	cursor:pointer;
 }
 
+.add-contain{
+	margin-left:-35px;
+	margin-top:-15px;
+	width:603px;
+	background:#e5e5e5;
+	border-radius:3px;
+	padding-bottom:31px;
+}
+
+.add-head p {
+	font-family: "Lato", sans-serif;
+	font-size: 23px;
+	margin: 0;
+	height: 40px;
+	background-color: #696969;
+	padding-top: 12px;
+	padding-left:25px;
+	text-align:left;
+}
+
+.add-form
+{
+	margin-top:15px;
+}
+
+.add-form ul
+{
+	list-style-type: none;
+	list-style-position: outside;
+	margin: 0px;
+	padding: 0px;
+}
+
+.add-form li
+{
+	padding: 8px;
+}
+
+.add-form input 
+{
+	
+}
+
+.add-form label
+{
+	width: 150px;
+	margin-top: 3px;
+	display: inline-block;
+	float: left;
+	padding: 3px;
+}
+
+.add-form textarea
+{
+	border-radius: 6px;
+}
+
+
+

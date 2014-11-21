@@ -12,14 +12,14 @@ if (!isset($_SESSION['email'])){
 		#execute UPDATE statement
 		$id = mysqli_real_escape_string($dbc,$_POST['id']); 
 		$address = mysqli_real_escape_string($dbc,$_POST['address']); 
-		$network_name = mysqli_real_escape_string($dbc,$_POST['network_name']); 
+		$subnet_name = mysqli_real_escape_string($dbc,$_POST['subnet_name']); 
 		$mask = mysqli_real_escape_string($dbc,$_POST['mask']); 
 		$gateway = mysqli_real_escape_string($dbc,$_POST['gateway']); 
 		$note = mysqli_real_escape_string($dbc,$_POST['note']); 
 		
-		$query = "UPDATE network SET 
+		$query = "UPDATE subnet SET 
 		address=INET_ATON('$address'),
-		network_name='$network_name',
+		subnet_name='$subnet_name',
 		mask=INET_ATON('$mask'),
 		gateway=INET_ATON('$gateway'),
 		note='$note',

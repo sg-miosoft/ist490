@@ -9,12 +9,12 @@ if (!isset($_SESSION['email'])){
 	include ("../includes/header.php");
 	require_once ('../../mysqli_connect.php');
 	$id=$_GET['id']; 
-	$query = "DELETE FROM network WHERE id=$id"; 
+	$query = "DELETE FROM subnet WHERE id=$id"; 
 	$result = @mysqli_query($dbc,$query);
 	if ($result){
-		echo "The selected network has been deleted."; 
+		echo "The selected subnet has been deleted."; 
 	}else {
-		echo "The selected network could not be deleted."; 
+		echo "The selected subnet could not be deleted."; 
 	}
 	echo "<p><a href=index.php>Home</a>"; 
 	mysqli_close($dbc);

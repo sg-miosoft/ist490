@@ -67,7 +67,7 @@ if (!empty($errors)) { // Print any error messages.
 ?> 
 <div class="loginContain">
 <h2>Please, login here.</h2><hr />
-	<form action="./index.php" method="post">
+	<form action="https://uwm-iptracker.miosoft.com/home/index.php" method="post">
 		<p><input type="text" class="emailEntry" name="email" size="30" maxlength="40" value="" placeholder="Email Address" /> </p>
 		<p><input type="password" class="passEntry" name="password" size="30" maxlength="20" value="" placeholder="Password" /></p>
 		<span style="text-align:center"><p><input type="submit" class="submitButton" name="submit" value="Login" /></p></span>
