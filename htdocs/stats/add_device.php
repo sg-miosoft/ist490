@@ -64,15 +64,14 @@ else
 						}
 					?>
 					</select>
-					<span class="required-text">REQUIRED</span><p></p>
 				</li>
 				<li>
 					<label>IP Address</label>
-					<input type="text" name="address" placeholder="192.168.0.1" size=50 maxlength=15><span class="required-text">REQUIRED</span>
+					<input type="text" name="address" placeholder="192.168.0.1" size=50 maxlength=15>
 				</li>
 				<li>
 					<label>Name</label>
-					<input type="text" name="device_name" placeholder="Switch A" size=50 maxlength=40><span class="required-text">REQUIRED</span>
+					<input type="text" name="device_name" placeholder="Switch A" size=50 maxlength=40>
 				</li>
 				<li>		
 					<label>Notes</label>

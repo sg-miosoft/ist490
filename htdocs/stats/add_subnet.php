@@ -49,21 +49,20 @@ if (!isset($_SESSION['email'])){
 			<ul>
 				<li>
 					<label for="subnet_name">Subnet Name</label>
-					<input type="text" placeholder="DMZ Zone" name="subnet_name" size=50><span class="required-text">REQUIRED</span>
+					<input type="text" placeholder="DMZ Zone" name="subnet_name" size=50>
 				</li>
 				<li>
 					<label for="address">IP Address</label>
-					<input type="text" placeholder="192.168.0.1" name="address" size=50 maxlength=15><span class="required-text">REQUIRED</span>
+					<input type="text" placeholder="192.168.0.1" name="address" size=50 maxlength=15>
 				</li>
 				<li>
 					<label for="mask">Subnet Mask</label>
-					<input type="text" placeholder="255.255.255.0" name="mask" size=50 maxlength=15><span class="required-text">REQUIRED</span>
+					<input type="text" placeholder="255.255.255.0" name="mask" size=50 maxlength=15>
 				</li>
 				<li>
 					<label for="gateway">Gateway</label>
-					<input type="text" placeholder="192.168.1.1" name="gateway" size=50 maxlength=15><span class="required-text">REQUIRED</span>
+					<input type="text" placeholder="192.168.1.1" name="gateway" size=50 maxlength=15>
 				</li>
-				
 				<li>
 					<label for="note">Notes</label>
 					<textarea name="note" rows=2 cols=100></textarea>

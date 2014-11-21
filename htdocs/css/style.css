@@ -818,13 +818,6 @@ a.bookmarkSearch:hover, a.bookmarkSearch:active{
 }
 
 
-.required-text {
-	font-family: Lato;
-	font-weight: 900;
-	font-style: italic;
-	font-size: 12px;
-}
-
 .device-active {
 	background-color: #323232;
 	height: 95px;
