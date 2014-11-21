@@ -39,23 +39,22 @@
 
 
 <?php
-if (!isset($_SESSION['email'])){
+if (!isset($_SESSION['email'])) //user is not logged in
+{
 	echo ("<nav>");
-	echo ("<ul>");
-	echo ("<li><a href=../home/index.php>Home</a></li>");
-	echo ("<li><a href=../home/index.php>Login</a></li>");
-	echo ("<li><a href=../home/register.php>Register</a></li>");
-	echo ("<li><a href=../home/forgot.php>Forgot Password?</a></li>");
-	echo ("</ul>");
+		echo ("<ul>");
+			echo ("<li><a href=../home/register.php>Register</a></li>");
+			echo ("<li><a href=../home/forgot.php>Forgot Password?</a></li>");
+		echo ("</ul>");
 	echo ("</nav>");  
-}else {
+}
+else
+{
 	echo ("<nav>");
-	echo ("<ul>");
-	echo ("<li><a class='homeNav' href=../home/index.php>Home</a></li>");
-	echo ("<li><a class='regNav' href=../stats/index.php>My IP's</a></li>"); 
-	echo ("<li><a class='regNav' href=../contact/contact.php>Contact us</a></li>");
-	echo ("<li><a class='logoutNav' href=../home/logout.php>Logout</a></li>");
-	echo ("</ul>");
+		echo ("<ul>");
+			echo ("<li><a class='homeNav' href=../home/index.php>Home</a></li>");
+			echo ("<li><a class='logoutNav' href=../home/logout.php>Logout</a></li>");
+		echo ("</ul>");
 	echo ("</nav>");
 } 
 ?>

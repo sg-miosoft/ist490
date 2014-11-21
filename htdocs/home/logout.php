@@ -1,8 +1,5 @@
 <?php 
 
-// This page lets the user logout.
-session_start(); 
-
 // If no session variable exists, redirect the user.
 if (!isset($_SESSION['email'])) {
 	header("Location: index.php");
@@ -10,6 +7,7 @@ if (!isset($_SESSION['email'])) {
 } else { // Cancel the session.
 	$_SESSION = array(); // Destroy the variables.
 	session_destroy(); // Destroy the session itself.
+	header("Location: login.php");
 }
 
 // Include the header code.

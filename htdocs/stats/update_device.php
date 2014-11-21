@@ -1,10 +1,11 @@
 <?php
-session_start();
-//check the session
-if (!isset($_SESSION['email'])){
-	echo "You are not logged in!";
-	exit();
-}else{
+//check session first
+if(!isset($_SESSION['email']))
+{
+	header("Location: https://uwm-iptracker.miosoft.com/home/login.php"); 
+}
+else
+{
 	if ($_POST['id']){
 		//include the header
 		include ("../includes/header.php");

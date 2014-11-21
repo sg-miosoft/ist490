@@ -1,11 +1,8 @@
 <?php
-session_start();
-
 //check session first
 if(!isset($_SESSION['email']))
 {
-	echo "You are not logged in!";
-	exit();
+	header("Location: https://uwm-iptracker.miosoft.com/home/login.php"); 
 }
 else
 {
