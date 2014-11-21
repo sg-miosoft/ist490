@@ -1,20 +1,6 @@
 <?php
 session_start();
 
-function whichObject($str = "") 
-{
-	$showstuff = false;
-	if ($str == "") 
-	{
-		$str = $_SERVER['REQUEST_URI'];
-	}
-	if (stripos($str,'add_device.php') !== false) 
-	{
-		$showstuff = true;
-	}
-	return $showstuff;
-}
-	
 //check session first
 if(!isset($_SESSION['email']))
 {
@@ -25,6 +11,7 @@ else
 {
 	//include the header
 	include ("../includes/header.php");
+	include ("../includes/functions.php");
 	require_once ('../../mysqli_connect.php'); 
 	if($_POST['submitted'])
 	{
@@ -55,20 +42,9 @@ else
 		// only if submitted by the form
 		mysqli_close($dbc);
 	}
-	
-	echo "<br />";
-	echo "<div class='bookmarkMenu-add'>";
-	echo "<p class='bottom-space'><a class='add-subnet' href='add_subnet.php' onmouseover='addSubnetkdark();' onmouseout='addSubnetdefault();'><img id='subnet-only' class='subnet-img' src='../images/add-subnet-img.png' onmouseover=\"this.src='../images/dark-add-subnet.png'\"\ onmouseout=\"this.src='../images/add-subnet-img.png'\"\><span class='subnet-contain'>Add <strong>Subnet</strong></span></a></p>";
 		
-	if(whichObject())
-	{
-		echo "<a class='add-device-active' href='add_device.php' onmouseover='addDevicedark();' onmouseout='addDevicedefault();'><p class='device-active' onmouseover='addDevicedark();' onmouseout='addDevicedefault();'><img id='device-only' class='device-img' src='../images/add-device-img.png' onmouseover=\"this.src='../images/dark-add-device.png'\"\ onmouseout=\"this.src='../images/add-device-img.png'\"\><span class='device-contain-active'>Add <strong>Device</strong></span></p></a>";
-	}
-	else
-	{
-		echo "<p><a class='add-device' href='add_device.php' onmouseover='addDevicedark();' onmouseout='addDevicedefault();'><img id='device-only' class='device-img' src='../images/add-device-img.png' onmouseover=\"this.src='../images/dark-add-device.png'\"\ onmouseout=\"this.src='../images/add-device-img.png'\"\><span class='device-contain'>Add <strong>Device</strong></span></a></p>";
-	}
-	echo ("</div><br>");
+	whichPageMenuDisplay();
+
 ?>
 
 	<div class="add-contain">
@@ -92,11 +68,11 @@ else
 				</li>
 				<li>
 					<label>IP Address</label>
-					<input type="text" name="address" placeholder="192.168.0.1" size=50 maxlength=15 value="<?php echo $row['address'];?>"><span class="required-text">REQUIRED</span>
+					<input type="text" name="address" placeholder="192.168.0.1" size=50 maxlength=15><span class="required-text">REQUIRED</span>
 				</li>
 				<li>
 					<label>Name</label>
-					<input type="text" name="device_name" placeholder="Switch A" size=50 maxlength=40 value="<?php echo $row['device_name'];?>"><span class="required-text">REQUIRED</span>
+					<input type="text" name="device_name" placeholder="Switch A" size=50 maxlength=40><span class="required-text">REQUIRED</span>
 				</li>
 				<li>		
 					<label>Notes</label>
