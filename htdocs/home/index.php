@@ -91,7 +91,7 @@ else
 							onmouseover=\"this.src='../images/delete-icon.png'\" 
 							onmouseout=\"this.src='../images/delete-icon-dark.png'\" 
 							onClick=\"document.getElementById('deleteDialog').showModal()\" /></td>";
-			echo "<td class='table-content'><a href=update.php?type=subnet?id=".$subnetRow['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
+			echo "<td class='table-content'><a href=update.php?type=subnet&id=".$subnetRow['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
 			
 			$deviceQuery = "SELECT id,
 				subnet_id,
@@ -119,7 +119,7 @@ else
 							onmouseover=\"this.src='../images/delete-icon.png'\" 
 							onmouseout=\"this.src='../images/delete-icon-dark.png'\" 
 							onClick=\"document.getElementById('deleteDialog').showModal()\" /></td>";
-					echo "<td class='table-content'><a href=update.php?type=device?id=".$deviceRow['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
+					echo "<td class='table-content'><a href=update.php?type=device&id=".$deviceRow['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
 				}
 			}
 		}
