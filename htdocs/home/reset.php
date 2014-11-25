@@ -1,13 +1,7 @@
-<html><body><center> 
-<img src="../includes/dartboard.jpg" alt="Midnight Crazy Darts. Nice Shot!" title="Midnight Crazy Logo" /><br> 
-<h1>UWM IPTracker</h1>  
-<h2>Spencer George | 490 Senior Capstone Project</h2>  
-<Table width="1000" cellpadding="10"><tr><td align="right"> 
+<?php   
+#code to deal with forgot password  
+include ('../includes/header.php');  
 
-<p></td></tr></table> 
-<table width="1000" cellpadding="10"><td width="100" valign="top"> 
-</td><td valign="top"> 
-<?php  
 function showForm($u,$t) { 
     echo '<h2>Reset Password</h2>'; 
         echo '<form action="reset.php?token='.$t.'" method="post">'; 
@@ -111,12 +105,6 @@ elseif (!empty($errors) && $sForm) {
     echo '</p>'; 
     showForm($user_id,$token); 
 } 
-?> 
 
-
-
-
-<?php 
-// Include footer.php 
 include("../includes/footer.php"); 
 ?>

@@ -510,3 +510,10 @@ input[type=button]{
 	border:1px solid;
 	border-color:#000 #000 #000;
 }
+
+.form-contain
+{
+	padding:5px 20px 5px 20px;
+	background:#000;
+	background-color: #656565;
+}
