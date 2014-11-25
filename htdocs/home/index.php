@@ -9,6 +9,7 @@ else
     //includes
 	//include("../includes/session.php");
     include ("../includes/header.php"); 
+	include ("../includes/functions.php");
     require_once ('../../mysqli_connect.php'); 
        
 	
@@ -57,8 +58,9 @@ else
 		LIMIT $start, $display";
 	$subnetResult = mysqli_query($dbc,$subnetQuery);	
 	
-	include("../includes/aside.php");
-	
+	//include("../includes/aside.php");
+	whichPageMenuDisplay('index');
+		
 	if($subnetResult)
 	{
 		echo "<article>";
