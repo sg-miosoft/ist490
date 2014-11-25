@@ -307,27 +307,6 @@ p.updateR{
 	border-radius:3px;
 }
 
-.successAdd{
-	color:#000;
-	margin-left:97px;
-	text-align:center;
-	padding:5px 20px 5px 20px;
-	width:200px;
-	background:#0F0;
-	border:1px solid #000;
-	border-radius:3px;
-}
-
-.failAdd{
-	color:#000;
-	margin-left:97px;
-	text-align:center;
-	padding:5px 20px 5px 20px;
-	width:200px;
-	background:#FF0009;
-	border:1px solid #000;
-	border-radius:3px;
-}
 
 .searchResultsContain{
 	margin-left:-117px;
@@ -440,71 +419,6 @@ p.updateR{
 	background:#F00;
 	border:1px solid #FFF;
 	border-radius:3px;
-}
-
-input{
-	font-family:'Lato', sans-serif;
-	font-size:14px;
-}
-
-input[type=text], input[type=password]{
-	margin:5px;
-	padding:0 10px;
-	width:200px;
-	height:35px;
-	/*color:#404040;
-	background:white;*/
-	/*border:1px solid;*/
-	/*border-color:#000 #000 #000;*/
-	border-radius:6px;
-	/*outline:5px solid #BEBEBE;*/
-/*	-moz-outline-radius:3px;
-	@include box-shadow(inset 0 1px 3px rgba(black, .12));
-	&:focus{
-		border-color:#7dc9e2;
-		outline-color:#dceefc;
-		outline-offset:0;
-	}*/
-}
-
-input[type=submit], input[type=reset]{
-	padding:0 18px;
-	height:29px;
-	font-weight:bold;
-	border:1px solid;
-	border-color:#000 #000 #000;
-	border-radius:16px;
-	outline:0;
-	@include box-sizing(content-box);
-	@include linear-gradient(top, #edf5f8, #cde5ef);
-	@include box-shadow(inset 0 1px white, 0 1px 2px rgba(black, .15));
-	&:active{
-		text-shadow:0 1px #e3f1f1;
-		background:#cde5ef;
-		border-color:#E36935 #E36935 #E36935;
-		#include box-shadow(inset 0 0 epx rgba(black, .2));
-	}
-}
-
-input[type=button]{
-	padding:0 18px;
-	height:29px;
-	font-weight:bold;
-	/*color:#000;*/
-	/*background:#BEBEBE;*/
-	border:1px solid;
-	border-color:#000 #000 #000;
-	border-radius:16px;
-/*	outline:0;
-	@include box-sizing(content-box);
-	@include linear-gradient(top, #edf5f8, #cde5ef);
-	@include box-shadow(inset 0 1px white, 0 1px 2px rgba(black, .15));
-	&:active{
-		text-shadow:0 1px #e3f1f1;
-		background:#cde5ef;
-		border-color:#E36935 #E36935 #E36935;
-		#include box-shadow(inset 0 0 epx rgba(black, .2));
-	}*/
 }
 
 textarea{
@@ -678,14 +592,6 @@ img.winnersTrophy{
 	text-decoration:underline;
 }
 
-.subnet-img {
-	position:absolute;	
-}
-
-.device-img {
-	position:absolute;
-}
-
 .subnet-contain {
 	right: 20px;
 	position:relative;
@@ -816,78 +722,6 @@ a.bookmarkSearch:hover, a.bookmarkSearch:active{
 }
 
 
-.device-active {
-	background-color: #323232;
-	height: 95px;
-	border-radius: 15px;
-	width: 87px;
-	padding-left: 40px;
-	padding-top: 15px;
-	position: relative;
-	right: 40px;
-}
-
-.device-active:hover {
-	background-color: #666666;
-}
-
-.device-contain-active {
-	position:relative;
-	top:60px;
-	right:19px;
-	font-family: 'Lato', sans-serif;
-	font-weight:400;
-	font-size:17px;
-	color:#FFF;
-}
-
-.add-device-active {
-	color:#FFF;
-	text-decoration:none;
-}
-
-.add-device-active:hover {
-	text-decoration:underline;
-}
-
-
-
-
-.subnet-active {
-	background-color: #323232;
-	height: 95px;
-	border-radius: 15px;
-	width: 88px;
-	padding-left: 40px;
-	padding-top: 15px;
-	position: relative;
-	right: 40px;
-	margin-bottom:25px;
-}
-
-.subnet-active:hover {
-	background-color: #666666;
-}
-
-.subnet-contain-active {
-	position:relative;
-	top:60px;
-	right:19px;
-	font-family: 'Lato', sans-serif;
-	font-weight:400;
-	font-size:17px;
-	color:#FFF;
-}
-
-.add-subnet-active {
-	color:#FFF;
-	text-decoration:none;
-}
-
-.add-subnet-active:hover {
-	text-decoration:underline;
-}
-
 #close {
 	color:#000;
 	background-color:#999999;
@@ -905,41 +739,6 @@ a.bookmarkSearch:hover, a.bookmarkSearch:active{
 	cursor:pointer;
 }
 
-dialog {
-	width: 485px;
-	height: 160px;
-	border-radius: 15px;
-	border:none;
-	background-color:#e5e5e5;
-}
-
-dialog p {
-	font-family:"Lato", sans-serif;
-	font-size:17px;
-	color:#000;
-	text-align:left;
-	margin-left:25px;
-	margin-bottom:30px;
-}
-
-dialog h2 {
-	font-family:"Lato", sans-serif;
-	color:#000;
-	font-size:25px;
-	font-weight:900;
-	text-align:left;
-	margin-left:25px;
-}
-
-dialog::backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.75);
-}
-
 .deleteButtonModal {
 	float:right;
 	color:#fff;
@@ -954,22 +753,3 @@ dialog::backdrop {
 	cursor:pointer;
 }
 
-.resetButtonModal {
-	float:right;
-	color:#fff;
-	background-color:#999999;
-	border:none !important;
-}
-
-.resetButtonModal:hover{
-	color:#000;
-	background:#3F9;
-	cursor:pointer;
-}
-
-.fake-hr {
-	border-bottom: 1px solid #000;
-	width: 38px;
-	margin-left: 25px;
-	margin-top: -10px;
-}

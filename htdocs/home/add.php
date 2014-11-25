@@ -91,24 +91,23 @@ else
 				Values ('$subnet',INET_ATON('$address'),'$device_name','$note')"; 
 			$result=@mysqli_query($dbc,$query); 
 			$device_id = mysqli_insert_id($dbc);
+
 			if ($result)
 			{
-				echo "<div class='successAdd'>";
-				echo "<p style='color:#000;'><b>A new record (id: '$device_id') has been added.</b></p>"; 
-				echo "<a href=index.php>Show All Records</a><br />";
+				echo "<div class='success-add'>";
+					echo "<p style='color:#000;'><b>A new record (id: '$device_id') has been added.</b></p>"; 
+					echo "<a href=index.php>Show All Records</a><br />";
 				echo "</div>";
 			}
 			else
 			{
-				echo "<div class='failAdd'>";
-				echo "<p><b>The record could not be added due to a system error: " . mysqli_error($dbc) . "</b></p>"; 
+				echo "<div class='fail-add'>";
+					echo "<p><b>The record could not be added due to a system error: " . mysqli_error($dbc) . "</b></p>"; 
 				echo "</div>";
 			}
-			
 			// only if submitted by the form
 			mysqli_close($dbc);
 		}
-			
 		whichPageMenuDisplay($type);
 ?>
 		<div class="add-contain">
@@ -143,7 +142,7 @@ else
 					</li>
 				</ul>
 				<hr>
-				<input type="submit" class="submitButton" value="Save">
+				<input type="submit" class="submitButton" value="Save" onClick=\"document.getElementById('result').showModal()\">
 				<input type="reset" class="resetButton" value="Cancel">
 				<input type="hidden" name="submitted" value="true">
 				</form>
