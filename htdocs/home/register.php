@@ -120,15 +120,16 @@ if(!empty($errors))
 // Create the form. 
 ?> 
 
-<br />
 <div class="form-contain">
-	<h2>Register</h2><hr />
+	<h2>Register</h2>
+	<hr>
 	<form action="register.php" method="post">
-		<span style="text-align:center"><p><input type="text" class="emailEntry" name="email" placeholder="E-mail Address" size="20" maxlength="40" value="<?php echo $_POST['email']; ?>"  /></p></span>
-		<span style="text-align:center"><p><input type="submit" class="submitButton" name="submit" value="Register" /></p></span>
+		<span><p><input type="text" class="emailEntry" name="email" placeholder="E-mail Address" size="20" maxlength="40" value="<?php echo $_POST['email']; ?>"  /></p></span>
+		<span><p><input type="submit" class="submit-button" name="submit" value="Register" /></p></span>
 		<input type="hidden" name="submitted" value="TRUE" />
 	</form>
 </div>
+
 <?php 
 // Include footer.php 
 include("../includes/footer.php"); 

@@ -110,7 +110,6 @@ nav ul a:hover, nav ul a:active
 section
 {
 	padding-top: 20px;
-	align-items: baseline;
 	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
@@ -163,6 +162,14 @@ footer
 
 footer div 
 {
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	position: relative;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
 	width: 279px;
 	margin: auto;
 }
@@ -344,7 +351,6 @@ footer p
 {
 	width: 225px;
 	height: 35px;
-	border-radius: 6px;
 	margin: 5px;
 	padding: 0 10px;
 	font-size: 14px;
@@ -353,11 +359,6 @@ footer p
 	-webkit-transform: translateY(-50%);
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);
-}
-
-.add-form textarea
-{
-	border-radius: 6px;
 }
 
 .add-form span
@@ -381,8 +382,6 @@ footer p
 	padding:0 18px;
 	height:29px;
 	font-weight:bold;
-	/*color:#000;*/
-	/*background:#BEBEBE;*/
 	border:1px solid;
 	border-color:#000 #000 #000;
 	border-radius:16px;
@@ -489,18 +488,6 @@ input[type=submit], input[type=reset]{
 	padding:0 18px;
 	height:29px;
 	font-weight:bold;
-	border:1px solid;
-	border-color:#000 #000 #000;
-	outline:0;
-	@include box-sizing(content-box);
-	@include linear-gradient(top, #edf5f8, #cde5ef);
-	@include box-shadow(inset 0 1px white, 0 1px 2px rgba(black, .15));
-	&:active{
-		text-shadow:0 1px #e3f1f1;
-		background:#cde5ef;
-		border-color:#E36935 #E36935 #E36935;
-		#include box-shadow(inset 0 0 epx rgba(black, .2));
-	}
 }
 
 input[type=button]{

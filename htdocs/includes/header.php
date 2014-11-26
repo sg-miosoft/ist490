@@ -5,23 +5,6 @@
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
 	<link rel="stylesheet" type="text/css" href="../css/style2.css">
 	<link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
-	<script>
-		function addSubnetdark() {
-			document.getElementById("subnet-only").src='../images/dark-add-subnet.png';
-		}
-		
-		function addSubnetdefault() {
-			document.getElementById("subnet-only").src='../images/add-subnet-img.png';
-		}
-		
-		function addDevicedark() {
-			document.getElementById("device-only").src='../images/dark-add-device.png';
-		}
-		
-		function addDevicedefault() {
-			document.getElementById("device-only").src='../images/add-device-img.png';
-		}
-	</script>
 </head>
 <body>
 
@@ -39,23 +22,24 @@
 
 
 <?php
-if (!isset($_SESSION['email'])) //user is not logged in
+if(!isset($_SESSION['email'])) //user is not logged in
 {
-	echo ("<nav>");
-		echo ("<ul>");
-			echo ("<li><a href=../home/register.php>Register</a></li>");
-			echo ("<li><a href=../home/forgot.php>Forgot Password?</a></li>");
-		echo ("</ul>");
-	echo ("</nav>");  
+	echo "<nav>
+		<ul>
+			<li><a href=../home/register.php>Register</a></li>
+			<li><a href=../home/forgot.php>Forgot Password?</a></li>
+			<li><a href=../home/login.php>Login</a></li>
+		</ul>
+	</nav>";
 }
 else
 {
-	echo ("<nav>");
-		echo ("<ul>");
-			echo ("<li><a class='homeNav' href=../home/index.php>Home</a></li>");
-			echo ("<li><a class='logoutNav' href=../home/logout.php>Logout</a></li>");
-		echo ("</ul>");
-	echo ("</nav>");
+	echo "<nav>
+		<ul>
+			<li><a class='homeNav' href=../home/index.php>Home</a></li>
+			<li><a class='logoutNav' href=../home/logout.php>Logout</a></li>
+		</ul>
+	</nav>";
 } 
 ?>
 <section>

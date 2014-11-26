@@ -66,11 +66,12 @@ if (!empty($errors)) { // Print any error messages.
 // Create the form. 
 ?> 
 <div class="form-contain">
-<h2>Please, login here.</h2><hr />
+<h2>Please, login here.</h2>
+	<hr>
 	<form action="login.php" method="post">
-		<p><input type="text" class="emailEntry" name="email" size="30" maxlength="40" value="" placeholder="Email Address" /> </p>
+		<p><input type="text" class="emailEntry" name="email" size="30" maxlength="40" value="" placeholder="Email Address" /></p>
 		<p><input type="password" class="passEntry" name="password" size="30" maxlength="20" value="" placeholder="Password" /></p>
-		<span style="text-align:center"><p><input type="submit" class="submitButton" name="submit" value="Login" /></p></span>
+		<span><p><input type="submit" class="submit-button" name="submit" value="Login" /></p></span>
 		<input type="hidden" name="submitted" value="TRUE" />
 	</form>
 </div>

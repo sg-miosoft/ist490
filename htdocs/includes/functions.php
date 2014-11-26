@@ -53,4 +53,21 @@ function whichPageMenuDisplay($page)
 }
 
 ?>
+<script>
+	function addSubnetdark() {
+		document.getElementById("subnet-only").src='../images/dark-add-subnet.png';
+	}
+	
+	function addSubnetdefault() {
+		document.getElementById("subnet-only").src='../images/add-subnet-img.png';
+	}
+	
+	function addDevicedark() {
+		document.getElementById("device-only").src='../images/dark-add-device.png';
+	}
+	
+	function addDevicedefault() {
+		document.getElementById("device-only").src='../images/add-device-img.png';
+	}
+</script>
 
