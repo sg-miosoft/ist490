@@ -121,9 +121,9 @@ else
 						<option value="">Please select a subnet...</option>
 						<?php
 							require_once ('../../mysqli_connect.php'); 
-							$result = mysqli_query($dbc, "SELECT id, INET_NTOA(address) AS address FROM subnet");
+							$result = mysqli_query($dbc, "SELECT id, INET_NTOA(address) AS address, subnet_name FROM subnet");
 							while($row = mysqli_fetch_array($result)){
-								echo "<option value='" . $row['id'] . "'>" . $row['address'] . "</option>";
+								echo "<option value='" . $row['id'] . "'>" . $row['address'] . ' - ' . $row['subnet_name'] . "</option>";
 							}
 						?>
 						</select>
