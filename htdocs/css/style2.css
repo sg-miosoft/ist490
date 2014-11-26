@@ -362,14 +362,9 @@ footer p
 	float:left;
 	color:#fff;
 	background-color:#999999;
-	border:none !important;
-	margin-left:15px;
 	padding:0 18px;
 	height:29px;
 	font-weight:bold;
-	border:1px solid;
-	border-color:#000 #000 #000;
-	border-radius:16px;
 }
 
 .delete-dialog-delete:hover
