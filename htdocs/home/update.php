@@ -79,17 +79,7 @@ else
 							</ul>
 							<hr>
 							
-							<dialog id="myDialog">
-								<input type="button" id="close" value="X" onClick="document.getElementById('myDialog').close();">
-								<h2>Delete the "DMZ Zone" subnet?</h2>
-								<div class="fake-hr"></div>
-								<p><em>Note </em>: All associated devices will lose their IP addresses.</p>
-								<input type="button" class="deleteButtonModal" value="Delete">
-								<input type="button" class="resetButtonModal" value="Cancel" onClick="document.getElementById('myDialog').close();">    
-							</dialog>
-					
-							<input type="button" class="deleteButton" value="Delete" onClick="document.getElementById('myDialog').showModal();">
-							<input type="submit" class="submitButton" value="update"> 
+							<input type="submit" class="submitButton" value="Update"> 
 							<input type="reset" class="resetButton" value="Cancel">
 							<input type="hidden" name="id" value="<?php echo $get_subnet_row['id']; ?>">
 						</form>
@@ -172,17 +162,8 @@ else
 							</li>
 						</ul>
 						<hr>
-							<dialog id="myDialogDevice">
-								<input type="button" id="close" value="X" onClick="document.getElementById('myDialogDevice').close();">
-								<h2>Delete the "DMZ Zone" subnet?</h2>
-								<div class="fake-hr"></div>
-								<p><em>Note </em>: All associated devices will lose their IP addresses.</p>
-								<input type="button" class="deleteButtonModal" value="Delete">
-								<input type="button" class="resetButtonModal" value="Cancel" onClick="document.getElementById('myDialogDevice').close();">    
-							</dialog>
-					
-							<input type="button" class="deleteButton" value="Delete" onClick="document.getElementById('myDialogDevice').showModal();">
-							<input type="submit" class="submitButton" value="update"> 
+							
+							<input type="submit" class="submitButton" value="Update"> 
 							<input type="reset" class="resetButton" value="Cancel">
 							<input type="hidden" name="id" value="<?php echo $get_device_row['id']; ?>"> 
 						</form> 
