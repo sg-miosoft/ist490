@@ -706,13 +706,8 @@ a.bookmarkSearch:hover, a.bookmarkSearch:active{
 	cursor:pointer;
 }
 
-.edit-img {
-	width:30px;
-}
 
-.delete-img {
-	width:25px;
-}
+
 
 .bookmarkMenu-add {
 	/*width:375px;
@@ -721,23 +716,6 @@ a.bookmarkSearch:hover, a.bookmarkSearch:active{
 	left:225px;
 }
 
-
-#close {
-	color:#000;
-	background-color:#999999;
-	border:none !important;
-	float:right;
-	height:23px;
-	border-radius:30px;
-	padding:0px 7px;
-	font-size:12px;
-}
-
-#close:hover{
-	color:#FFF;
-	background:#323232;
-	cursor:pointer;
-}
 
 .deleteButtonModal {
 	float:right;

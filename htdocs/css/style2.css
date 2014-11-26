@@ -359,6 +359,7 @@ footer p
 
 .delete-dialog-delete
 {
+	border: none;
 	float:left;
 	color:#fff;
 	background-color:#999999;
@@ -398,9 +399,6 @@ footer p
 }
 
 dialog {
-	width: 485px;
-	height: 160px;
-	border-radius: 15px;
 	border:none;
 	background-color:#e5e5e5;
 }
@@ -408,19 +406,20 @@ dialog {
 dialog p {
 	font-family:"Lato", sans-serif;
 	font-size:17px;
-	color:#000;
+	color:#FF4040;
 	text-align:left;
-	margin-left:25px;
 	margin-bottom:30px;
 }
 
 dialog h2 {
+	margin-right: 50px;
+	display: inline;
 	font-family:"Lato", sans-serif;
 	color:#000;
 	font-size:25px;
 	font-weight:900;
 	text-align:left;
-	margin-left:25px;
+	border-bottom: 1px solid #000;
 }
 
 dialog::backdrop {
@@ -443,13 +442,6 @@ dialog::backdrop {
 	color:#000;
 	background:#3F9;
 	cursor:pointer;
-}
-
-.fake-hr {
-	border-bottom: 1px solid #000;
-	width: 38px;
-	margin-left: 25px;
-	margin-top: -10px;
 }
 
 input
@@ -488,4 +480,35 @@ input[type=button]
 	padding:5px 20px 5px 20px;
 	background:#000;
 	background-color: #656565;
+}
+
+.delete-img 
+{
+	width:25px;
+	outline: none;
+}
+
+.edit-img 
+{
+	width:30px;
+	outline: none;
+}
+
+#close 
+{
+	color:#000;
+	background-color:#999999;
+	border:none !important;
+	float:right;
+	height:23px;
+	padding:0px 7px;
+	font-size:12px;
+	outline: none;
+}
+
+#close:hover
+{
+	color:#FFF;
+	background:#323232;
+	cursor:pointer;
 }

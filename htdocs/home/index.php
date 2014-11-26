@@ -6,17 +6,21 @@ if (!isset($_SESSION['email']))
 }
 else
 {
+	//includes
+	include ("../includes/header.php"); 
+	include ("../includes/functions.php");
+	require_once ('../../mysqli_connect.php'); 
+	
 	$type=$_GET['type'];
+	
 	if(strcmp($type,"subnet") == 0)
 	{
-		echo "here";
-		if($_POST['id'])
+		if($_POST['deleteID'])
 		{
-			echo "here 1";
-			$id = mysqli_real_escape_string($dbc,$_POST['id']);
-			$query = "DELETE FROM subnet WHERE id=$id";
-			$result = @mysqli_query($dbc,$query);
-			if ($result)
+			$id = @mysqli_real_escape_string($dbc,$_POST['deleteID']);
+			$delSubnetQuery = "DELETE FROM subnet WHERE id=$id";
+			$delSubnetResult = @mysqli_query($dbc,$delSubnetQuery);
+			if($delSubnetResult)
 			{
 				header("Location: https://uwm-iptracker.miosoft.com/home/index.php"); 
 			}
@@ -26,18 +30,20 @@ else
 				echo "<p><a href=index.php>Home</a>"; 
 				mysqli_close($dbc);
 			}
+		}
+		else
+		{
+			echo 'Post not submitted properly';
 		}
 	}
 	elseif(strcmp($type,"device") == 0)
 	{
-		echo "here 2";
-		if($_POST['id'])
+		if($_POST['deleteID'])
 		{
-			echo "here 3";
-			$id = mysqli_real_escape_string($dbc,$_POST['id']);
-			$query = "DELETE FROM device WHERE id=$id";
-			$result = @mysqli_query($dbc,$query);
-			if ($result)
+			$id = @mysqli_real_escape_string($dbc,$_POST['deleteID']);
+			$delDeviceQuery = "DELETE FROM device WHERE id=$id";
+			$delDeviceResult = @mysqli_query($dbc,$delDeviceQuery);
+			if($delDeviceResult)
 			{
 				header("Location: https://uwm-iptracker.miosoft.com/home/index.php"); 
 			}
@@ -48,14 +54,13 @@ else
 				mysqli_close($dbc);
 			}
 		}
+		else
+		{
+			echo 'Post not submitted properly';
+		}
 	}
 	else	
 	{
-		//includes
-		include ("../includes/header.php"); 
-		include ("../includes/functions.php");
-		require_once ('../../mysqli_connect.php'); 
-		
 		//Set the number of records to display per page 
 		$display = 5; 
 
@@ -114,45 +119,42 @@ else
 			echo "<article>";
 ?>
 			<script>
-				function openModal(type,id)
+				function openModal(type,id,name)
 				{
+					var action = ('index.php?type=').concat(type);
 					if(type === 'subnet')
 					{
-						document.getElementById('deleteSubnetID').value = id;
-						document.getElementById('deleteSubnet').showModal();
+						var header1 = 'Delete the ';
+						var header2 = ' subnet?';
+						
+						document.getElementById('dialogP').innerHTML = '<em>Note </em>: All associated devices will lose their IP addresses.';
 					}
-					elseif(type === 'device')
+					else if(type === 'device')
 					{
-						document.getElementById('deleteDeviceID').value = id;
-						document.getElementById('deleteDevice').showModal();
+						var header1 = 'Delete ';
+						var header2 = '?';
+						
+						document.getElementById('dialogP').innerHTML = '';
 					}
+					document.getElementById('deleteID').value = id;
+					document.getElementById('dialogH2').innerText = header1.concat(name).concat(header2);
+					document.getElementById('dialogForm').action = action;
+					document.getElementById('deleteDialog').showModal();
 				}
 			</script>
 			
-			<dialog id="deleteSubnet">
+			<dialog id="deleteDialog">
 				<input type="button" id="close" value="X" onClick="document.getElementById('deleteDialog').close();">
-				<h2>Delete the <?php echo $subnetRow['subnet_name'];?> subnet?</h2>
+				<h2 id="dialogH2"></h2>
 				<div class="fake-hr"></div>
-				<p><em>Note </em>: All associated devices will lose their IP addresses.</p>
-				<form action="index.php?subnet" action="post">
-					<input type="submit" value="delete">Delete</input>
-					<input type="hidden" value="" id="deleteSubnetID" />
+				<p id="dialogP"></p>
+				<form action="" method="post" id="dialogForm">
+					<input type="hidden" value="" id="deleteID" name="deleteID" />
 				</form>
 				<!--<button class="delete-dialog-delete" value="Delete">Delete</button>-->
-				<input type="button" class="resetButtonModal" value="Cancel" onClick="document.getElementById('deleteSubnet').close();">    
+				<button class="delete-dialog-delete" form="dialogForm" name='deleteButton' type="submit">Delete</button>
+				<input type="button" class="resetButtonModal" value="Cancel" onClick="document.getElementById('deleteDialog').close();">    
 			</dialog>
-			
-			<dialog id="deleteDevice">
-				<input type="button" id="close" value="X" onClick="document.getElementById('deleteDialog').close();">
-				<h2>Delete the <?php echo $subnetRow['device_name'];?> device?</h2>
-				<div class="fake-hr"></div>
-				<form action="index.php?device" action="post">
-					<input type="submit" value="delete">Delete</input>
-					<input type="hidden" value="" id="deleteDeviceID"/>
-				</form>
-				<!--<button class="delete-dialog-delete" value="Delete">Delete</button>-->
-				<input type="button" class="resetButtonModal" value="Cancel" onClick="document.getElementById('deleteDevice').close();">    
-			</dialog>			
 			
 			<!--Table header-->
 			<table class='ip-table' cellpadding=5 cellspacing=5 border=1><tr>
@@ -171,7 +173,7 @@ else
 						alt='Delete' value='Delete' 
 						onmouseover=\"this.src='../images/delete-icon.png'\" 
 						onmouseout=\"this.src='../images/delete-icon-dark.png'\" 
-						onClick=\"openModal('subnet',".$subnetRow['id'].")\" /></td>
+						onClick=\"openModal('subnet',".$subnetRow['id'].",'".$subnetRow['subnet_name']."')\" /></td>
 				<td class='table-content'><a href=update.php?type=subnet&id=".$subnetRow['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
 				/*onClick=\"document.getElementById('deleteSubnet').showModal()\" /></td>*/
 				
@@ -188,18 +190,18 @@ else
 				{
 					while($deviceRow = mysqli_fetch_array($deviceResult, MYSQLI_ASSOC))
 					{
-						echo "<tr><td class='name'>" . $deviceRow['device_name'] . "</td>  
-						<td class='table-content'>" . $deviceRow['deviceAddress'] . "</td>
+						echo "<tr><td class='name'>".$deviceRow['device_name']."</td>  
+						<td class='table-content'>".$deviceRow['deviceAddress']."</td>
 						<td class='table-content'>*</td>
 						<td class='table-content'>*</td>
-						<td class='notes'>" . $deviceRow['deviceNote'] . "</td>
+						<td class='notes'>".$deviceRow['deviceNote']."</td>
 						<td class='table-content'>
 							<input type='image' class='delete-img' 
 								src='../images/delete-icon-dark.png' 
 								alt='Delete' value='Delete' 
 								onmouseover=\"this.src='../images/delete-icon.png'\" 
 								onmouseout=\"this.src='../images/delete-icon-dark.png'\" 
-								onClick=\"openModal('device',".$deviceRow['id'].")\" /></td>
+								onClick=\"openModal('device',".$deviceRow['id'].",'".$deviceRow['device_name']."')\" /></td>
 						<td class='table-content'><a href=update.php?type=device&id=".$deviceRow['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
 
 						//echo "<td class='table-content'><a href=delete.php?type=device?id=".$deviceRow['id']."><img class='delete-img' src='../images/delete-icon-dark.png' alt='Delete' onmouseover=\"this.src='../images/delete-icon.png'\" onmouseout=\"this.src='../images/delete-icon-dark.png'\"></a></td>"; 
