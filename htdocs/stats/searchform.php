@@ -9,11 +9,7 @@ else
 	//include the header
 	include ("../includes/header.php");
 ?>
-	<html>
-	<head>
-		<title>Search Form</title>
-	</head>
-	<body>
+
 	<table>
 	<form action="search.php" method="post">
 	<tr>
@@ -59,8 +55,7 @@ else
 	<input type=hidden name="id" value="<? echo $row['id'];?>">
 	</form>
 	</table>
-	</body>
-	</html>
+
 <?php
 	//include the footer
 	include ("../includes/footer.php");

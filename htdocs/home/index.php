@@ -18,9 +18,9 @@ else
 		if($_POST['deleteID'])
 		{
 			$id = @mysqli_real_escape_string($dbc,$_POST['deleteID']);
-			$delSubnetQuery = "DELETE FROM subnet WHERE id=$id";
-			$delSubnetResult = @mysqli_query($dbc,$delSubnetQuery);
-			if($delSubnetResult)
+			$del_subnet_query = "DELETE FROM subnet WHERE id=$id";
+			$del_subnet_result = @mysqli_query($dbc,$del_subnet_query);
+			if($del_subnet_result)
 			{
 				header("Location: https://uwm-iptracker.miosoft.com/home/index.php"); 
 			}
@@ -41,9 +41,9 @@ else
 		if($_POST['deleteID'])
 		{
 			$id = @mysqli_real_escape_string($dbc,$_POST['deleteID']);
-			$delDeviceQuery = "DELETE FROM device WHERE id=$id";
-			$delDeviceResult = @mysqli_query($dbc,$delDeviceQuery);
-			if($delDeviceResult)
+			$deldevice_query = "DELETE FROM device WHERE id=$id";
+			$deldevice_result = @mysqli_query($dbc,$deldevice_query);
+			if($deldevice_result)
 			{
 				header("Location: https://uwm-iptracker.miosoft.com/home/index.php"); 
 			}
@@ -101,7 +101,7 @@ else
 		{ 
 			$start = 0; 
 		} 
-		$subnetQuery = "SELECT id, 
+		$subnet_query = "SELECT id, 
 			INET_NTOA(address) AS subnetAddress,
 			INET_NTOA(mask) AS mask,
 			INET_NTOA(gateway) AS gateway,
@@ -110,11 +110,11 @@ else
 			FROM subnet
 			ORDER BY subnetAddress
 			LIMIT $start, $display";
-		$subnetResult = mysqli_query($dbc,$subnetQuery);	
+		$subnet_result = mysqli_query($dbc,$subnet_query);	
 		
 		whichPageMenuDisplay('index');
 			
-		if($subnetResult)
+		if($subnet_result)
 		{
 			echo "<article>";
 ?>
@@ -160,51 +160,51 @@ else
 			<table class='ip-table' cellpadding=5 cellspacing=5 border=1><tr>
 					<th class='name'>Name</th><th>Subnet / IP Address</th><th>Subnet Mask</th><th>Gateway</th><th>Notes</th><th>*</th><th>*</th></tr> 		
 <?php		
-			while($subnetRow = mysqli_fetch_array($subnetResult, MYSQLI_ASSOC))
+			while($subnet_row = mysqli_fetch_array($subnet_result, MYSQLI_ASSOC))
 			{
-				echo "<tr><td class='name'>" . $subnetRow['subnet_name'] . "</td>
-				<td class='table-content'>" . $subnetRow['subnetAddress'] . "</td>  
-				<td class='table-content'>" . $subnetRow['mask'] . "</td>  
-				<td class='table-content'>" . $subnetRow['gateway'] . "</td>
-				<td class='notes'>" . $subnetRow['subnetNote'] . "</td>
+				echo "<tr><td class='name'>" . $subnet_row['subnet_name'] . "</td>
+				<td class='table-content'>" . $subnet_row['subnetAddress'] . "</td>  
+				<td class='table-content'>" . $subnet_row['mask'] . "</td>  
+				<td class='table-content'>" . $subnet_row['gateway'] . "</td>
+				<td class='notes'>" . $subnet_row['subnetNote'] . "</td>
 				<td class='table-content'>
 					<input type='image' class='delete-img' 
 						src='../images/delete-icon-dark.png' 
 						alt='Delete' value='Delete' 
 						onmouseover=\"this.src='../images/delete-icon.png'\" 
 						onmouseout=\"this.src='../images/delete-icon-dark.png'\" 
-						onClick=\"openModal('subnet',".$subnetRow['id'].",'".$subnetRow['subnet_name']."')\" /></td>
-				<td class='table-content'><a href=update.php?type=subnet&id=".$subnetRow['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
+						onClick=\"openModal('subnet',".$subnet_row['id'].",'".$subnet_row['subnet_name']."')\" /></td>
+				<td class='table-content'><a href=update.php?type=subnet&id=".$subnet_row['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
 				/*onClick=\"document.getElementById('deleteSubnet').showModal()\" /></td>*/
 				
-				$deviceQuery = "SELECT id,
+				$device_query = "SELECT id,
 					subnet_id,
 					INET_NTOA(address) AS deviceAddress,
 					device_name,
 					note AS deviceNote
-					FROM device WHERE subnet_id =" . $subnetRow['id'];				
+					FROM device WHERE subnet_id =" . $subnet_row['id'];				
 				
-				$deviceResult = mysqli_query($dbc,$deviceQuery);
+				$device_result = mysqli_query($dbc,$device_query);
 				
-				if($deviceResult)
+				if($device_result)
 				{
-					while($deviceRow = mysqli_fetch_array($deviceResult, MYSQLI_ASSOC))
+					while($device_row = mysqli_fetch_array($device_result, MYSQLI_ASSOC))
 					{
-						echo "<tr><td class='name'>".$deviceRow['device_name']."</td>  
-						<td class='table-content'>".$deviceRow['deviceAddress']."</td>
+						echo "<tr><td class='name'>".$device_row['device_name']."</td>  
+						<td class='table-content'>".$device_row['deviceAddress']."</td>
 						<td class='table-content'>*</td>
 						<td class='table-content'>*</td>
-						<td class='notes'>".$deviceRow['deviceNote']."</td>
+						<td class='notes'>".$device_row['deviceNote']."</td>
 						<td class='table-content'>
 							<input type='image' class='delete-img' 
 								src='../images/delete-icon-dark.png' 
 								alt='Delete' value='Delete' 
 								onmouseover=\"this.src='../images/delete-icon.png'\" 
 								onmouseout=\"this.src='../images/delete-icon-dark.png'\" 
-								onClick=\"openModal('device',".$deviceRow['id'].",'".$deviceRow['device_name']."')\" /></td>
-						<td class='table-content'><a href=update.php?type=device&id=".$deviceRow['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
+								onClick=\"openModal('device',".$device_row['id'].",'".$device_row['device_name']."')\" /></td>
+						<td class='table-content'><a href=update.php?type=device&id=".$device_row['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
 
-						//echo "<td class='table-content'><a href=delete.php?type=device?id=".$deviceRow['id']."><img class='delete-img' src='../images/delete-icon-dark.png' alt='Delete' onmouseover=\"this.src='../images/delete-icon.png'\" onmouseout=\"this.src='../images/delete-icon-dark.png'\"></a></td>"; 
+						//echo "<td class='table-content'><a href=delete.php?type=device?id=".$device_row['id']."><img class='delete-img' src='../images/delete-icon-dark.png' alt='Delete' onmouseover=\"this.src='../images/delete-icon.png'\" onmouseout=\"this.src='../images/delete-icon-dark.png'\"></a></td>"; 
 						/*onClick=\"document.getElementById('deleteDialog').showModal()\" /></td>";*/
 					}
 				}
