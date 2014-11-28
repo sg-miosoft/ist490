@@ -13,13 +13,11 @@
 		<a href="https://uwm-iptracker.miosoft.com"><img src="../images/miosoft_website.png" alt="MIOsoft Logo" title="MIOsoft Logo" />IP ADDRESS TRACKER</a>
 	</div>
 	<div id="search">
-		<form method="post"> 
-			<input type="search" id="search-input" name="ipsearch" placeholder="Search">
+		<form method="post" action="search.php"> 
+			<input type="search" id="search-input" name="search" placeholder="Search">
 		</form>
 	</div>
 </header>
-
-
 
 <?php
 if(!isset($_SESSION['email'])) //user is not logged in

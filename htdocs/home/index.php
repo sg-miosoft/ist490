@@ -13,7 +13,7 @@ else
 	
 	$type=$_GET['type'];
 	
-	if(strcmp($type,"subnet") == 0)
+	if(strcmp($type,"subnet") == 0) //delete a subnet
 	{
 		if($_POST['deleteID'])
 		{
@@ -36,7 +36,7 @@ else
 			echo 'Post not submitted properly';
 		}
 	}
-	elseif(strcmp($type,"device") == 0)
+	elseif(strcmp($type,"device") == 0) //delete a device
 	{
 		if($_POST['deleteID'])
 		{
@@ -59,7 +59,7 @@ else
 			echo 'Post not submitted properly';
 		}
 	}
-	else	
+	else //Display all records
 	{
 		//Set the number of records to display per page 
 		$display = 5; 
