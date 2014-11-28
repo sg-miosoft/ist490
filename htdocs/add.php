@@ -9,7 +9,7 @@ else
 	//include the header
 	include ("includes/header.php");
 	include ("includes/functions.php");
-	require_once ('..mysqli_connect.php'); 
+	require_once ('../mysqli_connect.php'); 
 	$type=$_GET['type']; 
 	if(strcmp($type,"subnet") == 0)
 	{
@@ -70,7 +70,7 @@ else
 					</li>
 					<hr>
 				</ul>
-				<input type="submit" class="submitButton" value="Save">
+				<input type="submit" class="submit-button" value="Save">
 				<input type="reset" class="resetButton" value="Cancel">
 				<input type="hidden" name="submitted" value="true">
 				</form>
@@ -120,7 +120,7 @@ else
 						<select id="subnet" name="subnet">
 						<option value="">Please select a subnet...</option>
 						<?php
-							require_once ('..mysqli_connect.php'); 
+							require_once ('../mysqli_connect.php'); 
 							$result = mysqli_query($dbc, "SELECT id, INET_NTOA(address) AS address, subnet_name FROM subnet");
 							while($row = mysqli_fetch_array($result)){
 								echo "<option value='" . $row['id'] . "'>" . $row['address'] . ' - ' . $row['subnet_name'] . "</option>";
@@ -142,7 +142,7 @@ else
 					</li>
 				</ul>
 				<hr>
-				<input type="submit" class="submitButton" value="Save" onClick=\"document.getElementById('result').showModal()\">
+				<input type="submit" class="submit-button" value="Save" onClick=\"document.getElementById('result').showModal()\">
 				<input type="reset" class="resetButton" value="Cancel">
 				<input type="hidden" name="submitted" value="true">
 				</form>

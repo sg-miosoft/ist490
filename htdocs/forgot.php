@@ -26,7 +26,7 @@ function sendEmail($e,$t)
 // Check if the form has been submitted.  
 if (isset($_POST['submitted']))
 {  
-    require_once ('..mysqli_connect.php'); // Connect to the db.  
+    require_once ('../mysqli_connect.php'); // Connect to the db.  
     $errors = array(); // Initialize error array. 
 
     // Check for an email address. 

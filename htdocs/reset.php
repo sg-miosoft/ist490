@@ -14,7 +14,7 @@ function showForm($u,$t) {
 } 
 
 if (isset($_GET["token"]) && !isset($_POST["submitted"])){ 
-    require_once ("..mysqli_connect.php"); // Connect to the db. 
+    require_once ("../mysqli_connect.php"); // Connect to the db. 
     $errors = array(); // Initialize error array. 
      
     $token = $_GET["token"]; 
@@ -44,8 +44,8 @@ if (isset($_GET["token"]) && !isset($_POST["submitted"])){
 elseif (isset($_POST["submitted"], $_GET["token"])) { 
     $user_id = $_POST["user_id"]; 
     $token = $_GET["token"]; 
-    require_once ("..mysqli_connect.php"); // Connect to the db. 
-    require_once ("..passwordLib.php"); // Connect to the db. 
+    require_once ("../mysqli_connect.php"); // Connect to the db. 
+    require_once (".../passwordLib.php"); // Connect to the db. 
     $errors = array(); // Initialize error array. 
      
     // Check for a password and match against the confirmed password. 

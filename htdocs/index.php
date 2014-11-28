@@ -9,7 +9,7 @@ else
 	//includes
 	include ("includes/header.php"); 
 	include ("includes/functions.php");
-	require_once ('..mysqli_connect.php'); 
+	require_once ('../mysqli_connect.php'); 
 	
 	$type=$_GET['type'];
 	

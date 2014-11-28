@@ -9,7 +9,7 @@ elseif(!empty($_POST['search']))
 	//includes
 	include ("includes/header.php"); 
 	include ("includes/functions.php");
-	require_once ('..mysqli_connect.php'); 
+	require_once ('../mysqli_connect.php'); 
 	$searchString = $_POST['search'];
 	$subnet_query = "SELECT id, 
 		INET_NTOA(address) AS address, 

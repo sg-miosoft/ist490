@@ -259,19 +259,16 @@ footer p
 	border-radius:3px;
 }
 
-.submitButton 
+.submit-button 
 {
 	background-color:#009ee2;
 	color:#FFF;
 	border:none !important;
 }
 
-.submitButton:hover
+.submit-button:hover
 {
 	color:#fff;
-	/*text-shadow:0 1px #E3F1F1;*/
-	/*background:#3F9;*/
-	/*background-color: #656565;*/
 	background-color: #999999;
 	cursor:pointer;
 }

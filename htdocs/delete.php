@@ -8,7 +8,7 @@ else
 {
 	//include the header 
     include ("includes/header.php"); 
-    require_once ('..mysqli_connect.php'); 
+    require_once ('../mysqli_connect.php'); 
     $type=$_GET['type'];
 	$id=$_GET['id'];
 	if(strcmp($type,"subnet") == 0)

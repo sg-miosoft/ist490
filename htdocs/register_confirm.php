@@ -11,7 +11,7 @@ function showForm($e,$t,$fn,$ln)
 			<p><input type='text' class='fnameEntry' name='first_name' placeholder='First Name' size='15' maxlength='15' value='".$fn."' /> <input type='text' class='lnameEntry' name='last_name' placeholder='Last Name' size='15' maxlength='30' value='".$ln."' /></p>
 			<p><input type='password' class='passEntry' name='password1' placeholder='Password' size='10' maxlength='20' /> <input type='password' class='passConEntry' name='password2' placeholder='Confirm Password' size='10' maxlength='50' /></p>
 			<span style='text-align:center'><p><input type='text' class='emailEntry' name='email' placeholder='E-mail Address' size='20' maxlength='40' value='".$e."' readonly /></p></span>
-			<span style='text-align:center'><p><input type='submit' class='submitButton' name='submit' value='Register' /></p></span>
+			<span style='text-align:center'><p><input type='submit' class='submit-button' name='submit' value='Register' /></p></span>
 			<input type='hidden' name='submitted' value='TRUE' />
 		</form>
 	</div>";
@@ -19,7 +19,7 @@ function showForm($e,$t,$fn,$ln)
 //end new form
 if (isset($_GET['token']) && !isset($_POST['submitted']))
 { 
-    require_once('..mysqli_connect.php'); // Connect to the db. 
+    require_once('../mysqli_connect.php'); // Connect to the db. 
     $errors = array(); // Initialize error array. 
      
     $token = $_GET['token']; 
@@ -52,8 +52,8 @@ if (isset($_GET['token']) && !isset($_POST['submitted']))
 } 
 elseif(isset($_POST['submitted'], $_GET['token'])) 
 { 
-    require_once ('..mysqli_connect.php'); // Connect to the db. 
-    require_once ('..passwordLib.php'); // Connect to the db. 
+    require_once ('../mysqli_connect.php'); // Connect to the db. 
+    require_once ('.../passwordLib.php'); // Connect to the db. 
     $errors = array(); // Initialize error array. 
      
     $email = $_POST['email']; 
