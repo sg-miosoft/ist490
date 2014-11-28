@@ -2,8 +2,8 @@
 // Send NOTHING to the Web browser prior to the session_start() line! 
 // Check if the form has been submitted. 
 if (isset($_POST['submitted'])) { 
-    require_once ('../../mysqli_connect.php'); // Connect to the db. 
-    require_once ('../../passwordLib.php'); // Connect to the db. 
+    require_once ('.mysqli_connect.php'); // Connect to the db. 
+    require_once ('.passwordLib.php'); // Connect to the db. 
     $errors = array(); // Initialize error array. 
     // Check for an email address. 
     if (empty($_POST['email'])) { 
@@ -34,7 +34,7 @@ if (isset($_POST['submitted'])) {
                 $_SESSION['first_name'] = $row[1]; 
                 $_SESSION['last_name'] = $row[2]; 
                 $_SESSION['email'] = $row[3];  
-                header("Location: https://uwm-iptracker.miosoft.com/home/index.php"); 
+                header("Location: https://uwm-iptracker.miosoft.com/index.php"); 
                 exit(); // Quit the script. 
             } 
             else{ 
@@ -53,7 +53,7 @@ if (isset($_POST['submitted'])) {
 
 // Begin the page now. 
 $page_title = 'Login'; 
-include ('../includes/header.php'); 
+include ('includes/header.php'); 
 if (!empty($errors)) { // Print any error messages. 
     echo '<h1 id="mainhead">Error!</h1> 
     <p class="error">The following error(s) occurred:<br />'; 
@@ -77,5 +77,5 @@ if (!empty($errors)) { // Print any error messages.
 </div>
 
 <?php
-include ('../includes/footer.php');
+include ('includes/footer.php');
 ?>

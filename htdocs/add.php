@@ -2,14 +2,14 @@
 //check session first
 if (!isset($_SESSION['email']))
 {
-	header("Location: https://uwm-iptracker.miosoft.com/home/login.php"); 
+	header("Location: https://uwm-iptracker.miosoft.com/login.php");
 }
 else
 {
 	//include the header
-	include ("../includes/header.php");
-	include ("../includes/functions.php");
-	require_once ('../../mysqli_connect.php'); 
+	include ("includes/header.php");
+	include ("includes/functions.php");
+	require_once ('..mysqli_connect.php'); 
 	$type=$_GET['type']; 
 	if(strcmp($type,"subnet") == 0)
 	{
@@ -120,7 +120,7 @@ else
 						<select id="subnet" name="subnet">
 						<option value="">Please select a subnet...</option>
 						<?php
-							require_once ('../../mysqli_connect.php'); 
+							require_once ('..mysqli_connect.php'); 
 							$result = mysqli_query($dbc, "SELECT id, INET_NTOA(address) AS address, subnet_name FROM subnet");
 							while($row = mysqli_fetch_array($result)){
 								echo "<option value='" . $row['id'] . "'>" . $row['address'] . ' - ' . $row['subnet_name'] . "</option>";
@@ -151,7 +151,7 @@ else
 <?php
 	}
 	//include the footer
-	include ("../includes/footer.php");
+	include("includes/footer.php");
 }
 
 

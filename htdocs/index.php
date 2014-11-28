@@ -2,14 +2,14 @@
 //check session first 
 if (!isset($_SESSION['email']))
 { 
-	header("Location: https://uwm-iptracker.miosoft.com/home/login.php"); 
+	header("Location: https://uwm-iptracker.miosoft.com/login.php"); 
 }
 else
 {
 	//includes
-	include ("../includes/header.php"); 
-	include ("../includes/functions.php");
-	require_once ('../../mysqli_connect.php'); 
+	include ("includes/header.php"); 
+	include ("includes/functions.php");
+	require_once ('..mysqli_connect.php'); 
 	
 	$type=$_GET['type'];
 	
@@ -169,12 +169,12 @@ else
 				<td class='notes'>" . $subnet_row['subnetNote'] . "</td>
 				<td class='table-content'>
 					<input type='image' class='delete-img' 
-						src='../images/delete-icon-dark.png' 
+						src='images/delete-icon-dark.png' 
 						alt='Delete' value='Delete' 
-						onmouseover=\"this.src='../images/delete-icon.png'\" 
-						onmouseout=\"this.src='../images/delete-icon-dark.png'\" 
+						onmouseover=\"this.src='images/delete-icon.png'\" 
+						onmouseout=\"this.src='images/delete-icon-dark.png'\" 
 						onClick=\"openModal('subnet',".$subnet_row['id'].",'".$subnet_row['subnet_name']."')\" /></td>
-				<td class='table-content'><a href=update.php?type=subnet&id=".$subnet_row['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
+				<td class='table-content'><a href=update.php?type=subnet&id=".$subnet_row['id']."><img class='edit-img' src='images/edit-icon.png' alt='Edit' onmouseover=\"this.src='images/edit-icon-hover.png'\" onmouseout=\"this.src='images/edit-icon.png'\"></a></td></tr>"; 
 				/*onClick=\"document.getElementById('deleteSubnet').showModal()\" /></td>*/
 				
 				$device_query = "SELECT id,
@@ -197,14 +197,14 @@ else
 						<td class='notes'>".$device_row['deviceNote']."</td>
 						<td class='table-content'>
 							<input type='image' class='delete-img' 
-								src='../images/delete-icon-dark.png' 
+								src='images/delete-icon-dark.png' 
 								alt='Delete' value='Delete' 
-								onmouseover=\"this.src='../images/delete-icon.png'\" 
-								onmouseout=\"this.src='../images/delete-icon-dark.png'\" 
+								onmouseover=\"this.src='images/delete-icon.png'\" 
+								onmouseout=\"this.src='images/delete-icon-dark.png'\" 
 								onClick=\"openModal('device',".$device_row['id'].",'".$device_row['device_name']."')\" /></td>
-						<td class='table-content'><a href=update.php?type=device&id=".$device_row['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
+						<td class='table-content'><a href=update.php?type=device&id=".$device_row['id']."><img class='edit-img' src='images/edit-icon.png' alt='Edit' onmouseover=\"this.src='images/edit-icon-hover.png'\" onmouseout=\"this.src='images/edit-icon.png'\"></a></td></tr>"; 
 
-						//echo "<td class='table-content'><a href=delete.php?type=device?id=".$device_row['id']."><img class='delete-img' src='../images/delete-icon-dark.png' alt='Delete' onmouseover=\"this.src='../images/delete-icon.png'\" onmouseout=\"this.src='../images/delete-icon-dark.png'\"></a></td>"; 
+						//echo "<td class='table-content'><a href=delete.php?type=device?id=".$device_row['id']."><img class='delete-img' src='images/delete-icon-dark.png' alt='Delete' onmouseover=\"this.src='images/delete-icon.png'\" onmouseout=\"this.src='images/delete-icon-dark.png'\"></a></td>"; 
 						/*onClick=\"document.getElementById('deleteDialog').showModal()\" /></td>";*/
 					}
 				}
@@ -236,7 +236,7 @@ else
 			//If it is not the first page, make a Previous button:
 			if($current_page != 1)
 			{
-				echo '<td><a class="prev-anchor" href="index.php?s='. ($start - $display) . '&p=' . $pages. '"><img src="../images/prev-button.png" alt="Previous" onmouseover="this.src=\'../images/prev-dark.png\'" onmouseout="this.src=\'../images/prev-button.png\'"> </a></td>';
+				echo '<td><a class="prev-anchor" href="index.php?s='. ($start - $display) . '&p=' . $pages. '"><img src="images/prev-button.png" alt="Previous" onmouseover="this.src=\'images/prev-dark.png\'" onmouseout="this.src=\'images/prev-button.png\'"> </a></td>';
 			}
 			//Make all the numbered pages:
 			for($i = 1; $i <= $pages; $i++){
@@ -248,7 +248,7 @@ else
 			} //End of FOR loop
 			//If it is not the last page, make a Next button:
 			if($current_page != $pages){
-				echo '<td><a class="next-anchor" href="index.php?s=' .($start + $display). '&p='. $pages. '"><img src="../images/next-button.png" alt="Next" class="next-but" onmouseover="this.src=\'../images/next-dark.png\'" onmouseout="this.src=\'../images/next-button.png\'"> </a></td>';
+				echo '<td><a class="next-anchor" href="index.php?s=' .($start + $display). '&p='. $pages. '"><img src="images/next-button.png" alt="Next" class="next-but" onmouseover="this.src=\'images/next-dark.png\'" onmouseout="this.src=\'images/next-button.png\'"> </a></td>';
 			}
 			
 			echo '</tr></table>';  //Close the table.
@@ -259,6 +259,6 @@ else
 		}//End of pages links
 	}
 	//include the footer 
-    include ("../includes/footer.php"); 
+    include("includes/footer.php");
 } 
 ?> 

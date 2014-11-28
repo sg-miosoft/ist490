@@ -11,12 +11,12 @@ if (!isset($_SESSION['email'])) {
 }
 
 // Include the header code.
-include ('../includes/header.php');
+include ('includes/header.php');
 
 // Print a customized message.
 echo "<div class='loggedOutContain'><h1>Logged Out!</h1>
 <p style='text-align:center;'>You are now logged out!</p>
 </div>";
 
-include ('../includes/footer.php');
+include("includes/footer.php");
 ?>

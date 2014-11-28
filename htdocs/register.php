@@ -1,6 +1,6 @@
 <?php  
 // Include header.php 
-include("../includes/header.php"); 
+include("includes/header.php"); 
 
 function sendEmail($e,$t)
 { 
@@ -8,11 +8,11 @@ function sendEmail($e,$t)
     $to=$e; 
     $subject="UWM IPTracker"; 
     $body=" 
-    Thank you very much for being a member of http://uwm-iptracker.miosoft.com/Project/htdocs/home/index.php!\n\n 
+    Thank you very much for being a member of http://uwm-iptracker.miosoft.com\n\n 
     Click the link below to confirm your registration.\n\n 
-    http://uwm-iptracker.miosoft.com/Project/htdocs/home/register_confirm.php?token=$t.\n\n 
+    http://uwm-iptracker.miosoft.com/register_confirm.php?token=$t.\n\n 
     Thanks again!\n\n 
-    http://uwm-iptracker.miosoft.com/Project/htdocs/home/index.php";  
+    http://uwm-iptracker.miosoft.com";  
     $headers="From: Spencer George <smtp.sender@us.msn.main.miosoft.com>\n";  // <-- Replace this to your email address!!! 
     mail ($to, $subject, $body, $headers); // SEND the message!   
 
@@ -21,15 +21,15 @@ function sendEmail($e,$t)
     <p>Please check your email to get your registration confirmation link.</p>';  
 
     // Include the footer and quit the script (to not show the form). 
-    include ('../includes/footer.php'); 
+    include ('includes/footer.php'); 
     exit();     
 } 
 
 // Check if the form has been submitted. 
 if (isset($_POST['submitted']))
 { 
-    require_once ('../../mysqli_connect.php'); // Connect to the db. 
-    require_once ('../../passwordLib.php'); // Connect to the db. 
+    require_once ('.mysqli_connect.php'); // Connect to the db. 
+    require_once ('.passwordLib.php'); // Connect to the db. 
     $errors = array(); // Initialize error array. 
 
     // Check for an email address. 
@@ -132,5 +132,5 @@ if(!empty($errors))
 
 <?php 
 // Include footer.php 
-include("../includes/footer.php"); 
+include("includes/footer.php");
 ?> 

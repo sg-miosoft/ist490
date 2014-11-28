@@ -1,6 +1,6 @@
 <?php   
 #code to deal with forgot password  
-include ('../includes/header.php');  
+include ('includes/header.php');  
 function sendEmail($e,$t)
 {  
     // Send an email, if desired.  
@@ -20,13 +20,13 @@ function sendEmail($e,$t)
     <p>Please check your email to get your password reset link.</p>';   
 
     // Include the footer and quit the script (to not show the form).  
-    include ('../includes/footer.php');  
+    include ('includes/footer.php');  
     exit();      
 }  
 // Check if the form has been submitted.  
 if (isset($_POST['submitted']))
 {  
-    require_once ('../../mysqli_connect.php'); // Connect to the db.  
+    require_once ('..mysqli_connect.php'); // Connect to the db.  
     $errors = array(); // Initialize error array. 
 
     // Check for an email address. 
@@ -88,7 +88,7 @@ if (isset($_POST['submitted']))
 		{ // Not registered. For security don't tell them it failed. 
             echo '<h1 id="mainhead">Thank you!</h1> 
             <p>Please, check your email for a password reset link.</p>';  
-            include ('../includes/footer.php'); 
+            include ('includes/footer.php'); 
             exit(); 
         } 
     }
@@ -123,5 +123,5 @@ if(!empty($errors))
 </div>
 
 <?php 
-include ('../includes/footer.php'); 
+include("includes/footer.php");
 ?> 

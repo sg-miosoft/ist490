@@ -1,6 +1,6 @@
 <?php  
 // Include header.php
-include("../includes/header.php");
+include("includes/header.php");
 // Check if the form has been submitted.
 function showForm($e,$t,$fn,$ln) 
 {
@@ -19,7 +19,7 @@ function showForm($e,$t,$fn,$ln)
 //end new form
 if (isset($_GET['token']) && !isset($_POST['submitted']))
 { 
-    require_once('../../mysqli_connect.php'); // Connect to the db. 
+    require_once('..mysqli_connect.php'); // Connect to the db. 
     $errors = array(); // Initialize error array. 
      
     $token = $_GET['token']; 
@@ -52,8 +52,8 @@ if (isset($_GET['token']) && !isset($_POST['submitted']))
 } 
 elseif(isset($_POST['submitted'], $_GET['token'])) 
 { 
-    require_once ('../../mysqli_connect.php'); // Connect to the db. 
-    require_once ('../../passwordLib.php'); // Connect to the db. 
+    require_once ('..mysqli_connect.php'); // Connect to the db. 
+    require_once ('..passwordLib.php'); // Connect to the db. 
     $errors = array(); // Initialize error array. 
      
     $email = $_POST['email']; 
@@ -152,5 +152,5 @@ elseif(!empty($errors) && $sForm)
 
 <?php 
 // Include footer.php 
-include("../includes/footer.php"); 
+include("includes/footer.php");
 ?>

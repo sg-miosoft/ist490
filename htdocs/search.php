@@ -2,14 +2,14 @@
 //check session first 
 if(!isset($_SESSION['email']))
 { 
-	header("Location: https://uwm-iptracker.miosoft.com/home/login.php"); 
+	header("Location: https://uwm-iptracker.miosoft.com/login.php");
 }
 elseif(!empty($_POST['search']))
 {
 	//includes
-	include ("../includes/header.php"); 
-	include ("../includes/functions.php");
-	require_once ('../../mysqli_connect.php'); 
+	include ("includes/header.php"); 
+	include ("includes/functions.php");
+	require_once ('..mysqli_connect.php'); 
 	$searchString = $_POST['search'];
 	$subnet_query = "SELECT id, 
 		INET_NTOA(address) AS address, 
@@ -100,12 +100,12 @@ elseif(!empty($_POST['search']))
 			<td class='notes'>" . $subnet_row['note'] . "</td>
 			<td class='table-content'>
 				<input type='image' class='delete-img' 
-					src='../images/delete-icon-dark.png' 
+					src='images/delete-icon-dark.png' 
 					alt='Delete' value='Delete' 
-					onmouseover=\"this.src='../images/delete-icon.png'\" 
-					onmouseout=\"this.src='../images/delete-icon-dark.png'\" 
+					onmouseover=\"this.src='images/delete-icon.png'\" 
+					onmouseout=\"this.src='images/delete-icon-dark.png'\" 
 					onClick=\"openModal('subnet',".$subnet_row['id'].",'".$subnet_row['subnet_name']."')\" /></td>
-			<td class='table-content'><a href=update.php?type=subnet&id=".$subnet_row['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
+			<td class='table-content'><a href=update.php?type=subnet&id=".$subnet_row['id']."><img class='edit-img' src='images/edit-icon.png' alt='Edit' onmouseover=\"this.src='images/edit-icon-hover.png'\" onmouseout=\"this.src='images/edit-icon.png'\"></a></td></tr>"; 
 		}	
 	
 		while($device_row = mysqli_fetch_array($device_result, MYSQLI_ASSOC))
@@ -117,12 +117,12 @@ elseif(!empty($_POST['search']))
 			<td class='notes'>".$device_row['note']."</td>
 			<td class='table-content'>
 				<input type='image' class='delete-img' 
-					src='../images/delete-icon-dark.png' 
+					src='images/delete-icon-dark.png' 
 					alt='Delete' value='Delete' 
-					onmouseover=\"this.src='../images/delete-icon.png'\" 
-					onmouseout=\"this.src='../images/delete-icon-dark.png'\" 
+					onmouseover=\"this.src='images/delete-icon.png'\" 
+					onmouseout=\"this.src='images/delete-icon-dark.png'\" 
 					onClick=\"openModal('device',".$device_row['id'].",'".$device_row['device_name']."')\" /></td>
-			<td class='table-content'><a href=update.php?type=device&id=".$device_row['id']."><img class='edit-img' src='../images/edit-icon.png' alt='Edit' onmouseover=\"this.src='../images/edit-icon-hover.png'\" onmouseout=\"this.src='../images/edit-icon.png'\"></a></td></tr>"; 
+			<td class='table-content'><a href=update.php?type=device&id=".$device_row['id']."><img class='edit-img' src='images/edit-icon.png' alt='Edit' onmouseover=\"this.src='images/edit-icon-hover.png'\" onmouseout=\"this.src='images/edit-icon.png'\"></a></td></tr>"; 
 		}
 		
 		echo "</table>"; 
@@ -134,6 +134,6 @@ elseif(!empty($_POST['search']))
 }
 			
 //include the footer 
-include ("../includes/footer.php"); 
+include("includes/footer.php");
  
 ?> 
