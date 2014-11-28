@@ -12,17 +12,13 @@
 	<div id="logo">
 		<a href="https://uwm-iptracker.miosoft.com"><img src="images/miosoft_website.png" alt="MIOsoft Logo" title="MIOsoft Logo" />IP ADDRESS TRACKER</a>
 	</div>
-	<div id="search">
-		<form method="post" action="search.php"> 
-			<input type="search" id="search-input" name="search" placeholder="Search">
-		</form>
-	</div>
-</header>
+	
 
 <?php
 if(!isset($_SESSION['email'])) //user is not logged in
 {
-	echo "<nav>
+	echo "</header>
+	<nav>
 		<ul>
 			<li><a href=register.php>Register</a></li>
 			<li><a href=forgot.php>Forgot Password?</a></li>
@@ -32,7 +28,13 @@ if(!isset($_SESSION['email'])) //user is not logged in
 }
 else
 {
-	echo "<nav>
+	echo "<div id='search'>
+		<form method='post' action='search.php'> 
+			<input type='search' id='search-input' name='search' placeholder='Search'>
+		</form>
+	</div>
+	</header>
+	<nav>
 		<ul>
 			<li><a class='homeNav' href=index.php>Home</a></li>
 			<li><a class='logoutNav' href=logout.php>Logout</a></li>
