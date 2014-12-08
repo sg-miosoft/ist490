@@ -26,16 +26,19 @@ elseif(!empty($_POST['search']))
 		OR LOWER(note) LIKE LOWER('%".$searchString."%')";
 	$subnet_result = mysqli_query($dbc,$subnet_query);	
 	
-	$device_query = "SELECT id, 
-		subnet_id, 
-		INET_NTOA(address) AS address, 
-		device_name, 
-		note 
-		FROM device 
-		WHERE id LIKE '%".$searchString."%'
-		OR INET_NTOA(address) LIKE '%".$searchString."%'
-		OR LOWER(device_name) LIKE LOWER('%".$searchString."%')
-		OR LOWER(note) LIKE LOWER('%".$searchString."%')";
+	$device_query = "SELECT d.id, 
+		INET_NTOA(d.address) AS address, 
+		d.device_name, 
+		d.note,
+		INET_NTOA(s.mask) AS mask,
+		INET_NTOA(s.gateway) AS gateway
+		FROM device AS d
+		LEFT OUTER JOIN subnet AS s
+		ON d.subnet_id = s.id
+		WHERE d.id LIKE '%".$searchString."%'
+		OR INET_NTOA(d.address) LIKE '%".$searchString."%'
+		OR LOWER(d.device_name) LIKE LOWER('%".$searchString."%')
+		OR LOWER(d.note) LIKE LOWER('%".$searchString."%')";
 	$device_result = mysqli_query($dbc,$device_query);
 	
 	whichPageMenuDisplay('index');
@@ -112,8 +115,8 @@ elseif(!empty($_POST['search']))
 		{
 			echo "<tr><td class='name'>".$device_row['device_name']."</td>  
 			<td class='table-content'>".$device_row['address']."</td>
-			<td class='table-content'>*</td>
-			<td class='table-content'>*</td>
+			<td class='table-content'>".$device_row['mask']."</td>  
+			<td class='table-content'>".$device_row['gateway']."</td>
 			<td class='notes'>".$device_row['note']."</td>
 			<td class='table-content'>
 				<input type='image' class='delete-img' 
