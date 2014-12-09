@@ -26,9 +26,11 @@ if (isset($_GET['token']) && !isset($_POST['submitted']))
     $query = "SELECT * FROM pending_users WHERE token = '$token'"; 
     $result = mysqli_query($dbc,$query); 
     if(mysqli_num_rows($result)==1)
-	{ 
+	{
+		echo('yes');
         while ($row=mysqli_fetch_array($result))
-		{ 
+		{
+			echo('time check');		
             $time_stamp = $row['time_stamp']; 
             $time_now = date("Y-m-d H:i:s"); 
             $user_email = $row['email']; 
@@ -37,15 +39,18 @@ if (isset($_GET['token']) && !isset($_POST['submitted']))
         // Check to see if link has expired 
         if(($time_now - $time_stamp)  > 86400)
 		{ 
+			echo('time failed');
             $errors[] = 'Invalid token.'; // Public message. 
         } 
         else
-		{ 
+		{
+			echo('time good');
             showForm($user_email,$token,null,null); 
         } 
     } 
     else
-	{ 
+	{
+		echo('no');
         $errors[] = 'Invalid token.'; // Public message. 
     } 
     mysqli_close($dbc); // Close the database connection.     
@@ -53,7 +58,7 @@ if (isset($_GET['token']) && !isset($_POST['submitted']))
 elseif(isset($_POST['submitted'], $_GET['token'])) 
 { 
     require_once ('../mysqli_connect.php'); // Connect to the db. 
-    require_once ('.../passwordLib.php'); // Connect to the db. 
+    require_once ('../passwordLib.php'); // Connect to the db. 
     $errors = array(); // Initialize error array. 
      
     $email = $_POST['email']; 
@@ -101,7 +106,9 @@ elseif(isset($_POST['submitted'], $_GET['token']))
             $result = @mysqli_query($dbc,$query); // Run the query. 
             if($result) 
 			{ 
-				header("Location: https://uwm-iptracker.miosoft.com/home/login.php"); 
+				$query = "DELETE FROM pending_users WHERE email = ".$email.";";
+				$result = @mysqli_query($dbc,query);
+				header("Location: https://uwm-iptracker.miosoft.com/login.php"); 
 			}
 			else 
 			{ // If it did not run OK. 
