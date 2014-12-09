@@ -15,6 +15,39 @@ else
 	{
 		if ($_POST['submitted'])
 		{
+?>
+			<script>
+				function openModal(type,id,name)
+				{
+					var action = ('index.php?type=').concat(type);
+					if(type === 'subnet')
+					{
+						var header1 = 'Delete the ';
+						var header2 = ' subnet?';
+						
+						document.getElementById('dialogP').innerHTML = '<em>Note </em>: All associated devices will lose their IP addresses.';
+					}
+					else if(type === 'device')
+					{
+						var header1 = 'Delete ';
+						var header2 = '?';
+						
+						document.getElementById('dialogP').innerHTML = '';
+					}
+					document.getElementById('deleteID').value = id;
+					document.getElementById('dialogH2').innerText = header1.concat(name).concat(header2);
+					document.getElementById('dialogForm').action = action;
+					document.getElementById('deleteDialog').showModal();
+				}
+			</script>
+			
+			<dialog id="deleteDialog">
+				<input type="button" id="close" value="X" onClick="document.getElementById('deleteDialog').close();">
+				<h2 id="dialogH2"></h2>
+				
+				<input type="button" class="resetButtonModal" value="Cancel" onClick="document.getElementById('deleteDialog').close();">    
+			</dialog>
+<?php
 			$subnet_name = mysqli_real_escape_string($dbc,$_POST['subnet_name']); 
 			$address = mysqli_real_escape_string($dbc,$_POST['address']); 
 			$mask = mysqli_real_escape_string($dbc,$_POST['mask']); 

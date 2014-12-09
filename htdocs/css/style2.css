@@ -372,7 +372,7 @@ footer p
 	cursor:pointer;
 }
 
-.success-add
+.success-dialog
 {
 	color:#000;
 	margin-left:97px;
@@ -384,7 +384,7 @@ footer p
 	border-radius:3px;
 }
 
-.fail-add{
+.fail-dialog{
 	color:#000;
 	margin-left:97px;
 	text-align:center;
