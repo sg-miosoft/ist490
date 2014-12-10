@@ -10,6 +10,40 @@ else
 	include ("includes/header.php");
 	require_once ('../mysqli_connect.php'); 
 	$type=$_GET['type'];
+?>
+	<script>
+		function openModal(status,message)
+		{
+			var action = 'index.php';
+			if(status === 'success')
+			{
+				var header = 'Success!';
+				document.getElementById('dialogP').innerHTML = message;
+				document.getElementById('updateDialog').className = 'success-dialog';
+			}
+			else if(status === 'fail')
+			{
+				var header = 'Error!';
+				document.getElementById('dialogP').innerHTML = message;
+				document.getElementById('updateDialog').className = 'fail-dialog';
+			}
+			document.getElementById('dialogH2').innerText = header;
+			document.getElementById('dialogForm').action = action;
+			document.getElementById('updateDialog').showModal();
+		}
+	</script>
+	
+	<dialog id="updateDialog">
+		<input type="button" id="closeX" value="X" onClick="document.getElementById('updateDialog').close();">
+		<h2 id="dialogH2"></h2>
+		
+		<p id="dialogP"></p>
+		<form id="dialogForm">
+			<button id="close" form="dialogForm" type="submit">Close</button>
+		</form>
+	</dialog>
+<?php
+
 	if(strcmp($type,"subnet") == 0)
 	{
 		if($_POST['id'])
@@ -31,12 +65,12 @@ else
 			$post_subnet_result = @mysqli_query($dbc,$post_subnet_query); 
 			if($post_subnet_result)
 			{
-				echo "<center><p><b>The selected record has been updated.</b></p>"; 
-				echo "<a href=index.php>home</a></center>"; 
+				$message = "The " . $subnet_name . " subnet has been updated!";
+				echo "<script>openModal('success','" . $message . "');</script>";				
 			}
 			else 
 			{
-				echo "<p>The record could not be updated due to a system error: " . mysqli_error($dbc) . "</p>"; 
+				echo "<script>openModal('fail','" . mysqli_real_escape_string($dbc,mysqli_error($dbc)) . "');</script>";				
 			}
 			mysqli_close($dbc);
 		}
@@ -110,12 +144,12 @@ else
 			$post_device_result = @mysqli_query($dbc,$post_device_query); 
 			if($post_device_result)
 			{
-				echo "<center><p><b>The selected record has been updated.</b></p>"; 
-				echo "<a href=index.php>home</a></center>"; 
+				$message = $device_name . " has been updated!";
+				echo "<script>openModal('success','" . $message . "');</script>";
 			}
 			else
 			{
-				echo "<p>The record could not be updated due to a system error: " . mysqli_error($dbc) . "</p>"; 
+				echo "<script>openModal('fail','" . mysqli_real_escape_string($dbc,mysqli_error($dbc)) . "');</script>"; 
 			}
 			mysqli_close($dbc);
 		}

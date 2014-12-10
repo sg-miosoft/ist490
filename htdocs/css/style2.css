@@ -527,7 +527,7 @@ input[type=button]
 
 #closeX:hover
 {
-	background:#009ee2;
+	background:#696969;
 	cursor:pointer;
 }
 
@@ -544,10 +544,10 @@ input[type=button]
 
 #close:hover
 {
-	color: #000;
-	background:#00e244;
+	background:#696969;
 	cursor:pointer;
 }
+
 .results-per-page 
 {
 	font-family:"Lato", sans-serif;
