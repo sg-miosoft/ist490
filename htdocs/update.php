@@ -175,10 +175,15 @@ else
 								<select id="subnet" name="subnet">
 								<option value="">Please select a subnet...</option>
 								<?php
-									//require_once ('../mysqli_connect.php'); 
-									$result2 = mysqli_query($dbc, "SELECT id, INET_NTOA(address) AS address FROM subnet");
-									while($get_device_row2 = mysqli_fetch_array($result2)){
-										echo "<option value='" . $get_device_row2['id'] . "'>" . $get_device_row2['address'] . "</option>";
+									$result2 = mysqli_query($dbc, "SELECT id, INET_NTOA(address) AS address FROM subnet WHERE id = " . $get_device_row['subnet_id']);
+									while($get_device_row2 = mysqli_fetch_array($result2))
+									{
+										echo "<option selected value='" . $get_device_row2['id'] . "'>" . $get_device_row2['address'] . "</option>";
+									}
+									$result3 = mysqli_query($dbc, "SELECT id, INET_NTOA(address) AS address FROM subnet WHERE id != " . $get_device_row['subnet_id']);
+									while($get_device_row3 = mysqli_fetch_array($result3))
+									{
+										echo "<option value='" . $get_device_row3['id'] . "'>" . $get_device_row3['address'] . "</option>";
 									}
 								?>
 								</select>
