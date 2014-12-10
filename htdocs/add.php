@@ -1,8 +1,8 @@
 <?php
 //check session first
-if (!isset($_SESSION['email']))
+if($_SESSION['readonly'] == 1 or !isset($_SESSION['email']))
 {
-	header("Location: https://uwm-iptracker.miosoft.com/login.php");
+	header("Location: https://uwm-iptracker.miosoft.com/index.php");
 }
 else
 {

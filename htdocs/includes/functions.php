@@ -1,8 +1,11 @@
 <?php
+
 function whichPageMenuDisplay($page) 
 {
 	echo "<aside>";
-	if(strcmp($page,"device") == 0) 
+	if($_SESSION['readonly'] == 1) //do not create buttons for adding entities
+	{}
+	elseif(strcmp($page,"device") == 0) //is device
 	{
 		echo "<div class='aside-inactive' onmouseover='addSubnetdark();' onmouseout='addSubnetdefault();' onclick=\"location.href='add.php?type=subnet';\">
 			<div class='aside-image'>
@@ -18,7 +21,7 @@ function whichPageMenuDisplay($page)
 			<span>Add <strong>Device</strong></span>
 		</div>";
 	}
-	elseif(strcmp($page,"subnet") == 0) 
+	elseif(strcmp($page,"subnet") == 0) //is subnet
 	{
 		echo "<div class='aside-active' onmouseover='addSubnetdark();' onmouseout='addSubnetdefault();'>
 			<div class='aside-image'>

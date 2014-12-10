@@ -26,7 +26,11 @@ function sendEmail($e,$t)
 } 
 
 // Check if the form has been submitted. 
-if (isset($_POST['submitted']))
+if($_SESSION['readonly'] == 1 or !isset($_SESSION['email']))
+{
+	header("Location: https://uwm-iptracker.miosoft.com/index.php");
+}
+elseif(isset($_POST['submitted']))
 { 
     require_once ('../mysqli_connect.php'); // Connect to the db. 
     require_once ('../passwordLib.php'); // Connect to the db. 
@@ -129,8 +133,39 @@ if(!empty($errors))
 		<input type="hidden" name="submitted" value="TRUE" />
 	</form>
 </div>
+<!--Table header-->
+<table class='ip-table' cellpadding=5 cellspacing=5 border=1><tr>
+	<th class='name'>Name</th><th>Subnet / IP Address</th><th>Subnet Mask</th><th>Gateway</th><th>Notes</th><th>*</th><th>*</th></tr> 		
+<?php
+$user_query = "SELECT user_id, CONCAT(first_name, last_name) AS Name, email, registration_date, readonly FROM users";				
 
-<?php 
+$user_result = mysqli_query($dbc,$user_query);
+
+if($user_result)
+{
+	while($user_row = mysqli_fetch_array($user_result, MYSQLI_ASSOC))
+	{
+		echo "<tr><td class='name'>".$user_row['device_name']."</td>  
+		<td class='table-content'>".$user_row['deviceAddress']."</td>
+		<td class='table-content'>*</td>
+		<td class='table-content'>*</td>
+		<td class='notes'>".$user_row['deviceNote']."</td>
+		<td class='table-content'>
+			<input type='image' class='delete-img' 
+				src='images/delete-icon-dark.png' 
+				alt='Delete' value='Delete' 
+				onmouseover=\"this.src='images/delete-icon.png'\" 
+				onmouseout=\"this.src='images/delete-icon-dark.png'\" 
+				onClick=\"openModal('device',".$user_row['id'].",'".$user_row['device_name']."')\" /></td>
+		<td class='table-content'><a href=update.php?type=device&id=".$user_row['id']."><img class='edit-img' src='images/edit-icon.png' alt='Edit' onmouseover=\"this.src='images/edit-icon-hover.png'\" onmouseout=\"this.src='images/edit-icon.png'\"></a></td></tr>"; 
+
+		//echo "<td class='table-content'><a href=delete.php?type=device?id=".$user_row['id']."><img class='delete-img' src='images/delete-icon-dark.png' alt='Delete' onmouseover=\"this.src='images/delete-icon.png'\" onmouseout=\"this.src='images/delete-icon-dark.png'\"></a></td>"; 
+		/*onClick=\"document.getElementById('deleteDialog').showModal()\" /></td>";*/
+	}
+}
+}
+echo "</table>"; 
+			
 // Include footer.php 
 include("includes/footer.php");
 ?> 

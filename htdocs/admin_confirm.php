@@ -17,7 +17,11 @@ function showForm($e,$t,$fn,$ln)
 	</div>";
 }
 //end new form
-if (isset($_GET['token']) && !isset($_POST['submitted']))
+if($_SESSION['readonly'] == 1 or !isset($_SESSION['email']))
+{
+	header("Location: https://uwm-iptracker.miosoft.com/index.php");
+}
+elseif (isset($_GET['token']) && !isset($_POST['submitted']))
 { 
     require_once('../mysqli_connect.php'); // Connect to the db. 
     $errors = array(); // Initialize error array. 

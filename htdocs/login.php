@@ -33,7 +33,8 @@ if (isset($_POST['submitted'])) {
                 $_SESSION['user_id'] = $row[0]; 
                 $_SESSION['first_name'] = $row[1]; 
                 $_SESSION['last_name'] = $row[2]; 
-                $_SESSION['email'] = $row[3];  
+                $_SESSION['email'] = $row[3];
+				$_SESSION['readonly'] = $row[6];
                 header("Location: https://uwm-iptracker.miosoft.com/index.php"); 
                 exit(); // Quit the script. 
             } 

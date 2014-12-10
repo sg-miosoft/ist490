@@ -21,13 +21,10 @@ if(!isset($_SESSION['email'])) //user is not logged in
 	echo "</header>
 	<nav>
 		<ul>
-			<li><a href=register.php>Register</a></li>
 			<li><a href=forgot.php>Forgot Password?</a></li>
-			<li><a href=login.php>Login</a></li>
-		</ul>
-	</nav>";
+			<li><a href=login.php>Login</a></li>";
 }
-else
+elseif($_SESSION['readonly'] == 1)
 {
 	echo "<div id='search'>
 		<form method='post' action='search.php'> 
@@ -37,12 +34,16 @@ else
 	</header>
 	<nav>
 		<ul>
-			<li><a class='homeNav' href=index.php>Home</a></li>
-			<li><a class='logoutNav' href=logout.php>Logout</a></li>
-		</ul>
-	</nav>";
+			<li><a href='index.php'>Home</a></li>
+			<li><a href='logout.php'>Logout</a></li>";
+}
+else
+{
+			echo"<li><a href='admin.php'>Admin</a></li>";
 } 
 ?>
+		</ul>
+	</nav>
 <section>
 
 
