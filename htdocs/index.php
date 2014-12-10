@@ -61,6 +61,7 @@ else
 	}
 	else //Display all records
 	{
+/*
 		//Set the number of records to display per page 
 		$display = 5; 
 
@@ -72,8 +73,6 @@ else
 		}
 		else
 		{//Need to determine 
-			//Count the number of records; 
-			//$u_id=$_SESSION['user_id']; 
 			$query = "SELECT COUNT(id) FROM subnet"; 
 			$result = @mysqli_query($dbc,$query);  
 			$row = @mysqli_fetch_array($result,  MYSQLI_NUM);
@@ -101,6 +100,7 @@ else
 		{ 
 			$start = 0; 
 		} 
+*/
 		$subnet_query = "SELECT id, 
 			INET_NTOA(address) AS subnetAddress,
 			INET_NTOA(mask) AS mask,
@@ -108,8 +108,8 @@ else
 			subnet_name,
 			note AS subnetNote
 			FROM subnet
-			ORDER BY subnetAddress
-			LIMIT $start, $display";
+			ORDER BY subnetAddress";
+//			LIMIT $start, $display";
 		$subnet_result = mysqli_query($dbc,$subnet_query);	
 		
 		whichPageMenuDisplay('index');
@@ -219,7 +219,7 @@ else
 			
 		mysqli_free_result($result); // Free up the resources.          
 		mysqli_close($dbc); // Close the database connection. 
-			
+/*			
 		//Make the links to other pages if necessary.
 		if($pages>1)
 		{
@@ -247,16 +247,19 @@ else
 				}
 			} //End of FOR loop
 			//If it is not the last page, make a Next button:
-			if($current_page != $pages){
+			if($current_page != $pages)
+			{
 				echo '<td><a class="next-anchor" href="index.php?s=' .($start + $display). '&p='. $pages. '"><img src="images/next-button.png" alt="Next" class="next-but" onmouseover="this.src=\'images/next-dark.png\'" onmouseout="this.src=\'images/next-button.png\'"> </a></td>';
 			}
 			
 			echo '</tr></table>';  //Close the table.
-			?>
+
 			<div class="clear"></div>
 			</article>
-			<?php
+<?php
 		}//End of pages links
+*/
+		echo "</article>";
 	}
 	//include the footer 
     include("includes/footer.php");

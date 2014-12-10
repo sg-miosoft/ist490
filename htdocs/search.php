@@ -43,9 +43,19 @@ elseif(!empty($_POST['search']))
 	
 	whichPageMenuDisplay('index');
 		
-	if(!$subnet_result and !$device_result)
+	if((mysqli_num_rows($subnet_result)==0) and (mysqli_num_rows($device_result)==0))
 	{
-		echo '<p>Your search hits no result.</p>'; 
+?>
+		<dialog id="resultsDialog">
+			<input type="button" id="closeX" value="X" onClick="document.getElementById('resultsDialog').close();">
+			<h2 id="dialogH2">Sorry</h2>
+			<p id="dialogP">No Results Found</p>
+			<form id="dialogForm" action="index.php">
+				<button id="close" form="dialogForm" type="submit">Close</button>
+			</form>
+		</dialog>
+		<script>document.getElementById('resultsDialog').showModal();</script>
+<?php
 	}
 	else
 	{
