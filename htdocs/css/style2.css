@@ -268,8 +268,23 @@ footer p
 
 .submit-button:hover
 {
+	color:#000;
+	background-color: #00e244;
+	cursor:pointer;
+}
+
+.reset-button 
+{
+	float:right;
 	color:#fff;
-	background-color: #999999;
+	background-color:#656565;
+	border:none !important;
+}
+
+.reset-button:hover
+{
+	background:#e24400;
+	border-color:#000 #000 #000;
 	cursor:pointer;
 }
 
@@ -354,53 +369,14 @@ footer p
 	transform: translateY(-50%);
 }
 
-.delete-dialog-delete
+dialog 
 {
-	border: none;
-	float:left;
-	color:#fff;
-	background-color:#999999;
-	padding:0 18px;
-	height:29px;
-	font-weight:bold;
-}
-
-.delete-dialog-delete:hover
-{
-	color:#000;
-	background:#FF4040;
-	cursor:pointer;
-}
-
-.success-dialog
-{
-	color:#000;
-	margin-left:97px;
-	text-align:center;
-	padding:5px 20px 5px 20px;
-	width:200px;
-	background:#0F0;
-	border:1px solid #000;
-	border-radius:3px;
-}
-
-.fail-dialog{
-	color:#000;
-	margin-left:97px;
-	text-align:center;
-	padding:5px 20px 5px 20px;
-	width:200px;
-	background:#FF0009;
-	border:1px solid #000;
-	border-radius:3px;
-}
-
-dialog {
 	border:none;
 	background-color:#e5e5e5;
 }
 
-dialog p {
+dialog p 
+{
 	font-family:"Lato", sans-serif;
 	font-size:17px;
 	color:#FF4040;
@@ -408,7 +384,8 @@ dialog p {
 	margin-bottom:30px;
 }
 
-dialog h2 {
+dialog h2 
+{
 	margin-right: 50px;
 	display: inline;
 	font-family:"Lato", sans-serif;
@@ -419,7 +396,8 @@ dialog h2 {
 	border-bottom: 1px solid #000;
 }
 
-dialog::backdrop {
+dialog::backdrop 
+{
   position: fixed;
   top: 0;
   left: 0;
@@ -428,17 +406,61 @@ dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.75);
 }
 
-.resetButtonModal {
-	float:right;
+.delete-dialog-delete
+{
+	border: none;
+	float:left;
 	color:#fff;
-	background-color:#999999;
+	background-color:#e24400;
+	padding:0 18px;
+	height:29px;
+	font-weight:bold;
+}
+
+.delete-dialog-delete:hover
+{
+	background: #00e244;
+	color: #000;
+	cursor: pointer;
+}
+
+.delete-dialog-cancel 
+{
+	float: right;
+	color: #fff;
+	background-color: #999;
 	border:none !important;
 }
 
-.resetButtonModal:hover{
-	color:#000;
-	background:#3F9;
-	cursor:pointer;
+.delete-dialog-cancel:hover
+{
+	background: #009ee2;
+	cursor: pointer;
+}
+
+.success-dialog
+{
+	color: #000;
+	background: #00e244;
+}
+.success-dialog p
+{
+	color: #000;
+}
+
+.fail-dialog
+{
+	color:#fff;
+	background:#e24400;
+}
+.fail-dialog h2
+{
+	color: #fff;
+	border-bottom: 1px solid #fff;
+}
+.fail-dialog p
+{
+	color: #fff;
 }
 
 input
@@ -491,10 +513,10 @@ input[type=button]
 	outline: none;
 }
 
-#close 
+#closeX
 {
-	color:#000;
-	background-color:#999999;
+	color:#fff;
+	background-color:#999;
 	border:none !important;
 	float:right;
 	height:23px;
@@ -503,9 +525,57 @@ input[type=button]
 	outline: none;
 }
 
+#closeX:hover
+{
+	background:#009ee2;
+	cursor:pointer;
+}
+
+#close
+{
+	border: none;
+	float: left;
+	color:#fff;
+	background-color: #999;
+	padding:0 18px;
+	height:29px;
+	font-weight:bold;
+}
+
 #close:hover
 {
+	color: #000;
+	background:#00e244;
+	cursor:pointer;
+}
+.results-per-page 
+{
+	font-family:"Lato", sans-serif;
+	font-size:15px;
+	color:#000;
+	font-weight:700;
+}
+
+.display-results select 
+{
+	background:url(../images/dropdown-open.png) 85% center no-repeat;
+	background-color:#323232;
+	border-radius:5px;
 	color:#FFF;
-	background:#323232;
+	font-family:"Lato", sans-serif;
+	font-size:13px;
+	font-weight:400;
+	padding-right:8px;
+	padding-left:7px;
+	padding-top:2px;
+	padding-bottom:2px;
+	margin-right:5px;
+	appearance:none;
+	-webkit-appearance:none;
+	-moz-appearance:none;
+}
+
+.display-results select:hover 
+{
 	cursor:pointer;
 }

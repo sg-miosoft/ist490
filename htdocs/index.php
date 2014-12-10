@@ -22,7 +22,7 @@ else
 			$del_subnet_result = @mysqli_query($dbc,$del_subnet_query);
 			if($del_subnet_result)
 			{
-				header("Location: https://uwm-iptracker.miosoft.com/home/index.php"); 
+				header("Location: https://uwm-iptracker.miosoft.com/index.php"); 
 			}
 			else
 			{
@@ -45,7 +45,7 @@ else
 			$deldevice_result = @mysqli_query($dbc,$deldevice_query);
 			if($deldevice_result)
 			{
-				header("Location: https://uwm-iptracker.miosoft.com/home/index.php"); 
+				header("Location: https://uwm-iptracker.miosoft.com/index.php"); 
 			}
 			else
 			{
@@ -131,7 +131,7 @@ else
 					}
 					else if(type === 'device')
 					{
-						var header1 = 'Delete ';
+						var header1 = 'Delete device ';
 						var header2 = '?';
 						
 						document.getElementById('dialogP').innerHTML = '';
@@ -144,7 +144,7 @@ else
 			</script>
 			
 			<dialog id="deleteDialog">
-				<input type="button" id="close" value="X" onClick="document.getElementById('deleteDialog').close();">
+				<input type="button" id="closeX" value="X" onClick="document.getElementById('deleteDialog').close();">
 				<h2 id="dialogH2"></h2>
 				<div class="fake-hr"></div>
 				<p id="dialogP"></p>
@@ -153,7 +153,7 @@ else
 				</form>
 				<!--<button class="delete-dialog-delete" value="Delete">Delete</button>-->
 				<button class="delete-dialog-delete" form="dialogForm" name='deleteButton' type="submit">Delete</button>
-				<input type="button" class="resetButtonModal" value="Cancel" onClick="document.getElementById('deleteDialog').close();">    
+				<input type="button" class="delete-dialog-cancel" value="Cancel" onClick="document.getElementById('deleteDialog').close();">    
 			</dialog>
 			
 			<!--Table header-->

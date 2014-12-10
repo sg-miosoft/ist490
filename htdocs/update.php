@@ -80,7 +80,7 @@ else
 							<hr>
 							
 							<input type="submit" class="submit-button" value="Update"> 
-							<input type="reset" class="resetButton" value="Cancel">
+							<input type="reset" class="reset-button" value="Reset">
 							<input type="hidden" name="id" value="<?php echo $get_subnet_row['id']; ?>">
 						</form>
 					</div>
@@ -164,7 +164,7 @@ else
 						<hr>
 							
 							<input type="submit" class="submit-button" value="Update"> 
-							<input type="reset" class="resetButton" value="Cancel">
+							<input type="reset" class="reset-button" value="Cancel">
 							<input type="hidden" name="id" value="<?php echo $get_device_row['id']; ?>"> 
 						</form> 
 						</div>

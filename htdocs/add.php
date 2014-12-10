@@ -11,43 +11,45 @@ else
 	include ("includes/functions.php");
 	require_once ('../mysqli_connect.php'); 
 	$type=$_GET['type']; 
+
+?>
+	<script>
+		function openModal(status,message)
+		{
+			var action = 'index.php';
+			if(status === 'success')
+			{
+				var header = 'Success!';
+				document.getElementById('dialogP').innerHTML = message;
+				document.getElementById('addDialog').className = 'success-dialog';
+			}
+			else if(status === 'fail')
+			{
+				var header = 'Error!';
+				document.getElementById('dialogP').innerHTML = message;
+				document.getElementById('addDialog').className = 'fail-dialog';
+			}
+			document.getElementById('dialogH2').innerText = header;
+			document.getElementById('dialogForm').action = action;
+			document.getElementById('addDialog').showModal();
+		}
+	</script>
+	
+	<dialog id="addDialog">
+		<input type="button" id="closeX" value="X" onClick="document.getElementById('addDialog').close();">
+		<h2 id="dialogH2"></h2>
+		
+		<p id="dialogP"></p>
+		<form id="dialogForm">
+			<button id="close" form="dialogForm" type="submit">Close</button>
+		</form>
+	</dialog>
+<?php
+
 	if(strcmp($type,"subnet") == 0)
 	{
 		if ($_POST['submitted'])
 		{
-?>
-			<script>
-				function openModal(type,id,name)
-				{
-					var action = ('index.php?type=').concat(type);
-					if(type === 'subnet')
-					{
-						var header1 = 'Delete the ';
-						var header2 = ' subnet?';
-						
-						document.getElementById('dialogP').innerHTML = '<em>Note </em>: All associated devices will lose their IP addresses.';
-					}
-					else if(type === 'device')
-					{
-						var header1 = 'Delete ';
-						var header2 = '?';
-						
-						document.getElementById('dialogP').innerHTML = '';
-					}
-					document.getElementById('deleteID').value = id;
-					document.getElementById('dialogH2').innerText = header1.concat(name).concat(header2);
-					document.getElementById('dialogForm').action = action;
-					document.getElementById('deleteDialog').showModal();
-				}
-			</script>
-			
-			<dialog id="deleteDialog">
-				<input type="button" id="close" value="X" onClick="document.getElementById('deleteDialog').close();">
-				<h2 id="dialogH2"></h2>
-				
-				<input type="button" class="resetButtonModal" value="Cancel" onClick="document.getElementById('deleteDialog').close();">    
-			</dialog>
-<?php
 			$subnet_name = mysqli_real_escape_string($dbc,$_POST['subnet_name']); 
 			$address = mysqli_real_escape_string($dbc,$_POST['address']); 
 			$mask = mysqli_real_escape_string($dbc,$_POST['mask']); 
@@ -58,16 +60,14 @@ else
 				Values ('$note','$subnet_name',INET_ATON('$address'),INET_ATON('$mask'),INET_ATON('$gateway'))"; 
 			$result=@mysqli_query($dbc,$query); 
 			$subnet_id = mysqli_insert_id($dbc);
-			if ($result){
-				echo "<div class='successAdd'>";
-				echo "<p style='color:#000;'><b>A new subnet (id: '$subnet_id') has been added.</b></p>"; 
-				echo "<a href=index.php>Show All Records</a></center>"; 
-				echo "</div>";			
+			if ($result)
+			{
+				$message = "The " . $subnet_name . " subnet has been added!";
+				echo "<script>openModal('success','" . $message . "');</script>";
 			}
-			else{
-				echo "<div class='failAdd'>";
-				echo "<p><b>The record could not be added due to a system error: " . mysqli_error($dbc) . "</b></p>";  
-				echo "</div>";			
+			else
+			{
+				echo "<script>openModal('fail','" . mysqli_real_escape_string($dbc,mysqli_error($dbc)) . "');</script>";
 			}
 
 			// only if submitted by the form
@@ -104,7 +104,7 @@ else
 					<hr>
 				</ul>
 				<input type="submit" class="submit-button" value="Save">
-				<input type="reset" class="resetButton" value="Cancel">
+				<input type="reset" class="reset-button" value="Cancel">
 				<input type="hidden" name="submitted" value="true">
 				</form>
 			</div>
@@ -124,19 +124,14 @@ else
 				Values ('$subnet',INET_ATON('$address'),'$device_name','$note')"; 
 			$result=@mysqli_query($dbc,$query); 
 			$device_id = mysqli_insert_id($dbc);
-
 			if ($result)
 			{
-				echo "<div class='success-add'>";
-					echo "<p style='color:#000;'><b>A new record (id: '$device_id') has been added.</b></p>"; 
-					echo "<a href=index.php>Show All Records</a><br />";
-				echo "</div>";
+				$message = $device_name . " has been added!";
+				echo "<script>openModal('success','" . $message . "');</script>";
 			}
 			else
 			{
-				echo "<div class='fail-add'>";
-					echo "<p><b>The record could not be added due to a system error: " . mysqli_error($dbc) . "</b></p>"; 
-				echo "</div>";
+				echo "<script>openModal('fail','" . mysqli_real_escape_string($dbc,mysqli_error($dbc)) . "');</script>";
 			}
 			// only if submitted by the form
 			mysqli_close($dbc);
@@ -176,7 +171,7 @@ else
 				</ul>
 				<hr>
 				<input type="submit" class="submit-button" value="Save" onClick=\"document.getElementById('result').showModal()\">
-				<input type="reset" class="resetButton" value="Cancel">
+				<input type="reset" class="reset-button" value="Reset">
 				<input type="hidden" name="submitted" value="true">
 				</form>
 			</div>
