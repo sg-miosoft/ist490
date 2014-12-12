@@ -205,18 +205,24 @@ else
 						<td class='table-content'>".$device_row['deviceAddress']."</td>
 						<td class='table-content'>*</td>
 						<td class='table-content'>*</td>
-						<td class='notes'>".$device_row['deviceNote']."</td>
-						<td class='table-content'>
-							<input type='image' class='delete-img' 
-								src='images/delete-icon-dark.png' 
-								alt='Delete' value='Delete' 
-								onmouseover=\"this.src='images/delete-icon.png'\" 
-								onmouseout=\"this.src='images/delete-icon-dark.png'\" 
-								onClick=\"openModal('device',".$device_row['id'].",'".$device_row['device_name']."')\" /></td>
-						<td class='table-content'><a href=update.php?type=device&id=".$device_row['id']."><img class='edit-img' src='images/edit-icon.png' alt='Edit' onmouseover=\"this.src='images/edit-icon-hover.png'\" onmouseout=\"this.src='images/edit-icon.png'\"></a></td></tr>"; 
-
-						//echo "<td class='table-content'><a href=delete.php?type=device?id=".$device_row['id']."><img class='delete-img' src='images/delete-icon-dark.png' alt='Delete' onmouseover=\"this.src='images/delete-icon.png'\" onmouseout=\"this.src='images/delete-icon-dark.png'\"></a></td>"; 
-						/*onClick=\"document.getElementById('deleteDialog').showModal()\" /></td>";*/
+						<td class='notes'>".$device_row['deviceNote']."</td>";
+						if($_SESSION['readonly'] != 1)
+						{
+							echo "<td class='table-content'>
+								<input type='image' class='delete-img' 
+									src='images/delete-icon-dark.png' 
+									alt='Delete' value='Delete' 
+									onmouseover=\"this.src='images/delete-icon.png'\" 
+									onmouseout=\"this.src='images/delete-icon-dark.png'\" 
+									onClick=\"openModal('device',".$device_row['id'].",'".$device_row['device_name']."')\" /></td>
+							<td class='table-content'><a href=update.php?type=device&id=".$device_row['id']."><img class='edit-img' src='images/edit-icon.png' alt='Edit' onmouseover=\"this.src='images/edit-icon-hover.png'\" onmouseout=\"this.src='images/edit-icon.png'\"></a></td>"; 
+						}
+						else
+						{
+							echo"<td class='table-content'>*</td>
+								<td class='table-content'>*</td>";
+						}
+						echo "</tr>"; 
 					}
 				}
 			}

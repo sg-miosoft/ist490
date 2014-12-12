@@ -13,9 +13,16 @@ function sendEmail($e,$t)
     http://uwm-iptracker.miosoft.com/register_confirm.php?token=$t.\n\n 
     Thanks again!\n\n 
     http://uwm-iptracker.miosoft.com";  
-    $headers="From: Spencer George <smtp.sender@us.msn.main.miosoft.com>\n";  // <-- Replace this to your email address!!! 
-    mail ($to, $subject, $body, $headers); // SEND the message!   
-	header("Location: https://uwm-iptracker.miosoft.com/admin.php");
+    $headers="From: MIOsoft IP Tracker <smtp.sender@us.msn.main.miosoft.com>\n";  // <-- Replace this to your email address!!! 
+    if(mail ($to, $subject, $body, $headers))
+	{
+		return True;
+	}
+	else
+	{
+		return False;
+	}
+	//header("Location: https://uwm-iptracker.miosoft.com/admin.php");
 } 
 
 // Check if the form has been submitted. 
@@ -32,7 +39,6 @@ elseif(isset($_POST['registered']))
 	<script>
 		function openModal(status,message)
 		{
-			var action = 'admin.php';
 			if(status === 'success')
 			{
 				var header = 'Success!';
@@ -46,7 +52,6 @@ elseif(isset($_POST['registered']))
 				document.getElementById('statusDialog').className = 'fail-dialog';
 			}
 			document.getElementById('dialogH2').innerText = header;
-			document.getElementById('dialogForm').action = action;
 			document.getElementById('statusDialog').showModal();
 		}
 	</script>
@@ -54,51 +59,63 @@ elseif(isset($_POST['registered']))
 		<input type="button" id="closeX" value="X" onClick="document.getElementById('statusDialog').close();">
 		<h2 id="dialogH2"></h2>
 		<p id="dialogP"></p>
-		<form id="dialogForm">
-			<button id="close" form="dialogForm" type="submit">Close</button>
-		</form>
+		<button id="close" type="submit" onClick="window.location.href='admin.php'">Close</button>
 	</dialog>
 <?php
 
 
     // Check for an email address. 
-    if (empty($_POST['email']))
+    if(empty($_POST['email']))
 	{ 
         $errors[] = 'You forgot to enter your email address.'; 
     }
 	else
 	{ 
-        $email = mysqli_real_escape_string($dbc,$_POST['email']); 
-    } 
+        $email = mysqli_real_escape_string($dbc,$_POST['email']);
+		if(!filter_var($email, FILTER_VALIDATE_EMAIL))
+		{
+			$errors[] = 'Not a valid email.';
+		}
+    }
 
-    if(empty($errors))
-	{ // If everything's OK. 
+	if(empty($errors))
+	{ 
         // Register the user in the database. 
         // Check for previous registration. 
         $query = "SELECT user_id FROM users WHERE email='$email'"; 
         $result = mysqli_query($dbc,$query); 
-        if(mysqli_num_rows($result) == 0)
-		{ // if there is no such email address 
-            $query = "SELECT email FROM pending_users WHERE email='$email'"; 
+        if(mysqli_num_rows($result) == 0) // If there is no matching email in users
+		{ 
+			$query = "SELECT email FROM pending_users WHERE email='$email'"; 
             $result = mysqli_query($dbc,$query); 
-            if(mysqli_num_rows($result) == 0)
-			{ // if there is no such email address 
-                $token = uniqid(mt_rand(), true); 
+            if(mysqli_num_rows($result) == 0) //If there is no matching email in pending_users. New registration
+			{ 
+                $readonly = mysqli_real_escape_string($dbc,$_POST['readonly']);
+				
+				if($readonly != 1)
+				{
+					$readonly = 0;
+				}
+
+				$token = uniqid(mt_rand(), true); 
+
                 // Make the query. 
-                $query = "INSERT INTO pending_users (email, token, time_stamp)  
-                VALUES ('$email', '$token', NOW() )";         
+                $query = "INSERT INTO pending_users (email, token, time_stamp, readonly)  
+                VALUES ('" . $email . "', '" . $token . "', NOW(), " . $readonly . ")";
+					
                 $result = @mysqli_query($dbc,$query); // Run the query. 
-                if($result)
-				{ // If it ran OK. 
-                    sendEmail($email,$token); 
-                    echo "<p>Please check your email for a confirmation link.</p>"; 
-                    echo "<a href=login.php>Login</a>"; 
-                    exit(); 
+                if($result) //If the query was successful to inster into pending_users
+				{ 
+					if(sendEmail($email,$token))
+					{
+						echo "<script>openModal('success','Email sent successfully!');</script>";
+					} 
+                    
                 }
 				else
-				{ // If it did not run OK. 
-                    $errors[] = 'You could not be registered due to a system error. We apologize for any inconvenience.'; // Public message. 
-                    $errors[] = mysqli_error($dbc); // MySQL error message. 
+				{ 
+					$errors[] = 'You could not be registered due to a system error. ';
+					$errors[] = mysqli_error($dbc); // MySQL error message. 
                 } 
             } 
             else
@@ -111,18 +128,16 @@ elseif(isset($_POST['registered']))
                     sendEmail($email,$token); 
                 } 
                 else
-				{ // If it did not run OK. 
-                    $errors[] = 'Your password could not be changed due to a system error. We apologize for any inconvenience.'; // Public message. 
+				{  
+                    $errors[] = 'Your password could not be changed due to a system error.';
                     $errors[] = mysqli_error($dbc); // MySQL error message. 
                 } 
             } 
-
-        }
-		else
-		{ // Email address is already taken. 
+		}
+		else // Email address is already taken.
+		{  
             $errors[] = 'The email address has already been registered.'; 
-            $errors[] = '<a href="forgot.php">If you forgot your password you can reset it here.</a>'; 
-        } 
+		} 
     } // End of if (empty($errors)) IF. 
 
     mysqli_close($dbc); // Close the database connection. 
@@ -134,19 +149,19 @@ elseif(isset($_POST['deleteID']))
 	$del_user_query = "DELETE FROM users WHERE user_id=$user_id";
 	$del_user_result = @mysqli_query($dbc,$del_user_query);
 	
-	if($del_subnet_result)
+	if($del_user_result)
 	{
-		echo"<script>$openModal('success','User delete successfully');</script>";
+		echo"<script>openModal('success','User delete successfully');</script>";
 	}
 	else
 	{
 		
-		echo"<script>$openModal('fail'," . mysqli_error($dbc) . ");</script>";
+		echo"<script>openModal('fail','" . mysqli_error($dbc) . "');</script>";
 	}
 	mysqli_close($dbc);
 }
-else
-{ // Form has not been submitted. 
+else // Form has not been submitted.
+{  
     $errors = NULL; 
 } // End of the main Submit conditional. 
 
@@ -189,8 +204,11 @@ if(!empty($errors))
 	<h2>Add User</h2>
 	<hr>
 	<form action="admin.php" method="post">
-		<span><p><input type="text" class="emailEntry" name="email" placeholder="E-mail Address" size="20" maxlength="40" value="<?php echo $_POST['email']; ?>"  /></p></span>
+		<span><p><input required type="text" style="margin-left:0px;" class="emailEntry" name="email" placeholder="E-mail Address" size="20" maxlength="40" value="<?php echo $_POST['email']; ?>"  /></p></span>
+		<label id="add-user-label" for="readonly">Readonly</label>
+		<input type="checkbox" name="readonly" size=50 maxlength=15 value="1">
 		<span><p><input type="submit" class="submit-button" name="submit" value="Add" /></p></span>
+		
 		<input type="hidden" name="registered" value="TRUE" />
 	</form>
 	<h4 style="color:#fff;">User will be sent an email with an invitation link</h4>
@@ -221,21 +239,20 @@ if($user_result)
 		{
 			$readonly = "";
 		}
-		echo "<tr><td class='name'>".$user_row['name']."</td>  
-		<td class='table-content'>".$user_row['email']."</td>
-		<td class='table-content'>".$user_row['registration_date']."</td>
-		<td class='table-content'>".$readonly."</td>
+		echo "<tr><td class='name'>" . $user_row['name'] . "</td>  
+		<td class='table-content'>" . $user_row['email'] . "</td>
+		<td class='table-content'>" . $user_row['registration_date'] . "</td>
+		<td class='table-content'>" . $readonly . "</td>
 		<td class='table-content'>
 			<input type='image' class='delete-img' 
 				src='images/delete-icon-dark.png' 
 				alt='Delete' value='Delete' 
 				onmouseover=\"this.src='images/delete-icon.png'\" 
 				onmouseout=\"this.src='images/delete-icon-dark.png'\" 
-				onClick=\"deleteModal(".$user_row['user_id'].",'".$user_row['name']."')\" /></td>
-		<td class='table-content'><a href=admin_update.php?user_id=".$user_row['user_id']."><img class='edit-img' src='images/edit-icon.png' alt='Edit' onmouseover=\"this.src='images/edit-icon-hover.png'\" onmouseout=\"this.src='images/edit-icon.png'\"></a></td></tr>"; 
+				onClick=\"deleteModal(" . $user_row['user_id'] . ",'" . $user_row['name'] . "')\" /></td>
+		<td class='table-content'><a href=admin_update.php?user_id=" . $user_row['user_id'] . "><img class='edit-img' src='images/edit-icon.png' alt='Edit' onmouseover=\"this.src='images/edit-icon-hover.png'\" onmouseout=\"this.src='images/edit-icon.png'\"></a></td></tr>"; 
 	}
 }
-
 echo "</table>"; 
 			
 // Include footer.php 

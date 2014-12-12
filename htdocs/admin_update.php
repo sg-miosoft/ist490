@@ -110,7 +110,7 @@ else
 								<input type="text" placeholder="name@example.com" name="email" size=50 maxlength=15 value="<?php echo $num['email'];?>">
 							</li>
 							<li>
-								<label>Readonly</label>
+								<label for="readonly">Readonly</label>
 								<input type="checkbox" name="readonly" size=50 maxlength=15 value="1" <?php if($num['readonly'] == 1){echo 'checked';}?>>
 							</li>
 						</ul>

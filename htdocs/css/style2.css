@@ -501,6 +501,11 @@ input[type=button]
 	background-color: #656565;
 }
 
+#add-user-label
+{
+	color: #fff;
+}
+
 .delete-img 
 {
 	width:25px;

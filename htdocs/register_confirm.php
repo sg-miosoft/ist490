@@ -4,14 +4,13 @@ include("includes/header.php");
 // Check if the form has been submitted.
 function showForm($e,$t,$fn,$ln) 
 {
-	echo"<br />
-	<div class='form-contain'>
+	echo"<div class='form-contain'>
 		<h2>Register</h2><hr />
 		<form action='register_confirm.php?token=".$t."' method='post'>
-			<p><input type='text' class='fnameEntry' name='first_name' placeholder='First Name' size='15' maxlength='15' value='".$fn."' /> <input type='text' class='lnameEntry' name='last_name' placeholder='Last Name' size='15' maxlength='30' value='".$ln."' /></p>
-			<p><input type='password' class='passEntry' name='password1' placeholder='Password' size='10' maxlength='20' /> <input type='password' class='passConEntry' name='password2' placeholder='Confirm Password' size='10' maxlength='50' /></p>
-			<span style='text-align:center'><p><input type='text' class='emailEntry' name='email' placeholder='E-mail Address' size='20' maxlength='40' value='".$e."' readonly /></p></span>
-			<span style='text-align:center'><p><input type='submit' class='submit-button' name='submit' value='Register' /></p></span>
+			<p><input type='text' required class='fnameEntry' name='first_name' placeholder='First Name' size='15' maxlength='15' value='".$fn."' /> <input type='text' class='lnameEntry' name='last_name' placeholder='Last Name' size='15' maxlength='30' value='".$ln."' /></p>
+			<p><input type='password' required class='passEntry' name='password1' placeholder='Password' size='10' maxlength='20' /> <input type='password' class='passConEntry' name='password2' placeholder='Confirm Password' size='10' maxlength='50' /></p>
+			<span style='text-align:center'><p><input type='text' required class='emailEntry' name='email' placeholder='E-mail Address' size='20' maxlength='40' value='".$e."' readonly /></p></span>
+			<span style='text-align:center'><p><input type='submit' required class='submit-button' name='submit' value='Register' /></p></span>
 			<input type='hidden' name='submitted' value='TRUE' />
 		</form>
 	</div>";
@@ -30,12 +29,13 @@ if (isset($_GET['token']) && !isset($_POST['submitted']))
 		while ($row=mysqli_fetch_array($result))
 		{
 		    $time_stamp = $row['time_stamp']; 
-            $user_email = $row['email']; 
+            $user_email = $row['email'];
+			$readonly = $row['readonly'];
         } 
         
 		if( time() - strtotime($time_stamp) > 86400)
 		{ 
-		    $errors[] = 'Invalid token.'; // Public message. 
+		    $errors[] = 'Time expired. Please try again.'; // Public message. 
         } 
         else
 		{
@@ -44,7 +44,8 @@ if (isset($_GET['token']) && !isset($_POST['submitted']))
     } 
     else
 	{
-		$errors[] = 'Invalid token.'; // Public message. 
+		$errors[] = 'We do not have a request to register for your email.'; 
+		$errors[] = 'Please try again.'; // Public message. 
     } 
     mysqli_close($dbc); // Close the database connection.     
 } 
@@ -53,12 +54,22 @@ elseif(isset($_POST['submitted'], $_GET['token']))
     require_once ('../mysqli_connect.php'); // Connect to the db. 
     require_once ('../passwordLib.php'); // Connect to the db. 
     $errors = array(); // Initialize error array. 
-     
+    
     $email = $_POST['email']; 
     $token = $_GET['token']; 
     $first_name = $_POST['first_name']; 
     $last_name = $_POST['last_name']; 
-         
+    
+	$query = "SELECT readonly FROM pending_users WHERE token = '" . $token . "'";  
+	$result = mysqli_query($dbc,$query); 
+    if(mysqli_num_rows($result)==1)
+	{
+		while ($row=mysqli_fetch_array($result))
+		{
+			$readonly = $row['readonly'];
+		}
+	}
+	
     // Check for a first name. 
     if(empty($_POST['first_name']))
 	{ 
@@ -73,7 +84,8 @@ elseif(isset($_POST['submitted'], $_GET['token']))
     if(empty($_POST['last_name']))
 	{ 
         $errors[] = 'You forgot to enter your last name.'; 
-    }else
+    }
+	else
 	{ 
         $last_name = mysqli_real_escape_string($dbc,$_POST['last_name']); 
     } 
@@ -94,18 +106,19 @@ elseif(isset($_POST['submitted'], $_GET['token']))
             $password = mysqli_real_escape_string($dbc,$_POST['password1']); 
             $hash = password_hash($password, PASSWORD_BCRYPT, $options); 
              
-            $query = "INSERT INTO users (first_name, last_name, email, pass, registration_date)  
-            VALUES ('$first_name', '$last_name', '$email', '$hash', NOW() )";         
+            $query = "INSERT INTO users (first_name, last_name, email, pass, registration_date, readonly)  
+            VALUES ('" . $first_name . "', '" . $last_name . "', '" . $email . "', '" . $hash . "', NOW()," . $readonly . ")";
+			
             $result = @mysqli_query($dbc,$query); // Run the query. 
             if($result) 
 			{ 
-				$query = "DELETE FROM pending_users WHERE email = ".$email.";";
-				$result = @mysqli_query($dbc,query);
-				header("Location: https://uwm-iptracker.miosoft.com/login.php"); 
+				$query = "DELETE FROM pending_users WHERE email = '" . $email . "'";
+				$result = @mysqli_query($dbc,$query);
+				$showSuccess = True;
 			}
 			else 
-			{ // If it did not run OK. 
-                $errors[] = 'You could not be registered due to a system error. We apologize for any inconvenience.'; // Public message. 
+			{ 
+				// If it did not run OK. 
                 $errors[] = mysqli_error($dbc); // MySQL error message. 
             } 
         } 
@@ -120,37 +133,67 @@ elseif(isset($_POST['submitted'], $_GET['token']))
 else
 { 
     $errors[] = 'The form was not submitted properly.'; 
-} 
+}
+?>
+<script>
+	function openModal(status,message)
+	{
+		if(status === 'success')
+		{
+			var header = 'Success!';
+			document.getElementById('statusDialog').className = 'success-dialog';
+			var para = document.createElement("p");
+			var text = document.createTextNode(message);
+			para.appendChild(text);
+			document.getElementById('dialogDiv').appendChild(para);
+		}
+		else if(status === 'fail')
+		{
+			var header = 'Error!';
+			document.getElementById('statusDialog').className = 'fail-dialog';
+			errors.forEach(function(obj)
+			{
+				var para = document.createElement("p");
+				var text = document.createTextNode(obj);
+				para.appendChild(text);
+				document.getElementById('dialogDiv').appendChild(para);
+			});
+		}
+		
+		document.getElementById('dialogH2').innerText = header;
+		document.getElementById('statusDialog').showModal();
+	}
+	var errors = <?php echo json_encode($errors) ?>
+</script>
 
+<dialog id="statusDialog">
+	<input type="button" id="closeX" value="X" onClick="document.getElementById('statusDialog').close();">
+	<h2 id="dialogH2"></h2>
+	
+	<div id="dialogDiv"></div>
+	
+<?php
 // Begin the page now. 
 if(!empty($errors) && !$sForm)
-{ // Print any error messages. 
-    echo '<h1>Error!</h1> 
-    <p>The following error(s) occurred:<br />'; 
-    foreach ($errors as $msg) 
-	{ // Print each error. 
-        echo "$msg<br />"; 
-    } 
-    echo '</p>'; 
-    echo '<a href="register.php"> Please submit a new registration request.</a>'; 
- } 
+{
+	echo '<button id="close" onClick="window.location.href=\'forgot.php\';">Close</button>
+		</dialog>';
+	echo "<script>openModal('fail',errors)</script>";
+} 
 elseif(!empty($errors) && $sForm)
 { 
-    echo '<h1>Error!</h1> 
-    <p>The following error(s) occurred:<br />'; 
-    foreach ($errors as $msg)
-	{ // Print each error. 
-        echo "$msg<br />"; 
-    } 
-    echo '</p>'; 
-    showForm($email,$token,$first_name,$last_name); 
+	echo '<button id="close" onClick="document.getElementById(\'statusDialog\').close();">Close</button>
+		</dialog>';
+	echo '<script>openModal("fail",errors)</script>';
+	showForm($email,$token,$first_name,$last_name); 
 } 
-?> 
+elseif($showSuccess)
+{
+	echo "<button id=\"close\" onClick=\"window.location.href='login.php';\">Login</button>
+		</dialog>";
+	echo "<script>openModal('success','Please Login.')</script>";
+} 
 
-
-
-
-<?php 
 // Include footer.php 
 include("includes/footer.php");
 ?>

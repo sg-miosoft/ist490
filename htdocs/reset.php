@@ -8,8 +8,8 @@ function showForm($u,$t)
 		<h2>Reset Password</h2> 
 		<hr />
         <form action=reset.php?token='" . $t . "' method='post'>
-			<p><input type='password' name='password1' size='10' maxlength='20' placeholder='Password' /></p>
-			<p><input type='password' name='password2' size='10' maxlength='20' placeholder='Confirm Password'/></p>
+			<p><input required type='password' name='password1' class='passEntry' size='10' maxlength='20' placeholder='Password' /></p>
+			<p><input required type='password' name='password2' class='passEntry' size='10' maxlength='20' placeholder='Confirm Password'/></p>
 			<p><input type='submit' class='submit-button' name='submit' value='Submit' /></p>
 			<input type='hidden' name='submitted' value='TRUE' />
 			<input type='hidden' name='user_id' value='".$u."' /> 
@@ -23,22 +23,19 @@ if(isset($_GET["token"]) && !isset($_POST["submitted"])){
     $errors = array(); // Initialize error array. 
      
     $token = $_GET["token"];
-	$query = "SELECT * FROM reset_users WHERE token ='".$token."'";
+	$query = "SELECT * FROM reset_users WHERE token ='" . $token . "'";
 	$result = mysqli_query($dbc,$query); 
     if(mysqli_num_rows($result)==1)
 	{ 
         while ($row=mysqli_fetch_array($result))
 		{ 
             $time_stamp = $row['time_stamp']; 
-            $time_now = date('Y-m-d H:i:s'); 
             $user_id = $row["user_id"]; 
-            //echo $user_id; 
-        }                 
+		}                 
          
-        // Check to see if link has expired 
-        if(($time_now - $time_stamp)  > 86400)
+        if( time() - strtotime($time_stamp) > 86400)
 		{ 
-            $errors[] = "Time expired"; // Public message. 
+		    $errors[] = 'Time expired. Please try again.'; // Public message. 
         } 
         else
 		{ 
@@ -47,7 +44,7 @@ if(isset($_GET["token"]) && !isset($_POST["submitted"])){
     } 
     else
 	{ 
-        $errors[] = "Invalid token."; // Public message. 
+        $errors[] = "We do not have a reset request for you."; // Public message. 
     } 
     mysqli_close($dbc); // Close the database connection.     
 } 
@@ -81,12 +78,12 @@ elseif (isset($_POST['submitted'], $_GET['token']))
             if($set_result)
 			{ // If it ran OK. 
                 $del_query = "DELETE FROM reset_users WHERE user_id = " . $user_id . " AND token = ". $token; 
-                $del_result = @mysqli_query($dbc,$del_query); 
-				header("Location: https://uwm-iptracker.miosoft.com/login.php"); 
+                $del_result = @mysqli_query($dbc,$del_query);
+				$showSuccess = True;
 			}
 			else
 			{ // If it did not run OK. 
-                $errors[] = "Your password could not be changed due to a system error. We apologize for any inconvenience."; // Public message. 
+                $errors[] = "Your password could not be changed due to a system error.";
                 $errors[] = mysqli_error($dbc); // MySQL error message. 
             } 
         } 
@@ -102,28 +99,66 @@ else
 { 
     $errors[] = "The form was not submitted properly."; 
 } 
+?>
+<script>
+	function openModal(status,message)
+	{
+		if(status === 'success')
+		{
+			var header = 'Success!';
+			document.getElementById('statusDialog').className = 'success-dialog';
+			var para = document.createElement("p");
+			var text = document.createTextNode(message);
+			para.appendChild(text);
+			document.getElementById('dialogDiv').appendChild(para);
+		}
+		else if(status === 'fail')
+		{
+			var header = 'Error!';
+			document.getElementById('statusDialog').className = 'fail-dialog';
+			errors.forEach(function(obj)
+			{
+				var para = document.createElement("p");
+				var text = document.createTextNode(obj);
+				para.appendChild(text);
+				document.getElementById('dialogDiv').appendChild(para);
+			});
+		}
+		
+		
+		
+		document.getElementById('dialogH2').innerText = header;
+		document.getElementById('statusDialog').showModal();
+	}
+	var errors = <?php echo json_encode($errors) ?>
+</script>
 
+<dialog id="statusDialog">
+	<input type="button" id="closeX" value="X" onClick="document.getElementById('statusDialog').close();">
+	<h2 id="dialogH2"></h2>
+	
+	<div id="dialogDiv"></div>
+	
+<?php
 // Begin the page now. 
-if (!empty($errors) && !$sForm) { // Print any error messages. 
-    echo "<h1>Error!</h1> 
-    <p>The following error(s) occurred:"; 
-    foreach ($errors as $msg) 
-	{ // Print each error. 
-        echo $msg; 
-    } 
-    echo "</p>"; 
-    echo "<a href='forgot.php'> Please submit a new password reset request.</a>"; 
-     
+if(!empty($errors) && !$sForm)
+{
+	echo '<button id="close" onClick="window.location.href=\'forgot.php\';">Close</button>
+		</dialog>';
+	echo "<script>openModal('fail',errors)</script>";
 } 
 elseif(!empty($errors) && $sForm)
 { 
-    echo "<h1>Error!</h1> <p>The following error(s) occurred:"; 
-    foreach($errors as $msg)
-	{ // Print each error. 
-        echo $msg;
-    }
-	echo "</p>"; 
-    showForm($user_id,$token); 
+	echo '<button id="close" onClick="document.getElementById(\'statusDialog\').close();">Close</button>
+		</dialog>';
+	echo '<script>openModal("fail",errors)</script>';
+	showForm($user_id,$token); 
+}
+elseif($showSuccess)
+{
+	echo "<button id=\"close\" onClick=\"window.location.href='login.php';\">Close</button>
+		</dialog>";
+	echo "<script>openModal('success','Password changed!')</script>";
 } 
 
 include("includes/footer.php");

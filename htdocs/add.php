@@ -20,15 +20,14 @@ else
 			if(status === 'success')
 			{
 				var header = 'Success!';
-				document.getElementById('dialogP').innerHTML = message;
 				document.getElementById('addDialog').className = 'success-dialog';
 			}
 			else if(status === 'fail')
 			{
 				var header = 'Error!';
-				document.getElementById('dialogP').innerHTML = message;
 				document.getElementById('addDialog').className = 'fail-dialog';
 			}
+			document.getElementById('dialogP').innerHTML = message;
 			document.getElementById('dialogH2').innerText = header;
 			document.getElementById('dialogForm').action = action;
 			document.getElementById('addDialog').showModal();
@@ -83,15 +82,15 @@ else
 				<ul>
 					<li>
 						<label for="subnet_name">Subnet Name</label>
-						<input type="text" placeholder="DMZ Zone" name="subnet_name" size=50>
+						<input type="text" required placeholder="DMZ Zone" name="subnet_name" size=50>
 					</li>
 					<li>
 						<label for="address">IP Address</label>
-						<input type="text" placeholder="192.168.0.1" name="address" size=50 maxlength=15>
+						<input type="text" required placeholder="192.168.0.1" name="address" size=50 maxlength=15>
 					</li>
 					<li>
 						<label for="mask">Subnet Mask</label>
-						<input type="text" placeholder="255.255.255.0" name="mask" size=50 maxlength=15>
+						<input type="text" required placeholder="255.255.255.0" name="mask" size=50 maxlength=15>
 					</li>
 					<li>
 						<label for="gateway">Gateway</label>
@@ -145,7 +144,7 @@ else
 				<ul>
 					<li>
 						<label>Subnet</label>
-						<select id="subnet" name="subnet">
+						<select id="subnet" required name="subnet">
 						<option value="">Please select a subnet...</option>
 						<?php
 							require_once ('../mysqli_connect.php'); 
@@ -158,11 +157,11 @@ else
 					</li>
 					<li>
 						<label>IP Address</label>
-						<input type="text" name="address" placeholder="192.168.0.1" size=50 maxlength=15>
+						<input type="text" required name="address" placeholder="192.168.0.1" size=50 maxlength=15>
 					</li>
 					<li>
 						<label>Name</label>
-						<input type="text" name="device_name" placeholder="Switch A" size=50 maxlength=40>
+						<input type="text" required name="device_name" placeholder="Switch A" size=50 maxlength=40>
 					</li>
 					<li>		
 						<label>Notes</label>
