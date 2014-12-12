@@ -9,9 +9,9 @@ function sendEmail($e,$t)
     $body="  
     Thank you very much for being a member of the UWM IPtracker!\n\n  
     Click the link below to reset your password.\n\n  
-    https://uwm-iptracker.miosoft.com/Project/htdocs/home/reset.php?token=$t.\n\n  
+    https://uwm-iptracker.miosoft.com/reset.php?token=$t\n\n  
     Thanks again!\n\n  
-    https://uwm-iptracker.miosoft.com/Project/htdocs/home/index.php";   
+    https://uwm-iptracker.miosoft.com/index.php";   
     $headers="From: Spencer George <smtp.sender@us.msn.main.miosoft.com>\n";  // <-- Replace this to your email address!!!  
     mail ($to, $subject, $body, $headers); // SEND the message!    
 
