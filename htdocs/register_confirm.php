@@ -30,12 +30,10 @@ if (isset($_GET['token']) && !isset($_POST['submitted']))
 		while ($row=mysqli_fetch_array($result))
 		{
 		    $time_stamp = $row['time_stamp']; 
-            $time_now = date("Y-m-d H:i:s"); 
             $user_email = $row['email']; 
         } 
-         
-        // Check to see if link has expired 
-        if(($time_now - $time_stamp)  > 86400)
+        
+		if( time() - strtotime($time_stamp) > 86400)
 		{ 
 		    $errors[] = 'Invalid token.'; // Public message. 
         } 
