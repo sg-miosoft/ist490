@@ -17,11 +17,7 @@ function showForm($e,$t,$fn,$ln)
 	</div>";
 }
 //end new form
-if($_SESSION['readonly'] == 1 or !isset($_SESSION['email']))
-{
-	header("Location: https://uwm-iptracker.miosoft.com/index.php");
-}
-elseif (isset($_GET['token']) && !isset($_POST['submitted']))
+if (isset($_GET['token']) && !isset($_POST['submitted']))
 { 
     require_once('../mysqli_connect.php'); // Connect to the db. 
     $errors = array(); // Initialize error array. 
@@ -31,11 +27,9 @@ elseif (isset($_GET['token']) && !isset($_POST['submitted']))
     $result = mysqli_query($dbc,$query); 
     if(mysqli_num_rows($result)==1)
 	{
-		echo('yes');
-        while ($row=mysqli_fetch_array($result))
+		while ($row=mysqli_fetch_array($result))
 		{
-			echo('time check');		
-            $time_stamp = $row['time_stamp']; 
+		    $time_stamp = $row['time_stamp']; 
             $time_now = date("Y-m-d H:i:s"); 
             $user_email = $row['email']; 
         } 
@@ -43,19 +37,16 @@ elseif (isset($_GET['token']) && !isset($_POST['submitted']))
         // Check to see if link has expired 
         if(($time_now - $time_stamp)  > 86400)
 		{ 
-			echo('time failed');
-            $errors[] = 'Invalid token.'; // Public message. 
+		    $errors[] = 'Invalid token.'; // Public message. 
         } 
         else
 		{
-			echo('time good');
-            showForm($user_email,$token,null,null); 
+		    showForm($user_email,$token,null,null); 
         } 
     } 
     else
 	{
-		echo('no');
-        $errors[] = 'Invalid token.'; // Public message. 
+		$errors[] = 'Invalid token.'; // Public message. 
     } 
     mysqli_close($dbc); // Close the database connection.     
 } 

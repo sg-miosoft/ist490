@@ -39,7 +39,17 @@ elseif($_SESSION['readonly'] == 1)
 }
 else
 {
-			echo"<li><a href='admin.php'>Admin</a></li>";
+	echo "<div id='search'>
+		<form method='post' action='search.php'> 
+			<input type='search' id='search-input' name='search' placeholder='Search'>
+		</form>
+	</div>
+	</header>
+	<nav>
+		<ul>
+			<li><a href='index.php'>Home</a></li>
+			<li><a href='admin.php'>Admin</a></li>
+			<li><a href='logout.php'>Logout</a></li>";
 } 
 ?>
 		</ul>

@@ -41,7 +41,10 @@ elseif(!empty($_POST['search']))
 		OR LOWER(d.note) LIKE LOWER('%".$searchString."%')";
 	$device_result = mysqli_query($dbc,$device_query);
 	
-	whichPageMenuDisplay('index');
+	if($_SESSION['readonly'] != 1)
+	{
+		whichPageMenuDisplay('index');
+	}
 		
 	if((mysqli_num_rows($subnet_result)==0) and (mysqli_num_rows($device_result)==0))
 	{
@@ -110,15 +113,24 @@ elseif(!empty($_POST['search']))
 			<td class='table-content'>" . $subnet_row['address'] . "</td>  
 			<td class='table-content'>" . $subnet_row['mask'] . "</td>  
 			<td class='table-content'>" . $subnet_row['gateway'] . "</td>
-			<td class='notes'>" . $subnet_row['note'] . "</td>
-			<td class='table-content'>
-				<input type='image' class='delete-img' 
-					src='images/delete-icon-dark.png' 
-					alt='Delete' value='Delete' 
-					onmouseover=\"this.src='images/delete-icon.png'\" 
-					onmouseout=\"this.src='images/delete-icon-dark.png'\" 
-					onClick=\"openModal('subnet',".$subnet_row['id'].",'".$subnet_row['subnet_name']."')\" /></td>
-			<td class='table-content'><a href=update.php?type=subnet&id=".$subnet_row['id']."><img class='edit-img' src='images/edit-icon.png' alt='Edit' onmouseover=\"this.src='images/edit-icon-hover.png'\" onmouseout=\"this.src='images/edit-icon.png'\"></a></td></tr>"; 
+			<td class='notes'>" . $subnet_row['note'] . "</td>";
+			if($_SESSION['readonly'] != 1)
+			{
+				echo "<td class='table-content'>
+					<input type='image' class='delete-img' 
+						src='images/delete-icon-dark.png' 
+						alt='Delete' value='Delete' 
+						onmouseover=\"this.src='images/delete-icon.png'\" 
+						onmouseout=\"this.src='images/delete-icon-dark.png'\" 
+						onClick=\"openModal('subnet',".$subnet_row['id'].",'".$subnet_row['subnet_name']."')\" /></td>
+				<td class='table-content'><a href=update.php?type=subnet&id=".$subnet_row['id']."><img class='edit-img' src='images/edit-icon.png' alt='Edit' onmouseover=\"this.src='images/edit-icon-hover.png'\" onmouseout=\"this.src='images/edit-icon.png'\"></a></td></tr>"; 
+			}
+			else
+			{
+				echo"<td class='table-content'>*</td>
+					<td class='table-content'>*</td>";
+			}
+			echo "</tr>";  
 		}	
 	
 		while($device_row = mysqli_fetch_array($device_result, MYSQLI_ASSOC))

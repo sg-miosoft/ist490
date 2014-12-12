@@ -13,7 +13,7 @@ else
 	
 	$type=$_GET['type'];
 	
-	if(strcmp($type,"subnet") == 0) //delete a subnet
+	if(strcmp($type,"subnet") == 0 and $_SESSION['readonly'] != 1) //delete a subnet
 	{
 		if($_POST['deleteID'])
 		{
@@ -36,7 +36,7 @@ else
 			echo 'Post not submitted properly';
 		}
 	}
-	elseif(strcmp($type,"device") == 0) //delete a device
+	elseif(strcmp($type,"device") == 0 and $_SESSION['readonly'] != 1) //delete a device
 	{
 		if($_POST['deleteID'])
 		{
@@ -112,7 +112,10 @@ else
 //			LIMIT $start, $display";
 		$subnet_result = mysqli_query($dbc,$subnet_query);	
 		
-		whichPageMenuDisplay('index');
+		if($_SESSION['readonly'] != 1)
+		{
+			whichPageMenuDisplay('index');
+		}
 			
 		if($subnet_result)
 		{
@@ -166,16 +169,24 @@ else
 				<td class='table-content'>" . $subnet_row['subnetAddress'] . "</td>  
 				<td class='table-content'>" . $subnet_row['mask'] . "</td>  
 				<td class='table-content'>" . $subnet_row['gateway'] . "</td>
-				<td class='notes'>" . $subnet_row['subnetNote'] . "</td>
-				<td class='table-content'>
-					<input type='image' class='delete-img' 
-						src='images/delete-icon-dark.png' 
-						alt='Delete' value='Delete' 
-						onmouseover=\"this.src='images/delete-icon.png'\" 
-						onmouseout=\"this.src='images/delete-icon-dark.png'\" 
-						onClick=\"openModal('subnet',".$subnet_row['id'].",'".$subnet_row['subnet_name']."')\" /></td>
-				<td class='table-content'><a href=update.php?type=subnet&id=".$subnet_row['id']."><img class='edit-img' src='images/edit-icon.png' alt='Edit' onmouseover=\"this.src='images/edit-icon-hover.png'\" onmouseout=\"this.src='images/edit-icon.png'\"></a></td></tr>"; 
-				/*onClick=\"document.getElementById('deleteSubnet').showModal()\" /></td>*/
+				<td class='notes'>" . $subnet_row['subnetNote'] . "</td>";
+				if($_SESSION['readonly'] != 1)
+				{
+					echo "<td class='table-content'>
+						<input type='image' class='delete-img' 
+							src='images/delete-icon-dark.png' 
+							alt='Delete' value='Delete' 
+							onmouseover=\"this.src='images/delete-icon.png'\" 
+							onmouseout=\"this.src='images/delete-icon-dark.png'\" 
+							onClick=\"openModal('subnet',".$subnet_row['id'].",'".$subnet_row['subnet_name']."')\" /></td>
+					<td class='table-content'><a href=update.php?type=subnet&id=".$subnet_row['id']."><img class='edit-img' src='images/edit-icon.png' alt='Edit' onmouseover=\"this.src='images/edit-icon-hover.png'\" onmouseout=\"this.src='images/edit-icon.png'\"></a></td></tr>"; 
+				}
+				else
+				{
+					echo"<td class='table-content'>*</td>
+						<td class='table-content'>*</td>";
+				}
+				echo "</tr>"; 
 				
 				$device_query = "SELECT id,
 					subnet_id,

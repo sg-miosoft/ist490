@@ -15,14 +15,7 @@ function sendEmail($e,$t)
     http://uwm-iptracker.miosoft.com";  
     $headers="From: Spencer George <smtp.sender@us.msn.main.miosoft.com>\n";  // <-- Replace this to your email address!!! 
     mail ($to, $subject, $body, $headers); // SEND the message!   
-
-    // Print a message. 
-    echo '<h1 id="mainhead">Thank you!</h1> 
-    <p>Please check your email to get your registration confirmation link.</p>';  
-
-    // Include the footer and quit the script (to not show the form). 
-    include ('includes/footer.php'); 
-    exit();     
+	header("Location: https://uwm-iptracker.miosoft.com/admin.php");
 } 
 
 // Check if the form has been submitted. 
@@ -30,11 +23,43 @@ if($_SESSION['readonly'] == 1 or !isset($_SESSION['email']))
 {
 	header("Location: https://uwm-iptracker.miosoft.com/index.php");
 }
-elseif(isset($_POST['submitted']))
+elseif(isset($_POST['registered']))
 { 
     require_once ('../mysqli_connect.php'); // Connect to the db. 
     require_once ('../passwordLib.php'); // Connect to the db. 
     $errors = array(); // Initialize error array. 
+?>
+	<script>
+		function openModal(status,message)
+		{
+			var action = 'admin.php';
+			if(status === 'success')
+			{
+				var header = 'Success!';
+				document.getElementById('dialogP').innerHTML = message;
+				document.getElementById('statusDialog').className = 'success-dialog';
+			}
+			else if(status === 'fail')
+			{
+				var header = 'Error!';
+				document.getElementById('dialogP').innerHTML = message;
+				document.getElementById('statusDialog').className = 'fail-dialog';
+			}
+			document.getElementById('dialogH2').innerText = header;
+			document.getElementById('dialogForm').action = action;
+			document.getElementById('statusDialog').showModal();
+		}
+	</script>
+	<dialog id="statusDialog">
+		<input type="button" id="closeX" value="X" onClick="document.getElementById('statusDialog').close();">
+		<h2 id="dialogH2"></h2>
+		<p id="dialogP"></p>
+		<form id="dialogForm">
+			<button id="close" form="dialogForm" type="submit">Close</button>
+		</form>
+	</dialog>
+<?php
+
 
     // Check for an email address. 
     if (empty($_POST['email']))
@@ -101,7 +126,24 @@ elseif(isset($_POST['submitted']))
     } // End of if (empty($errors)) IF. 
 
     mysqli_close($dbc); // Close the database connection. 
-
+}
+elseif(isset($_POST['deleteID']))
+{
+	require_once ('../mysqli_connect.php'); // Connect to the db. 
+	$user_id = @mysqli_real_escape_string($dbc,$_POST['deleteID']);
+	$del_user_query = "DELETE FROM users WHERE user_id=$user_id";
+	$del_user_result = @mysqli_query($dbc,$del_user_query);
+	
+	if($del_subnet_result)
+	{
+		echo"<script>$openModal('success','User delete successfully');</script>";
+	}
+	else
+	{
+		
+		echo"<script>$openModal('fail'," . mysqli_error($dbc) . ");</script>";
+	}
+	mysqli_close($dbc);
 }
 else
 { // Form has not been submitted. 
@@ -110,34 +152,60 @@ else
 
 // Begin the page now. 
 if(!empty($errors))
-{ // Print any error messages. 
-    echo '<h1>Error!</h1> 
-    <p>The following error(s) occurred:<br />'; 
-    foreach($errors as $msg)
-	{ // Print each error. 
-        echo "$msg<br />"; 
-	} 
-    echo '</p>'; 
-    echo '<p>Please try again.</p>'; 
+{ 
+	//Display dialog with errors
+	echo"<script>$openModal('fail',$errors);</script>";
 } 
 
 // Create the form. 
 ?> 
+<script>
+	function deleteModal(id,name)
+	{
+		var action = ('admin.php');
+		var header1 = 'Delete ';
+		var header2 = '?';
+		document.getElementById('deleteID').value = id;
+		document.getElementById('dialogH2').innerText = header1.concat(name).concat(header2);
+		document.getElementById('dialogForm').action = action;
+		document.getElementById('deleteDialog').showModal();
+	}
+</script>
+
+<dialog id="deleteDialog">
+	<input type="button" id="closeX" value="X" onClick="document.getElementById('deleteDialog').close();">
+	<h2 id="dialogH2"></h2>
+	<div class="fake-hr" style="margin-bottom:10px;"></div>
+	
+	<form action="" method="post" id="dialogForm">
+		<input type="hidden" value="" id="deleteID" name="deleteID" />
+	</form>
+	<button class="delete-dialog-delete" form="dialogForm" name='deleteButton' type="submit">Delete</button>
+	<input type="button" class="delete-dialog-cancel" value="Cancel" onClick="document.getElementById('deleteDialog').close();">    
+</dialog>
+
 
 <div class="form-contain">
-	<h2>Register</h2>
+	<h2>Add User</h2>
 	<hr>
-	<form action="register.php" method="post">
+	<form action="admin.php" method="post">
 		<span><p><input type="text" class="emailEntry" name="email" placeholder="E-mail Address" size="20" maxlength="40" value="<?php echo $_POST['email']; ?>"  /></p></span>
-		<span><p><input type="submit" class="submit-button" name="submit" value="Register" /></p></span>
-		<input type="hidden" name="submitted" value="TRUE" />
+		<span><p><input type="submit" class="submit-button" name="submit" value="Add" /></p></span>
+		<input type="hidden" name="registered" value="TRUE" />
 	</form>
+	<h4 style="color:#fff;">User will be sent an email with an invitation link</h4>
 </div>
+
 <!--Table header-->
-<table class='ip-table' cellpadding=5 cellspacing=5 border=1><tr>
-	<th class='name'>Name</th><th>Subnet / IP Address</th><th>Subnet Mask</th><th>Gateway</th><th>Notes</th><th>*</th><th>*</th></tr> 		
+<table class='ip-table' cellpadding=5 cellspacing=5 border=1>
+	<tr>
+		<th class='name'>Name</th><th>E-mail</th><th>Registration Date</th><th>Readonly</th><th>*</th><th>*</th>
+	</tr> 		
 <?php
-$user_query = "SELECT user_id, CONCAT(first_name, last_name) AS Name, email, registration_date, readonly FROM users";				
+
+require_once ('../mysqli_connect.php'); // Connect to the db. 
+
+$user_query = "SELECT user_id, CONCAT(first_name,  ' ', last_name) AS name, email, registration_date, readonly FROM users";				
 
 $user_result = mysqli_query($dbc,$user_query);
 
@@ -145,25 +213,29 @@ if($user_result)
 {
 	while($user_row = mysqli_fetch_array($user_result, MYSQLI_ASSOC))
 	{
-		echo "<tr><td class='name'>".$user_row['device_name']."</td>  
-		<td class='table-content'>".$user_row['deviceAddress']."</td>
-		<td class='table-content'>*</td>
-		<td class='table-content'>*</td>
-		<td class='notes'>".$user_row['deviceNote']."</td>
+		if($user_row['readonly'] == 1)
+		{
+			$readonly = "Readonly";
+		}
+		else
+		{
+			$readonly = "";
+		}
+		echo "<tr><td class='name'>".$user_row['name']."</td>  
+		<td class='table-content'>".$user_row['email']."</td>
+		<td class='table-content'>".$user_row['registration_date']."</td>
+		<td class='table-content'>".$readonly."</td>
 		<td class='table-content'>
 			<input type='image' class='delete-img' 
 				src='images/delete-icon-dark.png' 
 				alt='Delete' value='Delete' 
 				onmouseover=\"this.src='images/delete-icon.png'\" 
 				onmouseout=\"this.src='images/delete-icon-dark.png'\" 
-				onClick=\"openModal('device',".$user_row['id'].",'".$user_row['device_name']."')\" /></td>
-		<td class='table-content'><a href=update.php?type=device&id=".$user_row['id']."><img class='edit-img' src='images/edit-icon.png' alt='Edit' onmouseover=\"this.src='images/edit-icon-hover.png'\" onmouseout=\"this.src='images/edit-icon.png'\"></a></td></tr>"; 
-
-		//echo "<td class='table-content'><a href=delete.php?type=device?id=".$user_row['id']."><img class='delete-img' src='images/delete-icon-dark.png' alt='Delete' onmouseover=\"this.src='images/delete-icon.png'\" onmouseout=\"this.src='images/delete-icon-dark.png'\"></a></td>"; 
-		/*onClick=\"document.getElementById('deleteDialog').showModal()\" /></td>";*/
+				onClick=\"deleteModal(".$user_row['user_id'].",'".$user_row['name']."')\" /></td>
+		<td class='table-content'><a href=admin_update.php?user_id=".$user_row['user_id']."><img class='edit-img' src='images/edit-icon.png' alt='Edit' onmouseover=\"this.src='images/edit-icon-hover.png'\" onmouseout=\"this.src='images/edit-icon.png'\"></a></td></tr>"; 
 	}
 }
-}
+
 echo "</table>"; 
 			
 // Include footer.php 
