@@ -14,9 +14,9 @@ else
 
 ?>
 	<script>
-		function openModal(status,message)
+		function openModal(status,message,action)
 		{
-			var action = 'index.php';
+			
 			if(status === 'success')
 			{
 				var header = 'Success!';
@@ -27,9 +27,23 @@ else
 				var header = 'Error!';
 				document.getElementById('addDialog').className = 'fail-dialog';
 			}
+			
+			if(action === 'index')
+			{
+				document.getElementById('btnIndex').style.display = 'display';
+				document.getElementById('btnIndex').disabled = false;
+				document.getElementById('btnClose').style.display = 'none';
+				document.getElementById('btnClose').disabled = true;
+			}
+			else if(action === 'close')
+			{
+				document.getElementById('btnIndex').style.display = 'none';
+				document.getElementById('btnIndex').disabled = true;
+				document.getElementById('btnClose').style.display = 'display';
+				document.getElementById('btnClose').disabled = false;
+			}
 			document.getElementById('dialogP').innerHTML = message;
 			document.getElementById('dialogH2').innerText = header;
-			document.getElementById('dialogForm').action = action;
 			document.getElementById('addDialog').showModal();
 		}
 	</script>
@@ -39,9 +53,10 @@ else
 		<h2 id="dialogH2"></h2>
 		
 		<p id="dialogP"></p>
-		<form id="dialogForm">
-			<button id="close" form="dialogForm" type="submit">Close</button>
-		</form>
+		<!--<form id="dialogForm">-->
+			<button id="btnClose" class="idClose" form="dialogForm" type="submit" onClick="document.getElementById('addDialog').close();">Close</button>
+			<button id="btnIndex" class="idClose" form="dialogForm" type="submit" onClick="window.location.href='index.php'">Close</button>
+		<!--</form>-->
 	</dialog>
 <?php
 
@@ -50,23 +65,35 @@ else
 		if ($_POST['submitted'])
 		{
 			$subnet_name = mysqli_real_escape_string($dbc,$_POST['subnet_name']); 
-			$address = mysqli_real_escape_string($dbc,$_POST['address']); 
+			$address = mysqli_real_escape_string($dbc,$_POST['address']);
+				if(!filter_var($address, FILTER_VALIDATE_IP))
+				{
+					echo "<script>openModal('fail','IP Address: " . $address . " is not a valid IP address\.','close')";
+				}
 			$mask = mysqli_real_escape_string($dbc,$_POST['mask']); 
+				if(!filter_var($mask, FILTER_VALIDATE_IP))
+				{
+					echo "<script>openModal('fail','Subnet mask: " . $mask . " is not a valid IP address\.','close')";
+				}
 			$gateway = mysqli_real_escape_string($dbc,$_POST['gateway']); 
+				if(!filter_var($gateway, FILTER_VALIDATE_IP))
+				{
+					echo "<script>openModal('fail','Gateway: " . $gateway . " is not a valid IP address\.','close')";
+				}
 			$note = mysqli_real_escape_string($dbc,$_POST['note']); 
 			
-			$query="INSERT INTO subnet (note,subnet_name,address,mask,gateway) 
-				Values ('$note','$subnet_name',INET_ATON('$address'),INET_ATON('$mask'),INET_ATON('$gateway'))"; 
-			$result=@mysqli_query($dbc,$query); 
+			$subnet_query="INSERT INTO subnet (note,subnet_name,address,mask,gateway) 
+				Values ('" . $note . "','" . $subnet_name . "',INET_ATON('" . $address . "'),INET_ATON('" . $mask . "'),INET_ATON('" . $gateway . "'))"; 
+			$subnet_result=@mysqli_query($dbc,$subnet_query); 
 			$subnet_id = mysqli_insert_id($dbc);
-			if ($result)
+			if($subnet_result)
 			{
 				$message = "The " . $subnet_name . " subnet has been added!";
-				echo "<script>openModal('success','" . $message . "');</script>";
+				echo "<script>openModal('success','" . $message . "','index');</script>";
 			}
 			else
 			{
-				echo "<script>openModal('fail','" . mysqli_real_escape_string($dbc,mysqli_error($dbc)) . "');</script>";
+				echo "<script>openModal('fail','" . mysqli_real_escape_string($dbc,mysqli_error($dbc)) . "','close');</script>";
 			}
 
 			// only if submitted by the form
@@ -115,22 +142,26 @@ else
 		if($_POST['submitted'])
 		{
 			$device_name = mysqli_real_escape_string($dbc,$_POST['device_name']); 
-			$address = mysqli_real_escape_string($dbc,$_POST['address']); 
+			$address = mysqli_real_escape_string($dbc,$_POST['address']);
+			if(!filter_var($address, FILTER_VALIDATE_IP))
+				{
+					echo "<script>openModal('fail','IP Address: " . $address . " is not a valid IP address\.','close')";
+				}
 			$subnet = mysqli_real_escape_string($dbc,$_POST['subnet']); 
 			$note = mysqli_real_escape_string($dbc,$_POST['note']); 		
 					
-			$query="INSERT INTO device (subnet_id,address,device_name,note) 
-				Values ('$subnet',INET_ATON('$address'),'$device_name','$note')"; 
-			$result=@mysqli_query($dbc,$query); 
+			$device_query="INSERT INTO device (subnet_id,address,device_name,note) 
+				Values ('" . $subnet . "',INET_ATON('" . $address . "'),'" . $device_name . "','" . $note . "')"; 
+			$device_result=@mysqli_query($dbc,$device_query); 
 			$device_id = mysqli_insert_id($dbc);
-			if ($result)
+			if($device_result)
 			{
 				$message = $device_name . " has been added!";
-				echo "<script>openModal('success','" . $message . "');</script>";
+				echo "<script>openModal('success','" . $message . "','index');</script>";
 			}
 			else
 			{
-				echo "<script>openModal('fail','" . mysqli_real_escape_string($dbc,mysqli_error($dbc)) . "');</script>";
+				echo "<script>openModal('fail','" . mysqli_real_escape_string($dbc,mysqli_error($dbc)) . "','close');</script>";
 			}
 			// only if submitted by the form
 			mysqli_close($dbc);

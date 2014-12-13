@@ -85,6 +85,7 @@ nav ul
 nav ul li 
 {
 	display: inline-block;
+	color: #fff;
 }
 
 nav ul li a
@@ -106,6 +107,7 @@ nav ul a:hover, nav ul a:active
 	background-color:#009ee2;
 	color:#FFF;
 }
+
 
 section
 {
@@ -548,6 +550,23 @@ input[type=button]
 }
 
 #close:hover
+{
+	background:#696969;
+	cursor:pointer;
+}
+
+.idClose
+{
+	border: none;
+	float: left;
+	color:#fff;
+	background-color: #999;
+	padding:0 18px;
+	height:29px;
+	font-weight:bold;
+}
+
+.idClose:hover
 {
 	background:#696969;
 	cursor:pointer;

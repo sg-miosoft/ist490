@@ -22,7 +22,9 @@ if(!isset($_SESSION['email'])) //user is not logged in
 	<nav>
 		<ul>
 			<li><a href=forgot.php>Forgot Password?</a></li>
-			<li><a href=login.php>Login</a></li>";
+			<li><a href=login.php>Login</a></li>
+		</ul>
+	</nav>";
 }
 elseif($_SESSION['readonly'] == 1)
 {
@@ -35,7 +37,10 @@ elseif($_SESSION['readonly'] == 1)
 	<nav>
 		<ul>
 			<li><a href='index.php'>Home</a></li>
-			<li><a href='logout.php'>Logout</a></li>";
+			<li><a href='logout.php'>Logout</a></li>
+			<li>Hello: " . $_SESSION['first_name'] . " " . $_SESSION['last_name'] . " (" . $_SESSION['email'] . ")</li>
+		</ul>
+	</nav>";
 }
 else
 {
@@ -49,11 +54,14 @@ else
 		<ul>
 			<li><a href='index.php'>Home</a></li>
 			<li><a href='admin.php'>Admin</a></li>
-			<li><a href='logout.php'>Logout</a></li>";
+			<li><a href='logout.php'>Logout</a></li>
+			<li>Hello: " . $_SESSION['first_name'] . " " . $_SESSION['last_name'] . " (" . $_SESSION['email'] . ")</li>
+		</ul>
+	</nav>";
+	
 } 
 ?>
-		</ul>
-	</nav>
+
 <section>
 
 

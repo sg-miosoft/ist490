@@ -84,7 +84,11 @@ elseif(isset($_POST['submitted']))
     }
 	else
 	{ 
-        $user_email = mysqli_real_escape_string($dbc,$_POST['email']); 
+        $user_email = mysqli_real_escape_string($dbc,$_POST['email']);
+			if(!filter_var($user_email, FILTER_VALIDATE_EMAIL))
+			{
+				$errors[] = 'Not a valid email.';
+			}
     } 
 
     if(empty($errors))
@@ -161,7 +165,7 @@ elseif(isset($_POST['submitted']))
 	<h2>Forgot password?</h2>
 	<hr>
 	<form action="forgot.php" method="post">
-		<p><input type="text" required class="emailEntry" name="email" size="20" placeholder="E-mail Address" maxlength="40" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>"  /></p>
+		<p><input type="text" class="emailEntry" name="email" size="20" placeholder="E-mail Address" maxlength="40" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>"  required></p>
 		<p><input type="submit" class="submit-button" name="submit" value="Submit" /></p>
 		<span><input type="hidden" name="submitted" value="TRUE" /></span>
 	</form>

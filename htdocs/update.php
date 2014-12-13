@@ -12,35 +12,49 @@ else
 	$type=$_GET['type'];
 ?>
 	<script>
-		function openModal(status,message)
+		function openModal(status,message,action)
 		{
-			var action = 'index.php';
+			
 			if(status === 'success')
 			{
 				var header = 'Success!';
-				document.getElementById('dialogP').innerHTML = message;
 				document.getElementById('updateDialog').className = 'success-dialog';
 			}
 			else if(status === 'fail')
 			{
 				var header = 'Error!';
-				document.getElementById('dialogP').innerHTML = message;
 				document.getElementById('updateDialog').className = 'fail-dialog';
 			}
+			
+			if(action === 'index')
+			{
+				document.getElementById('btnIndex').style.display = 'display';
+				document.getElementById('btnIndex').disabled = false;
+				document.getElementById('btnClose').style.display = 'none';
+				document.getElementById('btnClose').disabled = true;
+			}
+			else if(action === 'close')
+			{
+				document.getElementById('btnIndex').style.display = 'none';
+				document.getElementById('btnIndex').disabled = true;
+				document.getElementById('btnClose').style.display = 'display';
+				document.getElementById('btnClose').disabled = false;
+			}
+			document.getElementById('dialogP').innerHTML = message;
 			document.getElementById('dialogH2').innerText = header;
-			document.getElementById('dialogForm').action = action;
 			document.getElementById('updateDialog').showModal();
 		}
 	</script>
 	
 	<dialog id="updateDialog">
-		<input type="button" id="closeX" value="X" onClick="document.getElementById('updateDialog').close();">
+		<input type="button" id="closeX" value="X" onClick="window.location.href='index.php'">
 		<h2 id="dialogH2"></h2>
 		
 		<p id="dialogP"></p>
-		<form id="dialogForm">
-			<button id="close" form="dialogForm" type="submit">Close</button>
-		</form>
+		<!--<form id="dialogForm">-->
+			<button id="btnClose" class="idClose" form="dialogForm" type="submit" onClick="window.location.href='index.php'">Close</button>
+			<button id="btnIndex" class="idClose" form="dialogForm" type="submit" onClick="window.location.href='index.php'">Close</button>
+		<!--</form>-->
 	</dialog>
 <?php
 
@@ -49,35 +63,47 @@ else
 		if($_POST['id'])
 		{
 			$id = mysqli_real_escape_string($dbc,$_POST['id']); 
-			$address = mysqli_real_escape_string($dbc,$_POST['address']); 
-			$subnet_name = mysqli_real_escape_string($dbc,$_POST['subnet_name']); 
+			$address = mysqli_real_escape_string($dbc,$_POST['address']);
+				if(!filter_var($address, FILTER_VALIDATE_IP))
+				{
+					echo "<script>openModal('fail','IP Address: " . $address . " is not a valid IP address\.','close')";
+				}
+			$subnet_name = mysqli_real_escape_string($dbc,$_POST['subnet_name']);
 			$mask = mysqli_real_escape_string($dbc,$_POST['mask']); 
-			$gateway = mysqli_real_escape_string($dbc,$_POST['gateway']); 
+				if(!filter_var($mask, FILTER_VALIDATE_IP))
+				{
+					echo "<script>openModal('fail','Subnet mask: " . $mask . " is not a valid IP address\.','close')";
+				}
+			$gateway = mysqli_real_escape_string($dbc,$_POST['gateway']);
+				if(!filter_var($gateway, FILTER_VALIDATE_IP))
+				{
+					echo "<script>openModal('fail','Gateway: " . $gateway . " is not a valid IP address\.','close')";
+				}
 			$note = mysqli_real_escape_string($dbc,$_POST['note']); 
 			
 			$post_subnet_query = "UPDATE subnet SET 
-			address=INET_ATON('$address'),
-			subnet_name='$subnet_name',
-			mask=INET_ATON('$mask'),
-			gateway=INET_ATON('$gateway'),
-			note='$note'
-			WHERE id='$id'"; 
+			address=INET_ATON('" . $address . "'),
+			subnet_name='" . $subnet_name . "',
+			mask=INET_ATON('" . $mask . "'),
+			gateway=INET_ATON('" . $gateway . "'),
+			note='" . $note . "'
+			WHERE id='" . $id . "'"; 
 			$post_subnet_result = @mysqli_query($dbc,$post_subnet_query); 
 			if($post_subnet_result)
 			{
 				$message = "The " . $subnet_name . " subnet has been updated!";
-				echo "<script>openModal('success','" . $message . "');</script>";				
+				echo "<script>openModal('success','" . $message . "','index');</script>";				
 			}
 			else 
 			{
-				echo "<script>openModal('fail','" . mysqli_real_escape_string($dbc,mysqli_error($dbc)) . "');</script>";				
+				echo "<script>openModal('fail','" . mysqli_real_escape_string($dbc,mysqli_error($dbc)) . "','close');</script>";				
 			}
 			mysqli_close($dbc);
 		}
 		else
 		{
 			$id=$_GET['id'];  
-			$get_subnet_query = "SELECT id, INET_NTOA(address) AS address, subnet_name, INET_NTOA(mask) AS mask, INET_NTOA(gateway) AS gateway, note FROM subnet WHERE id=$id";  
+			$get_subnet_query = "SELECT id, INET_NTOA(address) AS address, subnet_name, INET_NTOA(mask) AS mask, INET_NTOA(gateway) AS gateway, note FROM subnet WHERE id=" . $id;  
 			$get_subnet_result = @mysqli_query($dbc,$get_subnet_query); 
 			$get_subnet_num = mysqli_num_rows($get_subnet_result); 
 			if($get_subnet_num > 0) 
@@ -132,24 +158,28 @@ else
 			$id = mysqli_real_escape_string($dbc,$_POST['id']); 
 			$device_name = mysqli_real_escape_string($dbc,$_POST['device_name']); 
 			$note = mysqli_real_escape_string($dbc,$_POST['note']); 
-			$address = mysqli_real_escape_string($dbc,$_POST['address']); 
+			$address = mysqli_real_escape_string($dbc,$_POST['address']);
+				if(!filter_var($address, FILTER_VALIDATE_IP))
+				{
+					echo "<script>openModal('fail','IP Address: " . $address . " is not a valid IP address\.','close')";
+				}
 			$subnet_id = mysqli_real_escape_string($dbc,$_POST['subnet']); 
 					
 			$post_device_query = "UPDATE device SET 
-			device_name='$device_name',
-			subnet_id='$subnet_id',
-			note='$note',
-			address=INET_ATON('$address')	
-			WHERE id='$id'"; 
+			device_name='" . $device_name . "',
+			subnet_id='" . $subnet_id . "',
+			note='" . $note . "',
+			address=INET_ATON('" . $address . "')	
+			WHERE id='" . $id . "'"; 
 			$post_device_result = @mysqli_query($dbc,$post_device_query); 
 			if($post_device_result)
 			{
 				$message = $device_name . " has been updated!";
-				echo "<script>openModal('success','" . $message . "');</script>";
+				echo "<script>openModal('success','" . $message . "','index');</script>";
 			}
 			else
 			{
-				echo "<script>openModal('fail','" . mysqli_real_escape_string($dbc,mysqli_error($dbc)) . "');</script>"; 
+				echo "<script>openModal('fail','" . mysqli_real_escape_string($dbc,mysqli_error($dbc)) . "','close');</script>"; 
 			}
 			mysqli_close($dbc);
 		}

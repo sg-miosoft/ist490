@@ -8,8 +8,8 @@ function showForm($u,$t)
 		<h2>Reset Password</h2> 
 		<hr />
         <form action=reset.php?token='" . $t . "' method='post'>
-			<p><input required type='password' name='password1' class='passEntry' size='10' maxlength='20' placeholder='Password' /></p>
-			<p><input required type='password' name='password2' class='passEntry' size='10' maxlength='20' placeholder='Confirm Password'/></p>
+			<p><input required type='password' name='password1' class='passEntry' size='10' maxlength='20' placeholder='Password' required></p>
+			<p><input required type='password' name='password2' class='passEntry' size='10' maxlength='20' placeholder='Confirm Password' required></p>
 			<p><input type='submit' class='submit-button' name='submit' value='Submit' /></p>
 			<input type='hidden' name='submitted' value='TRUE' />
 			<input type='hidden' name='user_id' value='".$u."' /> 

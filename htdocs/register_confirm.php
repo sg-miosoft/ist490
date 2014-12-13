@@ -6,11 +6,11 @@ function showForm($e,$t,$fn,$ln)
 {
 	echo"<div class='form-contain'>
 		<h2>Register</h2><hr />
-		<form action='register_confirm.php?token=".$t."' method='post'>
-			<p><input type='text' required class='fnameEntry' name='first_name' placeholder='First Name' size='15' maxlength='15' value='".$fn."' /> <input type='text' class='lnameEntry' name='last_name' placeholder='Last Name' size='15' maxlength='30' value='".$ln."' /></p>
-			<p><input type='password' required class='passEntry' name='password1' placeholder='Password' size='10' maxlength='20' /> <input type='password' class='passConEntry' name='password2' placeholder='Confirm Password' size='10' maxlength='50' /></p>
-			<span style='text-align:center'><p><input type='text' required class='emailEntry' name='email' placeholder='E-mail Address' size='20' maxlength='40' value='".$e."' readonly /></p></span>
-			<span style='text-align:center'><p><input type='submit' required class='submit-button' name='submit' value='Register' /></p></span>
+		<form action='register_confirm.php?token=".$t."' method='post' required>
+			<p><input type='text' class='fnameEntry' name='first_name' placeholder='First Name' size='15' maxlength='15' value='".$fn."' required> <input type='text' class='lnameEntry' name='last_name' placeholder='Last Name' size='15' maxlength='30' value='".$ln."' required></p>
+			<p><input type='password' class='passEntry' name='password1' placeholder='Password' size='10' maxlength='20' required> <input type='password' class='passConEntry' name='password2' placeholder='Confirm Password' size='10' maxlength='50' required></p>
+			<span style='text-align:center'><p><input type='text' class='emailEntry' name='email' placeholder='E-mail Address' size='20' maxlength='40' value='".$e."' readonly ></p></span>
+			<span style='text-align:center'><p><input type='submit' class='submit-button' name='submit' value='Register' /></p></span>
 			<input type='hidden' name='submitted' value='TRUE' />
 		</form>
 	</div>";
@@ -95,7 +95,7 @@ elseif(isset($_POST['submitted'], $_GET['token']))
 	{
         if($_POST['password1'] != $_POST['password2'])
 		{ 
-            $errors[] = 'Your password did not match the confirmed password.'; 
+            $errors[] = 'Passwords do not match.'; 
             $sForm = TRUE; 
         }
 		else
