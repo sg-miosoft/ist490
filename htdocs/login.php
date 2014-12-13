@@ -70,7 +70,7 @@ elseif(isset($_POST['submitted']))
         if($row)
 		{ 	
             //Set the session data: 
-            if(password_verify($p,$row[4])) 
+            if(password_verify($password,$row[4])) 
 			{ 
                 //Set the session data: 
                 session_start();  
