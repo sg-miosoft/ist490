@@ -107,11 +107,11 @@ else
 							</li>
 							<li>
 								<label>Email</label>
-								<input type="text" placeholder="name@example.com" name="email" size=50 maxlength=15 value="<?php echo $num['email'];?>">
+								<input type="text" placeholder="name@example.com" name="email" size=50 maxlength=100 value="<?php echo $num['email'];?>">
 							</li>
 							<li>
 								<label for="readonly">Readonly</label>
-								<input type="checkbox" name="readonly" size=50 maxlength=15 value="1" <?php if($num['readonly'] == 1){echo 'checked';}?>>
+								<input type="checkbox" name="readonly" value="1" <?php if($num['readonly'] == 1){echo 'checked';}?>>
 							</li>
 						</ul>
 						<hr>
