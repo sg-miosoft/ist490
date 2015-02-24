@@ -2,7 +2,7 @@
 //check session first 
 if (!isset($_SESSION['email']))
 { 
-	header("Location: https://uwm-iptracker.miosoft.com/login.php"); 
+	header("Location: https://iptracker.msn.miosoft.com/login.php"); 
 }
 else
 {
@@ -22,7 +22,7 @@ else
 			$del_subnet_result = @mysqli_query($dbc,$del_subnet_query);
 			if($del_subnet_result)
 			{
-				header("Location: https://uwm-iptracker.miosoft.com/index.php"); 
+				header("Location: https://iptracker.msn.miosoft.com/index.php"); 
 			}
 			else
 			{
@@ -45,7 +45,7 @@ else
 			$deldevice_result = @mysqli_query($dbc,$deldevice_query);
 			if($deldevice_result)
 			{
-				header("Location: https://uwm-iptracker.miosoft.com/index.php"); 
+				header("Location: https://iptracker.msn.miosoft.com/index.php"); 
 			}
 			else
 			{
@@ -130,7 +130,7 @@ else
 						var header1 = 'Delete the ';
 						var header2 = ' subnet?';
 						
-						document.getElementById('dialogP').innerHTML = '<em>Note </em>: All associated devices will lose their IP addresses.';
+						document.getElementById('dialogP').innerHTML = '<em>Note </em>: All devices in this network will be deleted.';
 					}
 					else if(type === 'device')
 					{
@@ -165,7 +165,7 @@ else
 <?php		
 			while($subnet_row = mysqli_fetch_array($subnet_result, MYSQLI_ASSOC))
 			{
-				echo "<tr><td class='name'>" . $subnet_row['subnet_name'] . "</td>
+				echo "<tr class='ip-table-subnet'><td class='name'>" . $subnet_row['subnet_name'] . "</td>
 				<td class='table-content'>" . $subnet_row['subnetAddress'] . "</td>  
 				<td class='table-content'>" . $subnet_row['mask'] . "</td>  
 				<td class='table-content'>" . $subnet_row['gateway'] . "</td>
@@ -201,7 +201,7 @@ else
 				{
 					while($device_row = mysqli_fetch_array($device_result, MYSQLI_ASSOC))
 					{
-						echo "<tr><td class='name'>".$device_row['device_name']."</td>  
+						echo "<tr class='ip-table-device'><td class='name'>".$device_row['device_name']."</td>  
 						<td class='table-content'>".$device_row['deviceAddress']."</td>
 						<td class='table-content'>*</td>
 						<td class='table-content'>*</td>

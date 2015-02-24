@@ -8,11 +8,11 @@ function sendEmail($e,$t)
     $to=$e; 
     $subject="UWM IPTracker"; 
     $body=" 
-    Thank you very much for being a member of http://uwm-iptracker.miosoft.com\n\n 
+    Thank you very much for being a member of http://iptracker.msn.miosoft.com\n\n 
     Click the link below to confirm your registration.\n\n 
-    http://uwm-iptracker.miosoft.com/register_confirm.php?token=$t.\n\n 
+    http://iptracker.msn.miosoft.com/register_confirm.php?token=$t.\n\n 
     Thanks again!\n\n 
-    http://uwm-iptracker.miosoft.com";  
+    http://iptracker.msn.miosoft.com";  
     $headers="From: MIOsoft IP Tracker <smtp.sender@us.msn.main.miosoft.com>\n";  // <-- Replace this to your email address!!! 
     if(mail ($to, $subject, $body, $headers))
 	{
@@ -27,7 +27,7 @@ function sendEmail($e,$t)
 // Check if the form has been submitted. 
 if($_SESSION['readonly'] == 1 or !isset($_SESSION['email']))
 {
-	header("Location: https://uwm-iptracker.miosoft.com/index.php");
+	header("Location: https://iptracker.msn.miosoft.com/index.php");
 }
 elseif(isset($_POST['registered']))
 {

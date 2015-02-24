@@ -204,12 +204,12 @@ footer p
 	border:0;
 }
 
-.ip-table tr:nth-child(odd) 
+.ip-table-device
 {
     background-color: #FFFFFF;
 }
 
-.ip-table tr:nth-child(even) 
+.ip-table-subnet
 {
     background-color: #EEEEEE;
 }

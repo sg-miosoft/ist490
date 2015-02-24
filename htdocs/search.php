@@ -2,7 +2,7 @@
 //check session first 
 if(!isset($_SESSION['email']))
 { 
-	header("Location: https://uwm-iptracker.miosoft.com/login.php");
+	header("Location: https://iptracker.msn.miosoft.com/login.php");
 }
 elseif(!empty($_POST['search']))
 {

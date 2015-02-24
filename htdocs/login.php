@@ -3,7 +3,7 @@
 // Check if the form has been submitted. 
 if (isset($_SESSION['email']))
 { 
-	header("Location: https://uwm-iptracker.miosoft.com/index.php"); 
+	header("Location: https://iptracker.msn.miosoft.com/index.php"); 
 }
 elseif(isset($_POST['submitted'])) 
 {
@@ -79,7 +79,7 @@ elseif(isset($_POST['submitted']))
                 $_SESSION['last_name'] = $row[2]; 
                 $_SESSION['email'] = $row[3];
 				$_SESSION['readonly'] = $row[6];
-                header("Location: https://uwm-iptracker.miosoft.com/index.php"); 
+                header("Location: https://iptracker.msn.miosoft.com/index.php"); 
             } 
             else
 			{ 

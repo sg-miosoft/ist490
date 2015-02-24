@@ -9,9 +9,9 @@ function sendEmail($e,$t)
     $body="  
     Thank you very much for being a member of the UWM IPtracker!\n\n  
     Click the link below to reset your password.\n\n  
-    https://uwm-iptracker.miosoft.com/reset.php?token=" . $t . "\n\n  
+    https://iptracker.msn.miosoft.com/reset.php?token=" . $t . "\n\n  
     Thanks again!\n\n  
-    https://uwm-iptracker.miosoft.com/index.php";   
+    https://iptracker.msn.miosoft.com/index.php";   
     $headers="From: MIOsoft IP Tracker <smtp.sender@us.msn.main.miosoft.com>\n";  // <-- Replace this to your email address!!!  
     mail ($to, $subject, $body, $headers); // SEND the message!    
 
@@ -26,7 +26,7 @@ function sendEmail($e,$t)
 // Check if the form has been submitted.  
 if (isset($_SESSION['email']))
 { 
-	header("Location: https://uwm-iptracker.miosoft.com/index.php"); 
+	header("Location: https://iptracker.msn.miosoft.com/index.php"); 
 }
 elseif(isset($_POST['submitted']))
 {  

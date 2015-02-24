@@ -2,7 +2,7 @@
 //check session first
 if($_SESSION['readonly'] == 1 or !isset($_SESSION['email']))
 {
-	header("Location: https://uwm-iptracker.miosoft.com/index.php");
+	header("Location: https://iptracker.msn.miosoft.com/index.php");
 }
 else
 {
